@@ -1,0 +1,39 @@
+# visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
+paginate: 10 # pagination based on number of posts
+paginate_path: "/blog/page:num"
+exclude: ["README.md"] # files to exclude
+highlighter: rouge
+markdown: kramdown
+disqus: dbyll
+google_analytics: dbyll
+title: Pranav on Software
+
+defaults:
+  -
+    scope:
+      path: "" # empty string for all files
+    values:
+      title: Pranav on Software
+
+description: Computer Science Blog
+author:
+  name: Pranav Ahluwalia
+  email: ahluwalia.pr@northeastern.edu
+  github: pranavwalia
+  #twitter: dbtek
+  #pinterest: asd123
+  linkedin: pranav-ahluwalia-a19221116
+  bio: Computer Scientist. Esports Athlete. Poker Player.
+  email_md5: 726351295ec82e145928582f595aa3aa
+
+rss_path: feed.xml
+categories_path: categories.html
+tags_path: tags.html
+
+# set it as url of an image
+# sidebar_background_image: https://www.dropbox.com/s/g9h23zrycedxtk5/sky.png?raw=1
+
+BASE_PATH:
+
+plugins:
+  - jekyll-paginate
