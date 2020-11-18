@@ -1,4 +1,5 @@
 ---
+title: Poker Theory Fundamentals
 layout: post
 categories: [Poker Strategy, Game Theory]
 tags: [Poker, Game Theory, Math, Theory]
