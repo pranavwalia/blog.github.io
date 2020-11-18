@@ -5,7 +5,7 @@ exclude: ["README.md"] # files to exclude
 highlighter: rouge
 markdown: kramdown
 disqus: dbyll
-google_analytics: pranavblog
+google_analytics: G-MF130YPYZE
 title: Pranav on Software
 
 defaults:
