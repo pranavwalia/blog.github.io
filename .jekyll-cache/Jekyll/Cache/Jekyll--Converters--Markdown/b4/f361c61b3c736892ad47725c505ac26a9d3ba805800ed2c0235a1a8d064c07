@@ -1,0 +1,30 @@
+I"�<h3 id="introduction">Introduction</h3>
+<p>In this article I will introduce the fundamental quantitative concepts behind poker strategy. <br />
+Without understanding these concepts, your chances of ever becoming a profitable player in<br />
+even a mildly tough game will be very low. Thus, it is important that you make sure you grasp
+these concepts at a theoretical level.</p>
+
+<h3 id="hand-combinatorics-and-ranges">Hand Combinatorics and Ranges</h3>
+<p>There are three categories of hands:</p>
+<ul>
+  <li>Suited holdings eg. KQs AKs</li>
+  <li>Unsuited Holdings: KQo, AKo</li>
+  <li>Pocket Pairs: 66, 77</li>
+</ul>
+
+<h4 id="pocket-pair-combinatorics">Pocket Pair Combinatorics</h4>
+<p>Pocket pairs have six combos. So for the holding ‘66’ there would be be:</p>
+<ul>
+  <li>6 hearts 6 diamonds</li>
+  <li>6 hearts 6 spades</li>
+  <li>6 hearts 6 clubs</li>
+  <li>6 diamonds 6 clubs</li>
+  <li>6 diamonds 6 spades</li>
+  <li>6 spades 6 clubs</li>
+</ul>
+
+<p>Removing just one 6 from the deck takes the amount of possible combos to 3.
+Removing another 6 from the deck brings the possible combos of 6 down to one.
+(Check for yourself by trying to exclude a suit and see how many are left.</p>
+
+:ET

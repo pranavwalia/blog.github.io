@@ -7,6 +7,43 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Poker Theory Fundamentals</title>
+				<description>&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;In this article I will introduce the fundamental quantitative concepts behind poker strategy. &lt;br /&gt;
+Without understanding these concepts, your chances of ever becoming a profitable player in&lt;br /&gt;
+even a mildly tough game will be very low. Thus, it is important that you make sure you grasp&lt;br /&gt;
+these concepts at a theoretical level.&lt;/p&gt;
+
+&lt;h3 id=&quot;hand-combinatorics-and-ranges&quot;&gt;Hand Combinatorics and Ranges&lt;/h3&gt;
+&lt;p&gt;There are three categories of hands:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Suited holdings eg. KQs AKs&lt;/li&gt;
+  &lt;li&gt;Unsuited Holdings: KQo, AKo&lt;/li&gt;
+  &lt;li&gt;Pocket Pairs: 66, 77&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;pocket-pair-combinatorics&quot;&gt;Pocket Pair Combinatorics&lt;/h4&gt;
+&lt;p&gt;Pocket pairs have six combos. So for the holding ‘66’ there would be be:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;6 hearts 6 diamonds&lt;/li&gt;
+  &lt;li&gt;6 hearts 6 spades&lt;/li&gt;
+  &lt;li&gt;6 hearts 6 clubs&lt;/li&gt;
+  &lt;li&gt;6 diamonds 6 clubs&lt;/li&gt;
+  &lt;li&gt;6 diamonds 6 spades&lt;/li&gt;
+  &lt;li&gt;6 spades 6 clubs&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Removing just one 6 from the deck takes the amount of possible combos to 3.
+Removing another 6 from the deck brings the possible combos of 6 down to one.
+(Check for yourself by trying to exclude a suit and see how many are left.&lt;/p&gt;
+
+</description>
+				<pubDate>Tue, 17 Nov 2020 00:00:00 -0800</pubDate>
+				<link>/poker%20strategy/mathematics/game%20theory/2020/11/17/Poker-Theory-Fundamentals.html</link>
+				<guid isPermaLink="true">/poker%20strategy/mathematics/game%20theory/2020/11/17/Poker-Theory-Fundamentals.html</guid>
+			</item>
+		
+			<item>
 				<title>Hello World!</title>
 				<description>&lt;p&gt;&lt;strong&gt;dbyll&lt;/strong&gt; is minimalist, stylish theme for jekyll. Supports gravatar, account links (github, twitter, e-mail, pinterest, résume file) and a bio.&lt;/p&gt;
 
