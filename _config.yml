@@ -36,4 +36,10 @@ tags_path: tags.html
 BASE_PATH:
 
 plugins:
-  - jekyll-paginate
+        - jekyll-paginate
+        - jekyll-mathjax-csp
+exclude:
+        - node_modules
+        - package.json
+        - package-log.json
+
