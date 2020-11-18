@@ -1,5 +1,5 @@
 ---
-layout: post``
+layout: post
 categories: [Poker Strategy, Game Theory]
 tags: [Poker, Game Theory, Math, Theory]
 fullview: true
@@ -25,6 +25,7 @@ There are three categories of hands:
 * Pocket Pairs
   * 6 combos per holding
   * eg. 66 - 6 combos
+
 ##### Pocket Pair Combinatorics
 **Pocket pairs** have six combos. So for the holding '66' there would be be:  
 
