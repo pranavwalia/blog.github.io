@@ -706,7 +706,15 @@ By solving for the appropriate calling frequency we arrive at the conclusion tha
 
 
 
-'sha256-VYsgBNznL/PxRPaK8bYXrpDgo7OaXeSW/MaZMQN9s0k=' 'sha256-hiPw6xw30OpnrX7b+XYBUNt6t2j9+yjcLTY/p2MeTOY='
+<script type="text/x-mathjax-config">
+MathJax.Hub.Register.StartupHook('TeX Jax Ready', function () {
+  MathJax.InputJax.TeX.prefilterHooks.Add(function (data) {
+    data.math = data.math.replace(/^% <!\[CDATA\[/, '').replace(/%\]\]>$/, '');
+  });
+});
+</script>
+
+'sha256-VYsgBNznL/PxRPaK8bYXrpDgo7OaXeSW/MaZMQN9s0k=' 'sha256-hiPw6xw30OpnrX7b+XYBUNt6t2j9+yjcLTY/p2MeTOY=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='
 
 
 
