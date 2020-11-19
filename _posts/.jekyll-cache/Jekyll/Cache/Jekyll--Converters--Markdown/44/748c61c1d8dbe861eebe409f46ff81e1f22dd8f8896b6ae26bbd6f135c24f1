@@ -1,4 +1,4 @@
-I"ç+<p>In this article I will lay out the foundational knowledge required to begin learning modern GTO (Game Theory Optimal) poker. At this point, the GTO vs Exploitative debate has essentially been settled and most reasonable people have acknowledged that if you want to be a profitable poker player you need to have a solid understanding of theory. Any exploitation should generally occur as a deliberate deviation from what you understand to be a theoretically correct play. But, if you do not have a foundational understanding of what theoretically correct play even is, your exploitative plays will be based on accurate hunches (at best) and complete delusion (at worst).</p>
+I"Ö+<p>In this article I will lay out the foundational knowledge required to begin learning modern GTO (Game Theory Optimal) poker. At this point, the GTO vs Exploitative debate has essentially been settled and most reasonable people have acknowledged that if you want to be a profitable poker player you need to have a solid understanding of theory. Any exploitation should generally occur as a deliberate deviation from what you understand to be a theoretically correct play. But, if you do not have a foundational understanding of what theoretically correct play even is, your exploitative plays will be based on accurate hunches (at best) and complete delusion (at worst).</p>
 
 <h3 id="mathematical-foundations">Mathematical Foundations</h3>
 
@@ -136,9 +136,8 @@ Removing another 6 from the deck brings the possible combos of 6 down to one.
 
 \[EV[Bluffing] = 0 = (Pot)*(1 - C) - (Bet)*C\]
 
-<p>When villain attempts to bluff us and we fold, he wins whatever is in the pot. When villain attempts to bluff us and we call, he loses whatever it is that he has bet.</p>
-
-<p>By solving for the appropriate calling frequency we arrive at the conclusion that:</p>
+<p>When villain attempts to bluff us and we fold, he wins whatever is in the pot. When villain attempts to bluff us and we call, he loses whatever it is that he has bet.
+By solving for the appropriate calling frequency we arrive at the conclusion that:</p>
 
 \[C = \frac{Pot}{Pot + Bet}\]
 

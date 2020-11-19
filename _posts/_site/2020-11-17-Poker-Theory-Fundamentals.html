@@ -1,4 +1,4 @@
-I"�+<p>In this article I will lay out the foundational knowledge required to begin learning modern GTO (Game Theory Optimal) poker. At this point, the GTO vs Exploitative debate has essentially been settled and most reasonable people have acknowledged that if you want to be a profitable poker player you need to have a solid understanding of theory. Any exploitation should generally occur as a deliberate deviation from what you understand to be a theoretically correct play. But, if you do not have a foundational understanding of what theoretically correct play even is, your exploitative plays will be based on accurate hunches (at best) and complete delusion (at worst).</p>
+<p>In this article I will lay out the foundational knowledge required to begin learning modern GTO (Game Theory Optimal) poker. At this point, the GTO vs Exploitative debate has essentially been settled and most reasonable people have acknowledged that if you want to be a profitable poker player you need to have a solid understanding of theory. Any exploitation should generally occur as a deliberate deviation from what you understand to be a theoretically correct play. But, if you do not have a foundational understanding of what theoretically correct play even is, your exploitative plays will be based on accurate hunches (at best) and complete delusion (at worst).</p>
 
 <h3 id="mathematical-foundations">Mathematical Foundations</h3>
 
@@ -136,9 +136,8 @@ Removing another 6 from the deck brings the possible combos of 6 down to one.
 
 \[EV[Bluffing] = 0 = (Pot)*(1 - C) - (Bet)*C\]
 
-<p>When villain attempts to bluff us and we fold, he wins whatever is in the pot. When villain attempts to bluff us and we call, he loses whatever it is that he has bet.</p>
-
-<p>By solving for the appropriate calling frequency we arrive at the conclusion that:</p>
+<p>When villain attempts to bluff us and we fold, he wins whatever is in the pot. When villain attempts to bluff us and we call, he loses whatever it is that he has bet.
+By solving for the appropriate calling frequency we arrive at the conclusion that:</p>
 
 \[C = \frac{Pot}{Pot + Bet}\]
 
@@ -180,12 +179,9 @@ Removing another 6 from the deck brings the possible combos of 6 down to one.
 
 <p>Let’s of course notice that the larger our bet-size the more bluff heavy our range is! To most players this seems counter-intuitive but let’s use some very simple reasoning to think through it.</p>
 
-<p>When an opponent calls our value bet, we win what’s already in the pot + whatever we risked. When an opponent calls our bluff, we only lose what we risked. Larger bet sizes cause a rational opponent to fold at a higher frequency meaning that we must accordingly add more bluffs.  Additionally, we can afford to lose at showdown often when we bluff since value bets will win us much larger pots.</p>
-
-<p>Large bet sizes are positively correlated with a more polarized range (separation between bluffs and value bets) whereas smaller bet sizes are more useful when ranges are too heavy to want to generate folds. This is evident in many solver simulations.</p>
+<p>When an opponent calls our value bet, we win what’s already in the pot + whatever we risked. When an opponent calls our bluff, we only lose what we risked. Larger bet sizes cause a rational opponent to fold at a higher frequency meaning that we must accordingly add more bluffs.  Additionally, we can afford to lose at showdown often when we bluff since value bets will win us much larger pots. Large bet sizes are positively correlated with a more polarized range (separation between bluffs and value bets) whereas smaller bet sizes are more useful when ranges are too heavy to want to generate folds. This is evident in many solver simulations.</p>
 
 <h3 id="conclusion">Conclusion</h3>
 
 <p>In this article we covered the bare bones fundamentals of poker. If you are a new player I hope you enjoyed this introduction. In future posts, we will dive deeper into solver based poker strategies!</p>
 
-:ET

@@ -7,6 +7,16 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>The Saint Petersburg Paradox, When EV Isn't Enough</title>
+				<description>&lt;p&gt;Text&lt;/p&gt;
+
+</description>
+				<pubDate>Wed, 18 Nov 2020 00:00:00 -0800</pubDate>
+				<link>/game%20theory/mathematics/2020/11/18/St-Petersburg-Paradox.html</link>
+				<guid isPermaLink="true">/game%20theory/mathematics/2020/11/18/St-Petersburg-Paradox.html</guid>
+			</item>
+		
+			<item>
 				<title>Poker Theory Fundamentals</title>
 				<description>&lt;p&gt;In this article I will lay out the foundational knowledge required to begin learning modern GTO (Game Theory Optimal) poker. At this point, the GTO vs Exploitative debate has essentially been settled and most reasonable people have acknowledged that if you want to be a profitable poker player you need to have a solid understanding of theory. Any exploitation should generally occur as a deliberate deviation from what you understand to be a theoretically correct play. But, if you do not have a foundational understanding of what theoretically correct play even is, your exploitative plays will be based on accurate hunches (at best) and complete delusion (at worst).&lt;/p&gt;
 
