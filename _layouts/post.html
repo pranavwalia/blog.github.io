@@ -7,13 +7,5 @@ layout: default
     {% include disqus.html %}
 {% endif %}
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Register.StartupHook('TeX Jax Ready', function () {
-  MathJax.InputJax.TeX.prefilterHooks.Add(function (data) {
-    data.math = data.math.replace(/^% <!\[CDATA\[/, '').replace(/%\]\]>$/, '');
-  });
-});
-</script>
-
 {% mathjax_csp_sources %}
 
