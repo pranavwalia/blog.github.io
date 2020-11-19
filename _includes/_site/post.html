@@ -1,8 +1,19 @@
 <div class="page-header">
   <h1>{{ page.title }} {% if page.tagline %}<small>{{page.tagline}}</small>{% endif %}</h1>
 </div>
-	
+
 <article>
+<!-- for mathjax support -->
+    {% if page.usemathjax %}
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+        });
+      </script>
+      <script type="text/javascript" async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    {% endif %}
+
+
 
 	<div class="col-sm-10">
 	 <span class="post-date">
@@ -92,9 +103,9 @@
       </section>
 
       <section class="col-sm-6 author">
-        <img src="//www.gravatar.com/avatar/{{site.author.email_md5}}" class="img-rounded author-image" />
+        <img src="/avatar1.jpg" class="img-rounded author-image" />
         <h4 class="section-title author-name">{{site.author.name}}</h4>
-        <p class="author-bio">{{site.author.bio}}</p>
+	<p class="author-bio">{{site.author.bio}}<br><a href="https://www.prandev.com">More About Me</a></p>
       </section>
     </div>
 

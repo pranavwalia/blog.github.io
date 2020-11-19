@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>Poker Theory Fundamentals</title>
+	
+	<meta name="author" content="Pranav Ahluwalia">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+<!-- 'sha256-VYsgBNznL/PxRPaK8bYXrpDgo7OaXeSW/MaZMQN9s0k=' --><style type="text/css">
+                            .mjpage .MJX-monospace {
+                            font-family: monospace
+                            }
+
+                            .mjpage .MJX-sans-serif {
+                            font-family: sans-serif
+                            }
+
+                            .mjpage {
+                            display: inline;
+                            font-style: normal;
+                            font-weight: normal;
+                            line-height: normal;
+                            font-size: 100%;
+                            font-size-adjust: none;
+                            text-indent: 0;
+                            text-align: left;
+                            text-transform: none;
+                            letter-spacing: normal;
+                            word-spacing: normal;
+                            word-wrap: normal;
+                            white-space: nowrap;
+                            float: none;
+                            direction: ltr;
+                            max-width: none;
+                            max-height: none;
+                            min-width: 0;
+                            min-height: 0;
+                            border: 0;
+                            padding: 0;
+                            margin: 0
+                            }
+
+                            .mjpage * {
+                            transition: none;
+                            -webkit-transition: none;
+                            -moz-transition: none;
+                            -ms-transition: none;
+                            -o-transition: none
+                            }
+
+                            .mjx-svg-href {
+                            fill: blue;
+                            stroke: blue
+                            }
+
+                            .MathJax_SVG_LineBox {
+                            display: table!important
+                            }
+
+                            .MathJax_SVG_LineBox span {
+                            display: table-cell!important;
+                            width: 10000em!important;
+                            min-width: 0;
+                            max-width: none;
+                            padding: 0;
+                            border: 0;
+                            margin: 0
+                            }
+
+                            .mjpage__block {
+                            text-align: center;
+                            margin: 1em 0em;
+                            position: relative;
+                            display: block!important;
+                            text-indent: 0;
+                            max-width: none;
+                            max-height: none;
+                            min-width: 0;
+                            min-height: 0;
+                            width: 100%
+                            }</style>
+<!-- 'sha256-Hdr+ck3MXXa68i9eAGaVAcgA66ZOXn8+Onbr6qzGUVg=' --><style>.mathjax-inline-08b64cf983621924{vertical-align: -1.505ex;}.mathjax-inline-f17333b774e07e18{vertical-align: -0.838ex;}.mathjax-inline-1890f4a8f8a713fe{vertical-align: -1.338ex;}.mathjax-inline-224b51a7b428d98b{display: none;}</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/pranavwalia">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:ahluwalia.pr@northeastern.edu">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			<a class="navbar-brand" href="/">
+				<img src="/avatar1.jpg" class="img-circle">
+				Pranav on Software
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/">Home</a></li>
+				<li><a href="/categories.html">Categories</a></li>
+				<li><a href="/tags.html">Tags</a></li>
+			</ul>
+		</div>
+<!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			<li><a href="/categories.html"><i class="fa fa-folder"></i>Categories</a></li>
+			<li><a href="/tags.html"><i class="fa fa-tags"></i>Tags</a></li>
+			<li class="divider">
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs" style="">
+		<!-- sidebar.html -->
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="/avatar.jpg" class="img-circle">
+	</a>
+	<h3 class="title">
+        <a href="/">Pranav on Software</a>
+    </h3>
+</header>
+
+
+<div id="bio" class="text-center">
+	My name is Pranav Ahluwalia. I am a computer scientist, esports athlete, and avid poker player
+</div>
+
+
+<div id="contact-list" class="text-center">
+        <ul class="list-unstyled list-inline">
+                <li>
+                        <a class="btn btn-default btn-sm" href="https://www.prandev.com"><i class="fa fa-user fa-lg"></i></a>
+                </li>
+                
+                <li>
+                        <a class="btn btn-default btn-sm" href="mailto:ahluwalia.pr@northeastern.edu">
+                                <i class="fa fa-envelope fa-lg"></i>
+                        </a>
+                </li>
+                
+
+                
+                <li>
+                        <a class="btn btn-default btn-sm" href="https://github.com/pranavwalia">
+                                <i class="fa fa-github-alt fa-lg"></i>
+                        </a>
+                </li>
+                
+                
+                
+                
+                <li>
+                        <a class="btn btn-default btn-sm" href="https://linkedin.com/in/pranav-ahluwalia-a19221116">
+                                <i class="fa fa-linkedin fa-lg"></i>
+                        </a>
+                </li>
+
+                <li>
+                        <a class="btn btn-default btn-sm" href="https://www.youtube.com/channel/UCV0XasiN2IqVwvxOaOacqDA">
+                                <i class="fa fa-youtube fa-lg"></i>
+                        </a>
+                </li>
+<!--
+                
+                <li>
+                        <a class="btn btn-default btn-sm" href="/feed.xml">
+                                <i class="fa fa-rss fa-lg"></i>
+                        </a>
+                </li>
+-->
+        </ul>
+</div>
+
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>Poker Theory Fundamentals </h1>
+</div>
+
+<article>
+<!-- for mathjax support 
+    
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+        });
+      </script>
+      <script type="text/javascript" async src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+       -->
+
+
+
+	<div class="col-sm-10">
+	 <span class="post-date">
+	   
+	   November 
+	   17th,
+	   
+	   2020
+	 </span>
+	  <div class="article_body">
+	  <p>In this article I will lay out the foundational knowledge required to begin learning modern GTO (Game Theory Optimal) poker. At this point, the GTO vs Exploitative debate has essentially been settled and most reasonable people have acknowledged that if you want to be a profitable poker player you need to have a solid understanding of theory. Any exploitation should generally occur as a deliberate deviation from what you understand to be a theoretically correct play. But, if you do not have a foundational understanding of what theoretically correct play even is, your exploitative plays will be based on accurate hunches (at best) and complete delusion (at worst).</p>
+
+<h3 id="mathematical-foundations">Mathematical Foundations</h3>
+
+<p>Before diving into the foundations of GTO we will cover some very basic poker math. These concepts have been discussed ad nauseam in a variety of poker books but are still wroth being briefly mentioned.</p>
+
+<h4 id="hand-combinatorics">Hand Combinatorics</h4>
+<p>There are three categories of hands:</p>
+<ul>
+  <li>Suited holdings
+    <ul>
+      <li>4 combos per holding</li>
+      <li>eg. AKs - 4 combos, one of spades, clubs, diamonds, hearts</li>
+    </ul>
+  </li>
+  <li>Unsuited Holdings
+    <ul>
+      <li>12 combos per holding</li>
+      <li>eg. AKo - 12 combos</li>
+    </ul>
+  </li>
+  <li>Pocket Pairs
+    <ul>
+      <li>6 combos per holding</li>
+      <li>eg. 66 - 6 combos</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="pocket-pair-combinatorics">Pocket Pair Combinatorics</h4>
+<p><strong>Pocket pairs</strong> have six combos. So for the holding ‘66’ there would be be:</p>
+
+<ul>
+  <li>6 hearts 6 diamonds</li>
+  <li>6 hearts 6 spades</li>
+  <li>6 hearts 6 clubs</li>
+  <li>6 diamonds 6 clubs</li>
+  <li>6 diamonds 6 spades</li>
+  <li>6 spades 6 clubs</li>
+</ul>
+
+<p>Removing just one 6 from the deck takes the amount of possible combos to 3.
+Removing another 6 from the deck brings the possible combos of 6 down to one.
+(Check for yourself by trying to exclude a suit and see how many are left.</p>
+
+<p><strong>Suited holdings</strong> have 4 combos. Let’s say we have AKs, removing the ace of hearts would take the number of combos down to 3. Removing  the king of hearts would have no effect since the AhKh combo has already been removed. Thus, the number of a suited combos in an opponent’s range is easy to calculate.</p>
+
+<p><strong>Off-suit Holdings</strong> have 12 combos. The removal factor on off-suit holdings is slightly more nuanced. Take the example of AKo</p>
+
+<p>AKo - 12 combos</p>
+
+<p>Each Ace is mapped to exactly three king cards (every suit of king other than it’s own suit). Likewise, each King is mapped to exactly three Ace cards.</p>
+
+<p>Removing an Ace from the deck will make the possible number of AKo combos 9. Removing an King subsequently will take the number of combos down to 6.</p>
+
+<h4 id="outs-and-equity">Outs and Equity:</h4>
+
+<p>The amount of outs a hand has is simply the number of possible cards left in the deck that can result in a player making a draw of a pair etc.</p>
+
+<p>A common mental math calculation is to multiply the number of outs by 4 on the flop for the probability of making a hand such as a flop or a straight by the river and to multiply by 2 on the turn.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hand Type</th>
+      <th>Outs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Flush Draw</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>Open Ended Straight Draw</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>Gut-shot Straight draw</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="pot-odds">Pot Odds:</h4>
+
+<p>When an opponent bets, pot odds can be calculated as<br>
+<span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="6.398ex" height="4.009ex" viewbox="0 -1078.4 2754.6 1726.2" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-1-Title" class=" mathjax-inline-08b64cf983621924">
+<title id="MathJax-SVG-1-Title">\frac{bet}{pot + bet}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+<g transform="translate(120,0)">
+<rect stroke="none" width="2514" height="60" x="0" y="220"></rect>
+<g transform="translate(812,453)">
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-62" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-65" x="429" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="896" y="0"></use>
+</g>
+<g transform="translate(60,-436)">
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-70" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-6F" x="503" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="989" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2B" x="1350" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-62" x="2129" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-65" x="2558" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="3025" y="0"></use>
+</g>
+</g>
+</g>
+</svg></span>
+This will give you the frequency at which you would need to call to theoretically keep your opponent indifferent to bluffing you with any two cards (more on this later). But as we will later discover this approach to defense in the game is heavily outdated, however for players who are vastly under or over-defending vs raises and bets, this concept can be helpful.</p>
+
+<h4 id="hand-odds">Hand Odds:</h4>
+
+<p>This will give you the amount of equity against your opponent’s range required to defend against a bet. Again, this model is outdated and has been disproven by solvers but is still useful for beginners.
+<span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="8.042ex" height="4.009ex" viewbox="0 -1078.4 3462.4 1726.2" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-2-Title" class=" mathjax-inline-08b64cf983621924">
+<title id="MathJax-SVG-2-Title">\frac{bet}{2*bet + pot}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+<g transform="translate(120,0)">
+<rect stroke="none" width="3222" height="60" x="0" y="220"></rect>
+<g transform="translate(1166,453)">
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-62" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-65" x="429" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="896" y="0"></use>
+</g>
+<g transform="translate(60,-436)">
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-32" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2217" x="500" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-62" x="1001" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-65" x="1430" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="1897" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2B" x="2258" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-70" x="3037" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-6F" x="3540" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="4026" y="0"></use>
+</g>
+</g>
+</g>
+</svg></span></p>
+
+<h3 id="range-morphology">Range Morphology</h3>
+
+<p>A range is a set of hands. Preflop, you have a range for each action, whether you open-raise, 3-bet or flat an open defines that range. You range will interact with flops in a variety of ways. There are a few words we use to describe ranges and their states.</p>
+
+<ul>
+  <li>Linear Range: A range that contains the best hands, the worst hands, and everything in-between</li>
+  <li>Condensed Range: A range that is condensed contains mostly medium strength hands with very few if any strong and weak hands</li>
+  <li>Polarized: A polarized range contains the strong hands and weak hands but very few if any medium strength hands</li>
+  <li>Capped Range: A capped range is a range that does not contain the very strongest hands on a board runout</li>
+  <li>Uncapped: An uncapped range contains the best possible holdings</li>
+</ul>
+
+<h3 id="basic-game-theory-optimal-concepts">Basic Game Theory Optimal Concepts</h3>
+
+<p>Now that I have given you a brief summary of the foundations of poker strategy we will now dive into the basics of game theory optimal play.</p>
+
+<h4 id="history-of-gto-play">History of GTO Play</h4>
+
+<p>The idea of an optimal strategy to poker is as old as the field of game theory itself. Von Neumann cited poker as the inspiration of his early works on game theory and wanted to formalize the strategies behind bluffing. John Nash, and Harold W. Kuhn also developed poker toy games which they solved to equilibrium in order to further develop their ideas on games of hidden information.</p>
+
+<h4 id="why-things-are-different-now">Why Things Are Different Now</h4>
+
+<p>The old way of conducting game theory research was to come up with a game, formalize the rules, and attempt to calculate an equilibrium and utility payoff structure. After deeply analyzing the game tree, mathematicians could calculate optimal solutions either by hand or with some form of computational assistance.</p>
+
+<p>This was the technique used by Edward O. Thorpe when he first invented card counting for blackjack. Now, with very fast computers, we can simply run simulations of model poker games and observe their solutions.</p>
+
+<p>Rather than theorizing about what might be optimal play, we can simply observe optimal play and work backwards in terms of developing heuristics to imitate software.</p>
+
+<h4 id="gto-concept-1-minimum-defense-frequency">GTO Concept 1: Minimum Defense Frequency</h4>
+
+<p>In around 2013, Matthew Janda published his widely acclaimed book “Applications of No-Limit Hold’em.” This work popularized the concept of minimum defense frequencies and formed the back-bone of success behind many successful poker players such as Doug Polk, Ryan Fee and others.</p>
+
+<p>Yet, the concept of MDF was not anywhere close to being representative of actual GTO play. It was however, so vastly superior to whatever techniques others were using in their calling/raising strategies at the time, that it made a great many players rich beyond their wildest dreams.</p>
+
+<p>Let us suppose that you are facing a bet on the river. Your hand consists of a medium strength bluff catcher, where your opponent either holds the nuts, or total air. In other words; your opponent has a ‘perfectly polarized range’ consisting of hands with either 100% equity or 0% equity at an even distribution vs your bluff catcher.</p>
+
+<p>How would be go about calculating the optimal frequency at which you need to call in order to keep villain indifferent to bluffing? In other words, how can we call in such a way that the EV of betting is effectively zero, and villain gains no additional value by bluffing?
+<span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="49.466ex" height="2.843ex" viewbox="0 -863.1 21297.9 1223.9" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-3-Title" class=" mathjax-inline-f17333b774e07e18">
+<title id="MathJax-SVG-3-Title">EV[Bluffing] = 0 = (Pot)*(1 - C) - (Bet)*C</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-45" x="0" y="0"></use>
+ <use xlink:href="#MJMATHI-56" x="764" y="0"></use>
+ <use xlink:href="#MJMAIN-5B" x="1534" y="0"></use>
+ <use xlink:href="#MJMATHI-42" x="1812" y="0"></use>
+ <use xlink:href="#MJMATHI-6C" x="2572" y="0"></use>
+ <use xlink:href="#MJMATHI-75" x="2870" y="0"></use>
+ <use xlink:href="#MJMATHI-66" x="3443" y="0"></use>
+ <use xlink:href="#MJMATHI-66" x="3993" y="0"></use>
+ <use xlink:href="#MJMATHI-69" x="4544" y="0"></use>
+ <use xlink:href="#MJMATHI-6E" x="4889" y="0"></use>
+ <use xlink:href="#MJMATHI-67" x="5490" y="0"></use>
+ <use xlink:href="#MJMAIN-5D" x="5970" y="0"></use>
+ <use xlink:href="#MJMAIN-3D" x="6526" y="0"></use>
+ <use xlink:href="#MJMAIN-30" x="7583" y="0"></use>
+ <use xlink:href="#MJMAIN-3D" x="8361" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="9417" y="0"></use>
+ <use xlink:href="#MJMATHI-50" x="9807" y="0"></use>
+ <use xlink:href="#MJMATHI-6F" x="10558" y="0"></use>
+ <use xlink:href="#MJMATHI-74" x="11044" y="0"></use>
+ <use xlink:href="#MJMAIN-29" x="11405" y="0"></use>
+ <use xlink:href="#MJMAIN-2217" x="12017" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="12740" y="0"></use>
+ <use xlink:href="#MJMAIN-31" x="13129" y="0"></use>
+ <use xlink:href="#MJMAIN-2212" x="13852" y="0"></use>
+ <use xlink:href="#MJMATHI-43" x="14853" y="0"></use>
+ <use xlink:href="#MJMAIN-29" x="15613" y="0"></use>
+ <use xlink:href="#MJMAIN-2212" x="16225" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="17225" y="0"></use>
+ <use xlink:href="#MJMATHI-42" x="17615" y="0"></use>
+ <use xlink:href="#MJMATHI-65" x="18374" y="0"></use>
+ <use xlink:href="#MJMATHI-74" x="18841" y="0"></use>
+ <use xlink:href="#MJMAIN-29" x="19202" y="0"></use>
+ <use xlink:href="#MJMAIN-2217" x="19814" y="0"></use>
+ <use xlink:href="#MJMATHI-43" x="20537" y="0"></use>
+</g>
+</svg></span>
+When villain attempts to bluff us and we fold, he wins whatever is in the pot. When villain attempts to bluff us and we call, he loses whatever it is that he has bet.</p>
+
+<p>By solving for the appropriate calling frequency we arrive at the conclusion that:
+<span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="12.212ex" height="3.843ex" viewbox="0 -1078.4 5257.9 1654.5" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-4-Title" class=" mathjax-inline-1890f4a8f8a713fe">
+<title id="MathJax-SVG-4-Title">C = \frac{Pot}{Pot + Bet}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-43" x="0" y="0"></use>
+ <use xlink:href="#MJMAIN-3D" x="1038" y="0"></use>
+<g transform="translate(1816,0)">
+<g transform="translate(397,0)">
+<rect stroke="none" width="2923" height="60" x="0" y="220"></rect>
+<g transform="translate(896,453)">
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-50" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-6F" x="751" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="1237" y="0"></use>
+</g>
+<g transform="translate(60,-429)">
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-50" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-6F" x="751" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="1237" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2B" x="1598" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-42" x="2377" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-65" x="3136" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="3603" y="0"></use>
+</g>
+</g>
+</g>
+</g>
+</svg></span>
+The idea is that by calling at least C% of the time, we can assure that our opponent will not gain any additional utility by betting with a hand that would lose at showdown.</p>
+
+<h4 id="gto-concept-2-value-to-bluff-ratios">GTO Concept 2: Value to Bluff Ratios</h4>
+
+<ul>
+  <li>Let there be two players, an IP (in position) and an OOP (out of position) player.</li>
+  <li>Let IP have a perfectly polarized range on the river (hands with either 100% equity or 0% equity) so that whenever OOP calls we effectively win.</li>
+</ul>
+
+<p>Question: What proportion of our river betting range should be value hands (hands that win at showdown) vs what proportion should be bluffs to make the EV of our opponent calling zero?</p>
+
+<ul>
+  <li>Let X be our bluffing frequency on a river bet</li>
+  <li>Let P be the original size of the pot</li>
+  <li>Let B be the size of our bet</li>
+  <li>Assume EV of Calling - EV of Folding = 0 (Our opponent is indifferent to either actions)</li>
+  <li>EV of Folding is always zero, therefore we need to only solve EV[Call]</li>
+</ul>
+
+<p>Our opponent will win the size of the pot + our bet when he calls our bluffs and will lose the size of our bet when he calls our value bets.
+<span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="37.834ex" height="2.843ex" viewbox="0 -863.1 16289.4 1223.9" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-5-Title" class=" mathjax-inline-f17333b774e07e18">
+<title id="MathJax-SVG-5-Title">EV[Call] = 0 = (P + B)x - B(1 - x)</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-45" x="0" y="0"></use>
+ <use xlink:href="#MJMATHI-56" x="764" y="0"></use>
+ <use xlink:href="#MJMAIN-5B" x="1534" y="0"></use>
+ <use xlink:href="#MJMATHI-43" x="1812" y="0"></use>
+ <use xlink:href="#MJMATHI-61" x="2573" y="0"></use>
+ <use xlink:href="#MJMATHI-6C" x="3102" y="0"></use>
+ <use xlink:href="#MJMATHI-6C" x="3401" y="0"></use>
+ <use xlink:href="#MJMAIN-5D" x="3699" y="0"></use>
+ <use xlink:href="#MJMAIN-3D" x="4255" y="0"></use>
+ <use xlink:href="#MJMAIN-30" x="5312" y="0"></use>
+ <use xlink:href="#MJMAIN-3D" x="6090" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="7146" y="0"></use>
+ <use xlink:href="#MJMATHI-50" x="7536" y="0"></use>
+ <use xlink:href="#MJMAIN-2B" x="8509" y="0"></use>
+ <use xlink:href="#MJMATHI-42" x="9510" y="0"></use>
+ <use xlink:href="#MJMAIN-29" x="10270" y="0"></use>
+ <use xlink:href="#MJMATHI-78" x="10659" y="0"></use>
+ <use xlink:href="#MJMAIN-2212" x="11454" y="0"></use>
+ <use xlink:href="#MJMATHI-42" x="12455" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="13214" y="0"></use>
+ <use xlink:href="#MJMAIN-31" x="13604" y="0"></use>
+ <use xlink:href="#MJMAIN-2212" x="14326" y="0"></use>
+ <use xlink:href="#MJMATHI-78" x="15327" y="0"></use>
+ <use xlink:href="#MJMAIN-29" x="15899" y="0"></use>
+</g>
+</svg></span>
+Solving for x
+<span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="17.327ex" height="2.843ex" viewbox="0 -863.1 7460 1223.9" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-6-Title" class=" mathjax-inline-f17333b774e07e18">
+<title id="MathJax-SVG-6-Title">X = B/(P + 2B)</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-58" x="0" y="0"></use>
+ <use xlink:href="#MJMAIN-3D" x="1130" y="0"></use>
+ <use xlink:href="#MJMATHI-42" x="2186" y="0"></use>
+ <use xlink:href="#MJMAIN-2F" x="2946" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="3446" y="0"></use>
+ <use xlink:href="#MJMATHI-50" x="3836" y="0"></use>
+ <use xlink:href="#MJMAIN-2B" x="4809" y="0"></use>
+ <use xlink:href="#MJMAIN-32" x="5810" y="0"></use>
+ <use xlink:href="#MJMATHI-42" x="6311" y="0"></use>
+ <use xlink:href="#MJMAIN-29" x="7070" y="0"></use>
+</g>
+</svg></span>
+Now using our equation we can determine the frequency at which we should be bluffing for any given bet size where B is a fraction of P.</p>
+
+<ul>
+  <li>Pot Sized Bet (B = P): 33% bluffs</li>
+  <li>3/4 Sized Bet (B = .75P): 30% bluffs</li>
+  <li>1/2 Sized Bet (B = .5P): 25% bluffs</li>
+  <li>1/3 Sized Bet (B = .33P): 20% bluffs</li>
+</ul>
+
+<p>Let’s of course notice that the larger our bet-size the more bluff heavy our range is! To most players this seems counter-intuitive but let’s use some very simple reasoning to think through it.</p>
+
+<p>When an opponent calls our value bet, we win what’s already in the pot + whatever we risked. When an opponent calls our bluff, we only lose what we risked. Larger bet sizes cause a rational opponent to fold at a higher frequency meaning that we must accordingly add more bluffs.  Additionally, we can afford to lose at showdown often when we bluff since value bets will win us much larger pots.</p>
+
+<p>Large bet sizes are positively correlated with a more polarized range (separation between bluffs and value bets) whereas smaller bet sizes are more useful when ranges are too heavy to want to generate folds. This is evident in many solver simulations.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>In this article we covered the bare bones fundamentals of poker. If you are a new player I hope you enjoyed this introduction. In future posts, we will dive deeper into solver based poker strategies!</p>
+
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/categories.html#Poker%20Strategy-ref">
+					Poker Strategy <span>(1)</span>
+					,
+				</a></li>
+			 
+				<li><a href="/categories.html#Game%20Theory-ref">
+					Game Theory <span>(1)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tags.html#Poker-ref">
+					Poker <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#Game%20Theory-ref">
+					Game Theory <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#Math-ref">
+					Math <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#Theory-ref">
+					Theory <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Poker%20Theory%20Fundamentals" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus" onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+
+      <section class="col-sm-6 author">
+        <img src="/avatar1.jpg" class="img-rounded author-image">
+        <h4 class="section-title author-name">Pranav Ahluwalia</h4>
+	<p class="author-bio">My name is Pranav Ahluwalia. I am a computer scientist, esports athlete, and avid poker player<br><a href="https://www.prandev.com">More About Me</a></p>
+      </section>
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous disabled"><a>← Previous</a></li>
+		  
+		  
+			<li class="next disabled">
+<a>Next →</a>
+		  
+		</li>
+</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+    
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'dbyll';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+
+
+
+
+
+		<footer>
+			<hr>
+			<p>
+				© 2020 Pranav Ahluwalia with <a href="http://jekyllrb.com/">Jekyll</a>. Theme: <a href="https://github.com/dbtek/dbyll">dbyll</a> by dbtek.
+			</p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+
+
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'G-MF130YPYZE', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<svg xmlns="http://www.w3.org/2000/svg" class=" mathjax-inline-224b51a7b428d98b"><defs id="MathJax_SVG_glyphs"><path stroke-width="1" id="MJMATHI-62" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path><path stroke-width="1" id="MJMATHI-65" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path><path stroke-width="1" id="MJMATHI-74" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path><path stroke-width="1" id="MJMATHI-70" d="M23 287Q24 290 25 295T30 317T40 348T55 381T75 411T101 433T134 442Q209 442 230 378L240 387Q302 442 358 442Q423 442 460 395T497 281Q497 173 421 82T249 -10Q227 -10 210 -4Q199 1 187 11T168 28L161 36Q160 35 139 -51T118 -138Q118 -144 126 -145T163 -148H188Q194 -155 194 -157T191 -175Q188 -187 185 -190T172 -194Q170 -194 161 -194T127 -193T65 -192Q-5 -192 -24 -194H-32Q-39 -187 -39 -183Q-37 -156 -26 -148H-6Q28 -147 33 -136Q36 -130 94 103T155 350Q156 355 156 364Q156 405 131 405Q109 405 94 377T71 316T59 280Q57 278 43 278H29Q23 284 23 287ZM178 102Q200 26 252 26Q282 26 310 49T356 107Q374 141 392 215T411 325V331Q411 405 350 405Q339 405 328 402T306 393T286 380T269 365T254 350T243 336T235 326L232 322Q232 321 229 308T218 264T204 212Q178 106 178 102Z"></path><path stroke-width="1" id="MJMATHI-6F" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path><path stroke-width="1" id="MJMAIN-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path><path stroke-width="1" id="MJMAIN-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path stroke-width="1" id="MJMAIN-2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path><path stroke-width="1" id="MJMATHI-45" d="M492 213Q472 213 472 226Q472 230 477 250T482 285Q482 316 461 323T364 330H312Q311 328 277 192T243 52Q243 48 254 48T334 46Q428 46 458 48T518 61Q567 77 599 117T670 248Q680 270 683 272Q690 274 698 274Q718 274 718 261Q613 7 608 2Q605 0 322 0H133Q31 0 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H757Q764 676 764 669Q764 664 751 557T737 447Q735 440 717 440H705Q698 445 698 453L701 476Q704 500 704 528Q704 558 697 578T678 609T643 625T596 632T532 634H485Q397 633 392 631Q388 629 386 622Q385 619 355 499T324 377Q347 376 372 376H398Q464 376 489 391T534 472Q538 488 540 490T557 493Q562 493 565 493T570 492T572 491T574 487T577 483L544 351Q511 218 508 216Q505 213 492 213Z"></path><path stroke-width="1" id="MJMATHI-56" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"></path><path stroke-width="1" id="MJMAIN-5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path><path stroke-width="1" id="MJMATHI-42" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path><path stroke-width="1" id="MJMATHI-6C" d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z"></path><path stroke-width="1" id="MJMATHI-75" d="M21 287Q21 295 30 318T55 370T99 420T158 442Q204 442 227 417T250 358Q250 340 216 246T182 105Q182 62 196 45T238 27T291 44T328 78L339 95Q341 99 377 247Q407 367 413 387T427 416Q444 431 463 431Q480 431 488 421T496 402L420 84Q419 79 419 68Q419 43 426 35T447 26Q469 29 482 57T512 145Q514 153 532 153Q551 153 551 144Q550 139 549 130T540 98T523 55T498 17T462 -8Q454 -10 438 -10Q372 -10 347 46Q345 45 336 36T318 21T296 6T267 -6T233 -11Q189 -11 155 7Q103 38 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path stroke-width="1" id="MJMATHI-66" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path><path stroke-width="1" id="MJMATHI-69" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path><path stroke-width="1" id="MJMATHI-6E" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path><path stroke-width="1" id="MJMATHI-67" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path><path stroke-width="1" id="MJMAIN-5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path><path stroke-width="1" id="MJMAIN-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path stroke-width="1" id="MJMAIN-30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path><path stroke-width="1" id="MJMAIN-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path stroke-width="1" id="MJMATHI-50" d="M287 628Q287 635 230 637Q206 637 199 638T192 648Q192 649 194 659Q200 679 203 681T397 683Q587 682 600 680Q664 669 707 631T751 530Q751 453 685 389Q616 321 507 303Q500 302 402 301H307L277 182Q247 66 247 59Q247 55 248 54T255 50T272 48T305 46H336Q342 37 342 35Q342 19 335 5Q330 0 319 0Q316 0 282 1T182 2Q120 2 87 2T51 1Q33 1 33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM645 554Q645 567 643 575T634 597T609 619T560 635Q553 636 480 637Q463 637 445 637T416 636T404 636Q391 635 386 627Q384 621 367 550T332 412T314 344Q314 342 395 342H407H430Q542 342 590 392Q617 419 631 471T645 554Z"></path><path stroke-width="1" id="MJMAIN-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path><path stroke-width="1" id="MJMAIN-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path stroke-width="1" id="MJMAIN-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path><path stroke-width="1" id="MJMATHI-43" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path><path stroke-width="1" id="MJMATHI-61" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path><path stroke-width="1" id="MJMATHI-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path><path stroke-width="1" id="MJMATHI-58" d="M42 0H40Q26 0 26 11Q26 15 29 27Q33 41 36 43T55 46Q141 49 190 98Q200 108 306 224T411 342Q302 620 297 625Q288 636 234 637H206Q200 643 200 645T202 664Q206 677 212 683H226Q260 681 347 681Q380 681 408 681T453 682T473 682Q490 682 490 671Q490 670 488 658Q484 643 481 640T465 637Q434 634 411 620L488 426L541 485Q646 598 646 610Q646 628 622 635Q617 635 609 637Q594 637 594 648Q594 650 596 664Q600 677 606 683H618Q619 683 643 683T697 681T738 680Q828 680 837 683H845Q852 676 852 672Q850 647 840 637H824Q790 636 763 628T722 611T698 593L687 584Q687 585 592 480L505 384Q505 383 536 304T601 142T638 56Q648 47 699 46Q734 46 734 37Q734 35 732 23Q728 7 725 4T711 1Q708 1 678 1T589 2Q528 2 496 2T461 1Q444 1 444 10Q444 11 446 25Q448 35 450 39T455 44T464 46T480 47T506 54Q523 62 523 64Q522 64 476 181L429 299Q241 95 236 84Q232 76 232 72Q232 53 261 47Q262 47 267 47T273 46Q276 46 277 46T280 45T283 42T284 35Q284 26 282 19Q279 6 276 4T261 1Q258 1 243 1T201 2T142 2Q64 2 42 0Z"></path><path stroke-width="1" id="MJMAIN-2F" d="M423 750Q432 750 438 744T444 730Q444 725 271 248T92 -240Q85 -250 75 -250Q68 -250 62 -245T56 -231Q56 -221 230 257T407 740Q411 750 423 750Z"></path></defs></svg>
+</body>
+</html><!-- Asynchronous Google Analytics snippet -->
