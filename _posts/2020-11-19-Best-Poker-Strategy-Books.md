@@ -18,7 +18,7 @@ In this article I will review the few and only books I would ever recommend read
 
 I genuinely cannot say enough good things about this book. It is a culmination of the best parts of every poker book I've ever read and it's backed by rigorous research in [PioSolver](https://www.piosolver.com/). The author has experienced significant success on the tournament circuit both live and online and has a background as a financial analyst and mathematician.
 
-This book bridges the best between theoretical analysis and a grounding in practical hand examples without becoming just another hand review book. I especially appreciate the focus on GTO poker and the fact that he doesn't allow any biases to interfere with his analysis.
+This book bridges theoretical analysis with a grounding in practical hand examples without becoming just another hand review book.
 
 This book is primarily geared towards MTT's and will be most useful if you are used to playing poker at shorter stack depths. As a cash game player, I still found this book extremely useful as he approaches the game from a formal context grounded in Game Theory.
 
@@ -28,7 +28,7 @@ In this book, you will learn the following
 - How to classify ranges as condensed, polarized, capped/uncapped based on various situations
 - The relationship between range polarization and bet size
 - How to classify various hands into equity buckets and build a strategy for all your holdings
-- How to analyze data and outputs from solvers in order to master the game
+- How to analyze complex data and outputs from solvers in order to execute GTO lines
 
 It is worth noting that this book alone won't leave you walking away as a significantly better player, but it will give you the background knowledge to approach the game like a pro.
 
@@ -36,14 +36,14 @@ It is worth noting that this book alone won't leave you walking away as a signif
 
 Applications of No-limit Holdem is considered a classic and is an essential read for anyone seeking to become a competent player. I consider myself extraordinarily lucky to have read this book early on in my poker journey. It is worth noting that while this book has aged extraordinarily well, there are a few aspects of it that are outdated.
 
-1. Preflop Ranges: The original preflop ranges in this book were constructed based on frequencies and manual calculations. That being said, in the age of solvers, you are better off using ranges constructed from sims.
+1. Preflop Ranges: The original preflop ranges in this book were constructed based on frequencies and manual calculations. In the age of solvers, you are better off using ranges constructed from sims.
 2. Hand Reviews Chapter: I would recommend skipping the hand reviews chapter at the end of the book since modern solvers have revealed flaws in Matthew's range construction.
 
 This book formed the back-bone of Doug Polk's strategy and guided much of his analysis. Doug Polk at the height of his career was considered the very best heads up no limit player in the world after beating Ben Sulsky. If you plan on going through this book I would recommend a slow read and to carefully work through all the equations and examples. This will result in a strong foundational knowledge of poker theory which you will be able to build on very rapidly. Applications of No Limit Hold'em can be a daunting read and is theoretically intensive but is absolutely necessary to developing a background in GTO play.
 
 ###  [Expert Heads Up No Limit Hold'em](https://www.amazon.com/Expert-Heads-Limit-Holdem-Exploitative/dp/1904468942/ref=sr_1_1?dchild=1&keywords=expert+heads+up+no+limit+hold%27em&qid=1605809356&s=books&sr=1-1) by Will Tipton
 
-Will Tipton has become sort of a cult icon in the Poker Theory community. He was the very first person to create a [weighted flop subset representation](https://www.piosolver.com/blogs/news/62725637-choosing-a-subset-of-flops-to-represent-the-whole-game) of the game and even released a package of [video tutorials](https://husng.com/content/will-tipton-video-pack-0) with his book that walk through analyzing toy games in [Gambit](gambit-project.org/). One of the remarkable things about the book how ahead it was of the pack. Many of these concepts were completely foreign to most players in the community back in 2012. Additionally, Tipton brings the advantage of his background in theoretical computer science which allows him to rigorously formalize his concepts. 
+Will Tipton has become sort of a cult icon in the Poker Theory community. He was the very first person to create a [weighted flop subset representation](https://www.piosolver.com/blogs/news/62725637-choosing-a-subset-of-flops-to-represent-the-whole-game) of the game and even released a package of [video tutorials](https://husng.com/content/will-tipton-video-pack-0) with his book that walk through analyzing toy games in [Gambit](gambit-project.org/). Many concepts in the book were completely foreign to most players in the community back in 2012. Additionally, Tipton brings the advantage of his background in theoretical computer science which allows him to rigorously formalize his ideas. 
 
 Some of my favorite lessons from the book are:
 
