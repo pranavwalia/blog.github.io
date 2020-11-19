@@ -1,4 +1,4 @@
-I"m+<p>In this article I will lay out the foundational knowledge required to begin learning modern GTO (Game Theory Optimal) poker. At this point, the GTO vs Exploitative debate has essentially been settled and most reasonable people have acknowledged that if you want to be a profitable poker player you need to have a solid understanding of theory. Any exploitation should generally occur as a deliberate deviation from what you understand to be a theoretically correct play. But, if you do not have a foundational understanding of what theoretically correct play even is, your exploitative plays will be based on accurate hunches (at best) and complete delusion (at worst).</p>
+I"�+<p>In this article I will lay out the foundational knowledge required to begin learning modern GTO (Game Theory Optimal) poker. At this point, the GTO vs Exploitative debate has essentially been settled and most reasonable people have acknowledged that if you want to be a profitable poker player you need to have a solid understanding of theory. Any exploitation should generally occur as a deliberate deviation from what you understand to be a theoretically correct play. But, if you do not have a foundational understanding of what theoretically correct play even is, your exploitative plays will be based on accurate hunches (at best) and complete delusion (at worst).</p>
 
 <h3 id="mathematical-foundations">Mathematical Foundations</h3>
 
@@ -84,14 +84,17 @@ Removing another 6 from the deck brings the possible combos of 6 down to one.
 
 <h4 id="pot-odds">Pot Odds:</h4>
 
-<p>When an opponent bets, pot odds can be calculated as<br />
-\(\frac{bet}{pot + bet}\)
-This will give you the frequency at which you would need to call to theoretically keep your opponent indifferent to bluffing you with any two cards (more on this later). But as we will later discover this approach to defense in the game is heavily outdated, however for players who are vastly under or over-defending vs raises and bets, this concept can be helpful.</p>
+<p>When an opponent bets, pot odds can be calculated as</p>
+
+\[\frac{bet}{pot + bet}\]
+
+<p>This will give you the frequency at which you would need to call to theoretically keep your opponent indifferent to bluffing you with any two cards (more on this later). But as we will later discover this approach to defense in the game is heavily outdated, however for players who are vastly under or over-defending vs raises and bets, this concept can be helpful.</p>
 
 <h4 id="hand-odds">Hand Odds:</h4>
 
-<p>This will give you the amount of equity against your opponent’s range required to defend against a bet. Again, this model is outdated and has been disproven by solvers but is still useful for beginners.
-\(\frac{bet}{2*bet + pot}\)</p>
+<p>This will give you the amount of equity against your opponent’s range required to defend against a bet. Again, this model is outdated and has been disproven by solvers but is still useful for beginners.</p>
+
+\[\frac{bet}{2*bet + pot}\]
 
 <h3 id="range-morphology">Range Morphology</h3>
 
@@ -129,13 +132,17 @@ This will give you the frequency at which you would need to call to theoreticall
 
 <p>Let us suppose that you are facing a bet on the river. Your hand consists of a medium strength bluff catcher, where your opponent either holds the nuts, or total air. In other words; your opponent has a ‘perfectly polarized range’ consisting of hands with either 100% equity or 0% equity at an even distribution vs your bluff catcher.</p>
 
-<p>How would be go about calculating the optimal frequency at which you need to call in order to keep villain indifferent to bluffing? In other words, how can we call in such a way that the EV of betting is effectively zero, and villain gains no additional value by bluffing?
-\(EV[Bluffing] = 0 = (Pot)*(1 - C) - (Bet)*C\)
-When villain attempts to bluff us and we fold, he wins whatever is in the pot. When villain attempts to bluff us and we call, he loses whatever it is that he has bet.</p>
+<p>How would be go about calculating the optimal frequency at which you need to call in order to keep villain indifferent to bluffing? In other words, how can we call in such a way that the EV of betting is effectively zero, and villain gains no additional value by bluffing?</p>
 
-<p>By solving for the appropriate calling frequency we arrive at the conclusion that:
-\(C = \frac{Pot}{Pot + Bet}\)
-The idea is that by calling at least C% of the time, we can assure that our opponent will not gain any additional utility by betting with a hand that would lose at showdown.</p>
+\[EV[Bluffing] = 0 = (Pot)*(1 - C) - (Bet)*C\]
+
+<p>When villain attempts to bluff us and we fold, he wins whatever is in the pot. When villain attempts to bluff us and we call, he loses whatever it is that he has bet.</p>
+
+<p>By solving for the appropriate calling frequency we arrive at the conclusion that:</p>
+
+\[C = \frac{Pot}{Pot + Bet}\]
+
+<p>The idea is that by calling at least C% of the time, we can assure that our opponent will not gain any additional utility by betting with a hand that would lose at showdown.</p>
 
 <h4 id="gto-concept-2-value-to-bluff-ratios">GTO Concept 2: Value to Bluff Ratios</h4>
 
@@ -154,11 +161,15 @@ The idea is that by calling at least C% of the time, we can assure that our oppo
   <li>EV of Folding is always zero, therefore we need to only solve EV[Call]</li>
 </ul>
 
-<p>Our opponent will win the size of the pot + our bet when he calls our bluffs and will lose the size of our bet when he calls our value bets.
-\(EV[Call] = 0 = (P + B)x - B(1 - x)\)
-Solving for x
-\(X = B/(P + 2B)\)
-Now using our equation we can determine the frequency at which we should be bluffing for any given bet size where B is a fraction of P.</p>
+<p>Our opponent will win the size of the pot + our bet when he calls our bluffs and will lose the size of our bet when he calls our value bets.</p>
+
+\[EV[Call] = 0 = (P + B)x - B(1 - x)\]
+
+<p>Solving for x</p>
+
+\[X = B/(P + 2B)\]
+
+<p>Now using our equation we can determine the frequency at which we should be bluffing for any given bet size where B is a fraction of P.</p>
 
 <ul>
   <li>Pot Sized Bet (B = P): 33% bluffs</li>

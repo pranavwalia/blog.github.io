@@ -64,14 +64,17 @@ A common mental math calculation is to multiply the number of outs by 4 on the f
 #### Pot Odds:
 
 When an opponent bets, pot odds can be calculated as  
+
 $$
 \frac{bet}{pot + bet}
 $$
+
 This will give you the frequency at which you would need to call to theoretically keep your opponent indifferent to bluffing you with any two cards (more on this later). But as we will later discover this approach to defense in the game is heavily outdated, however for players who are vastly under or over-defending vs raises and bets, this concept can be helpful. 
 
 #### Hand Odds:
 
 This will give you the amount of equity against your opponent's range required to defend against a bet. Again, this model is outdated and has been disproven by solvers but is still useful for beginners.
+
 $$
 \frac{bet}{2*bet + pot}
 $$
@@ -114,15 +117,18 @@ Yet, the concept of MDF was not anywhere close to being representative of actual
 Let us suppose that you are facing a bet on the river. Your hand consists of a medium strength bluff catcher, where your opponent either holds the nuts, or total air. In other words; your opponent has a 'perfectly polarized range' consisting of hands with either 100% equity or 0% equity at an even distribution vs your bluff catcher.
 
 How would be go about calculating the optimal frequency at which you need to call in order to keep villain indifferent to bluffing? In other words, how can we call in such a way that the EV of betting is effectively zero, and villain gains no additional value by bluffing?
+
 $$
 EV[Bluffing] = 0 = (Pot)*(1 - C) - (Bet)*C
 $$
-When villain attempts to bluff us and we fold, he wins whatever is in the pot. When villain attempts to bluff us and we call, he loses whatever it is that he has bet.
 
+When villain attempts to bluff us and we fold, he wins whatever is in the pot. When villain attempts to bluff us and we call, he loses whatever it is that he has bet.
 By solving for the appropriate calling frequency we arrive at the conclusion that:
+
 $$
 C = \frac{Pot}{Pot + Bet}
 $$
+
 The idea is that by calling at least C% of the time, we can assure that our opponent will not gain any additional utility by betting with a hand that would lose at showdown.
 
 #### GTO Concept 2: Value to Bluff Ratios
@@ -139,13 +145,17 @@ Question: What proportion of our river betting range should be value hands (hand
 * EV of Folding is always zero, therefore we need to only solve EV[Call]
 
 Our opponent will win the size of the pot + our bet when he calls our bluffs and will lose the size of our bet when he calls our value bets.
+
 $$
 EV[Call] = 0 = (P + B)x - B(1 - x)
 $$
+
 Solving for x
+
 $$
 X = B/(P + 2B)
 $$
+
 Now using our equation we can determine the frequency at which we should be bluffing for any given bet size where B is a fraction of P.
 
 * Pot Sized Bet (B = P): 33% bluffs
@@ -155,9 +165,7 @@ Now using our equation we can determine the frequency at which we should be bluf
 
 Let's of course notice that the larger our bet-size the more bluff heavy our range is! To most players this seems counter-intuitive but let's use some very simple reasoning to think through it. 
 
-When an opponent calls our value bet, we win what's already in the pot + whatever we risked. When an opponent calls our bluff, we only lose what we risked. Larger bet sizes cause a rational opponent to fold at a higher frequency meaning that we must accordingly add more bluffs.  Additionally, we can afford to lose at showdown often when we bluff since value bets will win us much larger pots. 
-
-Large bet sizes are positively correlated with a more polarized range (separation between bluffs and value bets) whereas smaller bet sizes are more useful when ranges are too heavy to want to generate folds. This is evident in many solver simulations.
+When an opponent calls our value bet, we win what's already in the pot + whatever we risked. When an opponent calls our bluff, we only lose what we risked. Larger bet sizes cause a rational opponent to fold at a higher frequency meaning that we must accordingly add more bluffs.  Additionally, we can afford to lose at showdown often when we bluff since value bets will win us much larger pots. Large bet sizes are positively correlated with a more polarized range (separation between bluffs and value bets) whereas smaller bet sizes are more useful when ranges are too heavy to want to generate folds. This is evident in many solver simulations.
 
 ### Conclusion
 
