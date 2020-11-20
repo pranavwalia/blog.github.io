@@ -7,6 +7,43 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>The St. Petersburg Paradox, When EV Isn't Enough</title>
+				<description>&lt;p&gt;Today we will discuss a famous problem known as the St. Petersburg Paradox. The problem was originally presented by &lt;a href=&quot;https://en.wikipedia.org/wiki/Daniel_Bernoulli&quot;&gt;Daniel Bernoulli&lt;/a&gt; in 1738 in the Commentaries of the Imperial Academy of Science of Saint Petersburg (hence the name). The problem demonstrates that certain games may have extremely high payoff/utility yet the variance of outcomes can be such that no sensible person would participate (despite extremely high expectation).&lt;/p&gt;
+
+&lt;h3 id=&quot;the-problem&quot;&gt;The Problem&lt;/h3&gt;
+
+&lt;p&gt;Suppose you are paying a fixed fee to participate in a coin tossing game. Assume that the coin is evenly weighted (fair). The coin will be tossed repeatedly.&lt;/p&gt;
+
+&lt;p&gt;There is a cash prize that starts at 1$. Every time the coin lands heads, the size of the pot doubles. Once the coin lands of tails, the game ends and you win whatever is contained in the pot.&lt;/p&gt;
+
+&lt;p&gt;How much should you pay to play this game in order to break even?&lt;/p&gt;
+
+&lt;h3 id=&quot;expected-value-of-the-game&quot;&gt;Expected Value of The Game&lt;/h3&gt;
+
+&lt;p&gt;Well from basic decision theory we know that a break-even decision is one where the cost is equal to the utility of a decision. Therefore, in order to calculate the break-even price, we simply need to calculate the expected value of the game.&lt;/p&gt;
+
+&lt;p&gt;We know that the probability of flipping n heads consecutively is
+\(\frac{1}{2^n}\)
+Since we win $1 if the first flip is tails (0 heads), the payoff on the nth consecutive head is
+\(2^{n -1}\)
+So for a single value of n, where n is the number of consecutive heads we get in a single session of the game, the expectation would be
+\(\frac{1}{2^n} * 2^{n -1}\)
+​	Are we done? NO! A single value of n only measures one branch of the game tree. But there are an infinite number of branches on the game tree. The higher n is, the lower the probability of that specific outcome on the game tree, yet there is an outcome for every possible branch. Therefore, the entire expectation can be represented by an infinite sum.
+\(\sum_{n=1}^{\infty} \frac{1}{2^n} * 2^{n -1} = \infty\)
+We can see that the infinite sum converges to infinity! Don’t believe me? Let’s step through the sum for each value of n.
+\(E[\infty] = (\frac{1}{2} * 1) + (\frac{1}{4} * 2) + (\frac{1}{8} * 4)...\)
+We can see that if we continue we will get an infinite sum of 1/2’s. Therefore, the expectation of the game is infinity! So hypothetically, the break-even price to lay this game is also infinity.&lt;/p&gt;
+
+&lt;h3 id=&quot;wheres-the-paradox&quot;&gt;Where’s The Paradox?&lt;/h3&gt;
+
+&lt;p&gt;The paradox is that despite the game having such a high payoff, nobody with common sense would pay more than a few dollars to play the game. This is because the branches of the game tree with high payoffs are extremely hard to reach, yet since the utility of those branches grow at a similar rate, the expectation does not diminish for lower probability events as it would in most games.&lt;/p&gt;
+</description>
+				<pubDate>Thu, 19 Nov 2020 00:00:00 -0800</pubDate>
+				<link>/game%20theory/mathematics/2020/11/19/St-Petersburg-Paradox.html</link>
+				<guid isPermaLink="true">/game%20theory/mathematics/2020/11/19/St-Petersburg-Paradox.html</guid>
+			</item>
+		
+			<item>
 				<title>The ONLY Poker Books Worth Reading</title>
 				<description>&lt;p&gt;One of the trickiest parts about improving as a Poker player is finding high quality learning resources. There are numerous successful players over the years who have written books on their approaches to the game, yet Poker evolves so quickly that these books are often outdated within a few years.&lt;/p&gt;
 
