@@ -51,7 +51,7 @@ $$
 E[\infty] = (\frac{1}{2} * 1) + (\frac{1}{4} * 2) + (\frac{1}{8} * 4)...
 $$
 
-We can see that if we continue we will get an infinite sum of 1/2's. Therefore, the expectation of the game is infinity! So hypothetically, the break-even price to lay this game is also infinity. 
+We can see that if we continue we will get an infinite sum of 1/2's. Therefore, the expectation of the game is infinity! So hypothetically, the break-even price to play this game is also infinity. 
 
 
 
