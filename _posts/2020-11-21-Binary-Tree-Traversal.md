@@ -19,11 +19,11 @@ Traversing binary trees is a fundamental skill required for coding interviews. T
 | In-order    |      | left/center/right |
 | pre-order   |      | center/left/right |
 | post-order  |      | left/right/center |
-| level-order |      | self explanatory  |
+| level-order |      | left to right     |
 
 ### Example
 
-![binary-tree](binary-tree.PNG)
+![binary-tree](/assets/images/binary-tree.PNG)
 
 #### Pre-Order Traversal
 

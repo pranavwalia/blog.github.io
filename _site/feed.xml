@@ -39,14 +39,14 @@
     &lt;tr&gt;
       &lt;td&gt;level-order&lt;/td&gt;
       &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;self explanatory&lt;/td&gt;
+      &lt;td&gt;left to right&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
 &lt;h3 id=&quot;example&quot;&gt;Example&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;binary-tree.PNG&quot; alt=&quot;binary-tree&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/binary-tree.PNG&quot; alt=&quot;binary-tree&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;pre-order-traversal&quot;&gt;Pre-Order Traversal&lt;/h4&gt;
 
