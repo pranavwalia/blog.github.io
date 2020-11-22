@@ -38,6 +38,7 @@ BASE_PATH:
 plugins:
         - jekyll-paginate
         - jekyll-mathjax-csp
+        - jekyll-sitemap
 exclude:
         - node_modules
         - package.json
