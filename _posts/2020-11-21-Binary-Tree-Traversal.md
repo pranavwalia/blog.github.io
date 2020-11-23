@@ -32,8 +32,7 @@ A preorder traversal follows the center-left-right pattern. For the tree above, 
 ##### Solution
 
 ```python
-def preOrderHelper(tree):
-    array = []
+def preOrderHelper(tree, array = []):
 	if tree != None:
 		array.append(tree.value)
 		preOrderHelper(tree.left,array)
@@ -48,8 +47,7 @@ An inorder traversal follows the left-center-right pattern. The algorithm will t
 ##### Solution
 
 ```python
-def inOrder(tree):
-    array = []
+def inOrder(tree, array = []):
 	if tree != None:
 		inOrderHelper(tree.left,array)
 		array.append(tree.value)
@@ -64,8 +62,7 @@ A postorder traversal follows the left-right-center pattern. For the tree above 
 ##### Solution
 
 ```python
-def postOrder(tree):
-    out = []
+def postOrder(tree, array = []):
 	if tree != None:
 		postOrderHelper(tree.left,array)
 		postOrderHelper(tree.right,array)
