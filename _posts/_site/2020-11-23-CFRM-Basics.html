@@ -1,0 +1,267 @@
+<h1 id="basic-counterfactual-regret-minimization-rock-paper-scissors">Basic Counterfactual Regret Minimization (Rock Paper Scissors)</h1>
+
+<p>Counterfactual regret minimization is an important concept in algorithmic game theory. It has made the creation of super-human poker AI possible and is fundamental for solving games of imperfect information. Today we will be implementing a rock paper scissors solver. Rock paper scissors is a useful introductory example as the game has a trivial solution (just play each option 33.333% of the time randomly). Solving rock paper scissors will lay the groundwork for solving more complex games (which we will do in future articles).</p>
+
+<p><strong>Note: All Code Implemented In Python</strong></p>
+
+<h3 id="high-level-overview">High Level Overview:</h3>
+
+<p>The algorithm will start with a hard-coded default strategy profile. At every iteration, the solver will compute a ‘regret matched’ strategy. This is a strategy that makes the minimum viable adjustment according to the observed result. This adjusted result is then added to a running sum of all previous adjustments. The resulting <em>game theory optimal</em> strategy will be the average of all adjusted strategies (sum of the strategies divided by the number of iterations).</p>
+
+<p><strong>For Some Number of Iterations:</strong></p>
+
+<ul>
+  <li>Compute a regret-matching strategy</li>
+  <li>Add strategy profile to the profile sum</li>
+  <li>Select each player action profile according to the strategy profile</li>
+  <li>Compute regrets</li>
+  <li>Add player regrets to player cumulative regrets</li>
+  <li>Return the average strategy profile</li>
+</ul>
+
+<h2 id="rock-paper-scissors">Rock Paper Scissors</h2>
+
+<p>To solve rock paper scissors we will need to program our agent to keep track of it’s current strategy and update it iteratively. There are 2 variables that are key to the algorithm. The regret sum, and the strategy sum. The regret sum is an array that records all the lost utility by choosing the suboptimal decision in the moment. The strategy sum is the sum of all adjusted strategies.</p>
+
+<h3 id="key-variables">Key Variables:</h3>
+
+<ul>
+  <li>Indices to access options in strategy list</li>
+  <li>regretSum: A list to keep track of the total regret of each decision</li>
+  <li>strategy: A list to hold the weightings of each option in a mixed strategy</li>
+  <li>strategySum: The sum of all the strategies used thus far</li>
+  <li>oppStrategy: The strategy of a theoretical opponent against whom we must adjust</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">random</span>
+</code></pre></div></div>
+
+<h3 id="regret-matching">Regret Matching</h3>
+<ul>
+  <li>Computes the strategy as the accumulated regrets / total regret</li>
+  <li>Computes the strategy sum as the given strategy sum + the newly derived strategy based on accumulated regrets</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">##Returns the adjusted strategy after an iteration
+</span><span class="k">def</span> <span class="nf">getStrategy</span><span class="p">(</span><span class="n">regretSum</span><span class="p">,</span><span class="n">strategySum</span><span class="p">):</span>
+    <span class="n">actions</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">normalizingSum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">strategy</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1">#Normalizingsum is the sum of positive regrets. 
+</span>    <span class="c1">#This ensures do not 'over-adjust' and converge to equilibrium
+</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">actions</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">regretSum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">strategy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">regretSum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">strategy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">normalizingSum</span> <span class="o">+=</span> <span class="n">strategy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="c1">##This loop normalizes our updated strategy
+</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">actions</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">normalizingSum</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">strategy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">strategy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">normalizingSum</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">#Default to 33%
+</span>            <span class="n">strategy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">actions</span>
+        <span class="n">strategySum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">strategy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">strategy</span><span class="p">,</span><span class="n">strategySum</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="pull-a-random-action-according-to-current-mixed-strategy">Pull A Random Action According To Current Mixed Strategy</h3>
+
+<p>This function will choose a random action based on our most updated strategy. Remember that the strategy list stores all the weightings for each action.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#Returns a random action according to the strategy
+</span><span class="k">def</span> <span class="nf">getAction</span><span class="p">(</span><span class="n">strategy</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">r</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">strategy</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">r</span> <span class="o">&gt;=</span> <span class="n">strategy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">strategy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">strategy</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">r</span> <span class="o">&gt;=</span> <span class="n">strategy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">strategy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="nb">sum</span><span class="p">(</span><span class="n">strategy</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+</code></pre></div></div>
+
+<h3 id="training-algorithm">Training Algorithm</h3>
+
+<p>The following algorithm will compute the <em>maximally exploitative strategy</em> vs a fixed strategy from an opponent. For rock paper scissors, the nash equilibrium strategy dictates that any strategy which performs an action more than 33% dictates that we play the opposing action 100% of the time.</p>
+
+<h4 id="maximally-exploitative-strategy-example">Maximally Exploitative Strategy Example:</h4>
+
+<p>Let us say our opponent is playing the following strategy:</p>
+
+<ul>
+  <li>Rock: 34%</li>
+  <li>Paper: 33%</li>
+  <li>Scissors: 33%</li>
+</ul>
+
+<p>Knowing our opponent’s strategy, we can compute the utility of each option</p>
+
+\[EV(Rock) = .34(0) + .33(-1) + .33(1) = 0\]
+
+<p>The expected value of choosing rock is zero since it ties 34% of the time, loses 33% of the time and wins another 33% of the time.</p>
+
+\[EV(Scissors) = .34(-1) + .33(1) + .33(0) = -.01\]
+
+<p>The expected value of choosing scissors is -.01 since it loses to rock 34% of the time, wins against paper 33% of the time, and ties to scissors 33% of the time.</p>
+
+\[EV(Paper) = .34(1) + .33(0) + .33(-1) = .01\]
+
+<p>The expected value of choosing paper is .01 since we win against rock 34% of the time, ties paper 33% of the time, and loses to scissors 33% of the time.</p>
+
+<p>Knowing that the expected value of choosing paper is higher than any other option, the maximally exploitative strategy would be to always play paper.</p>
+
+<h4 id="maximally-exploitative-function">Maximally Exploitative Function</h4>
+
+<p>The algorithm for training our agent to learn the maximally exploitative strategy can be described as follows.</p>
+
+<ul>
+  <li>Accumulate regretSums after every round</li>
+  <li>Compute a regret-matching strategy based on those regret sums</li>
+  <li>Add Strategy to the sum of all the previously computed profiles</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">iterations</span><span class="p">,</span><span class="n">regretSum</span><span class="p">,</span><span class="n">oppStrategy</span><span class="p">):</span>
+    <span class="n">actionUtility</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">strategySum</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">actions</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">iterations</span><span class="p">):</span>
+        <span class="c1">##Retrieve Actions
+</span>        <span class="n">t</span> <span class="o">=</span> <span class="n">getStrategy</span><span class="p">(</span><span class="n">regretSum</span><span class="p">,</span><span class="n">strategySum</span><span class="p">)</span>
+        <span class="n">strategy</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">strategySum</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1">#print(strategy)
+</span>        <span class="n">myaction</span> <span class="o">=</span> <span class="n">getAction</span><span class="p">(</span><span class="n">strategy</span><span class="p">)</span>
+        <span class="c1">#Define an arbitrary opponent strategy from which to adjust
+</span>        <span class="n">otherAction</span> <span class="o">=</span> <span class="n">getAction</span><span class="p">(</span><span class="n">oppStrategy</span><span class="p">)</span>   
+        <span class="c1">#Opponent Chooses scissors
+</span>        <span class="k">if</span> <span class="n">otherAction</span> <span class="o">==</span> <span class="n">actions</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1">#Utility(Rock) = 1
+</span>            <span class="n">actionUtility</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="c1">#Utility(Paper) = -1
+</span>            <span class="n">actionUtility</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="c1">#Opponent Chooses Rock
+</span>        <span class="k">elif</span> <span class="n">otherAction</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1">#Utility(Scissors) = -1
+</span>            <span class="n">actionUtility</span><span class="p">[</span><span class="n">actions</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="c1">#Utility(Paper) = 1
+</span>            <span class="n">actionUtility</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1">#Opopnent Chooses Paper
+</span>        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">#Utility(Rock) = -1
+</span>            <span class="n">actionUtility</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="c1">#Utility(Scissors) = 1
+</span>            <span class="n">actionUtility</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            
+        <span class="c1">#Add the regrets from this decision
+</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">actions</span><span class="p">):</span>
+            <span class="n">regretSum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">actionUtility</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">actionUtility</span><span class="p">[</span><span class="n">myaction</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">strategySum</span>
+        
+</code></pre></div></div>
+
+<h3 id="compute-the-average-strategy">Compute the average strategy</h3>
+<ul>
+  <li>Returns the average strategy profile as each option divided by the total sum of all options</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">getAverageStrategy</span><span class="p">(</span><span class="n">iterations</span><span class="p">,</span><span class="n">oppStrategy</span><span class="p">):</span>
+    <span class="n">actions</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">strategySum</span> <span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="n">iterations</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">oppStrategy</span><span class="p">)</span>
+    <span class="n">avgStrategy</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">normalizingSum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">actions</span><span class="p">):</span>
+        <span class="n">normalizingSum</span> <span class="o">+=</span> <span class="n">strategySum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">actions</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">normalizingSum</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">avgStrategy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">strategySum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">normalizingSum</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">avgStrategy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">actions</span>
+    <span class="k">return</span> <span class="n">avgStrategy</span>
+</code></pre></div></div>
+
+<h3 id="run-the-algorithm">Run the algorithm!</h3>
+<ul>
+  <li>Demonstrates that we can generate a maximally exploitative strat</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">oppStrat</span> <span class="o">=</span> <span class="p">[.</span><span class="mi">4</span><span class="p">,.</span><span class="mi">3</span><span class="p">,.</span><span class="mi">3</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Opponent's Strategy"</span><span class="p">,</span><span class="n">oppStrat</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Maximally Exploitative Strat"</span><span class="p">,</span> <span class="n">getAverageStrategy</span><span class="p">(</span><span class="mi">1000000</span><span class="p">,</span><span class="n">oppStrat</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Opponent's Strategy [0.4, 0.3, 0.3]
+Maximally Exploitative Strat [6.666666666666666e-07, 0.999999, 3.333333333333333e-07]
+</code></pre></div></div>
+
+<h3 id="have-both-agents-converge-to-nash-equilibrium">Have Both Agents Converge to Nash Equilibrium</h3>
+<ul>
+  <li>We will adapt our training algorithm to train two agents simultaneously</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#Two player training Function
+</span><span class="k">def</span> <span class="nf">train2Player</span><span class="p">(</span><span class="n">iterations</span><span class="p">,</span><span class="n">regretSum1</span><span class="p">,</span><span class="n">regretSum2</span><span class="p">,</span><span class="n">p2Strat</span><span class="p">):</span>
+    <span class="c1">##Adapt Train Function for two players
+</span>    <span class="n">actions</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">actionUtility</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">strategySum1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">strategySum2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">iterations</span><span class="p">):</span>
+        <span class="c1">##Retrieve Actions
+</span>        <span class="n">t1</span> <span class="o">=</span> <span class="n">getStrategy</span><span class="p">(</span><span class="n">regretSum1</span><span class="p">,</span><span class="n">strategySum1</span><span class="p">)</span>
+        <span class="n">strategy1</span> <span class="o">=</span> <span class="n">t1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">strategySum1</span> <span class="o">=</span> <span class="n">t1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">myaction</span> <span class="o">=</span> <span class="n">getAction</span><span class="p">(</span><span class="n">strategy1</span><span class="p">)</span>
+        <span class="n">t2</span> <span class="o">=</span> <span class="n">getStrategy</span><span class="p">(</span><span class="n">regretSum2</span><span class="p">,</span><span class="n">p2Strat</span><span class="p">)</span>
+        <span class="n">strategy2</span> <span class="o">=</span> <span class="n">t2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">strategySum2</span> <span class="o">=</span> <span class="n">t2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">otherAction</span> <span class="o">=</span> <span class="n">getAction</span><span class="p">(</span><span class="n">strategy2</span><span class="p">)</span>
+        
+        <span class="c1">#Opponent Chooses scissors
+</span>        <span class="k">if</span> <span class="n">otherAction</span> <span class="o">==</span> <span class="n">actions</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1">#Utility(Rock) = 1
+</span>            <span class="n">actionUtility</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="c1">#Utility(Paper) = -1
+</span>            <span class="n">actionUtility</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="c1">#Opponent Chooses Rock
+</span>        <span class="k">elif</span> <span class="n">otherAction</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1">#Utility(Scissors) = -1
+</span>            <span class="n">actionUtility</span><span class="p">[</span><span class="n">actions</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="c1">#Utility(Paper) = 1
+</span>            <span class="n">actionUtility</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1">#Opopnent Chooses Paper
+</span>        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">#Utility(Rock) = -1
+</span>            <span class="n">actionUtility</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="c1">#Utility(Scissors) = 1
+</span>            <span class="n">actionUtility</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            
+        <span class="c1">#Add the regrets from this decision
+</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">actions</span><span class="p">):</span>
+            <span class="n">regretSum1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">actionUtility</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">actionUtility</span><span class="p">[</span><span class="n">myaction</span><span class="p">]</span>
+            <span class="n">regretSum2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="o">-</span><span class="p">(</span><span class="n">actionUtility</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">actionUtility</span><span class="p">[</span><span class="n">myaction</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">strategySum1</span><span class="p">,</span> <span class="n">strategySum2</span><span class="p">)</span>
+
+<span class="c1">#Returns a nash equilibrium reached by two opponents through CFRM
+</span><span class="k">def</span> <span class="nf">RPStoNash</span><span class="p">(</span><span class="n">iterations</span><span class="p">,</span><span class="n">oppStrat</span><span class="p">):</span>
+    <span class="n">strats</span> <span class="o">=</span> <span class="n">train2Player</span><span class="p">(</span><span class="n">iterations</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">oppStrat</span><span class="p">)</span>
+    <span class="n">s1</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">strats</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">s2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">strats</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">s1</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">strats</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">strats</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">s1</span>
+        <span class="k">if</span> <span class="n">s2</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">strats</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">strats</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">s2</span>
+    <span class="k">return</span> <span class="n">strats</span>
+
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">RPStoNash</span><span class="p">(</span><span class="mi">1000000</span><span class="p">,[.</span><span class="mi">4</span><span class="p">,.</span><span class="mi">3</span><span class="p">,.</span><span class="mi">3</span><span class="p">]))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Player 1                                                     Player 2
+([0.34083239238186, 0.3340920629119219, 0.3250755447062181], [0.32967926313477963, 0.33222032740623947, 0.3381004094589809])
+</code></pre></div></div>
+
