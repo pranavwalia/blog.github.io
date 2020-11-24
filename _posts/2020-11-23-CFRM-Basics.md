@@ -3,7 +3,7 @@ layout: post
 title: Basic Counterfactual Regret Minimization (Rock Paper Scissors)
 description: In this article we will introduce an important concept of algorithmic game theory through the basic example of rock paper scissors.
 categories: [Algorithms, Game Theory]
-tags: [CFRM, game theory, algorithms]
+tags: [CFRM, AI, algorithms, game theory, implementation]
 fullview: false
 usemathjax: true
 comments: false
@@ -288,5 +288,6 @@ print(RPStoNash(1000000,[.4,.3,.3]))
 
     Player 1                                                     Player 2
     ([0.34083239238186, 0.3340920629119219, 0.3250755447062181], [0.32967926313477963, 0.33222032740623947, 0.3381004094589809])
+As we can see. The final strategy is around 33% for all options for each player.
 
 
