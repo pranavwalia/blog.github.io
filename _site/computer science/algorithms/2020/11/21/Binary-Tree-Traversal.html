@@ -222,8 +222,7 @@ MathJax.Hub.Register.StartupHook('TeX Jax Ready', function () {
 
 <h5 id="solution">Solution</h5>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">preOrderHelper</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
-    <span class="n">array</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">preOrderHelper</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">array</span> <span class="o">=</span> <span class="p">[]):</span>
 	<span class="k">if</span> <span class="n">tree</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
 		<span class="n">array</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>
 		<span class="n">preOrderHelper</span><span class="p">(</span><span class="n">tree</span><span class="p">.</span><span class="n">left</span><span class="p">,</span><span class="n">array</span><span class="p">)</span>
@@ -237,8 +236,7 @@ MathJax.Hub.Register.StartupHook('TeX Jax Ready', function () {
 
 <h5 id="solution-1">Solution</h5>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">inOrder</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
-    <span class="n">array</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">inOrder</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">array</span> <span class="o">=</span> <span class="p">[]):</span>
 	<span class="k">if</span> <span class="n">tree</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
 		<span class="n">inOrderHelper</span><span class="p">(</span><span class="n">tree</span><span class="p">.</span><span class="n">left</span><span class="p">,</span><span class="n">array</span><span class="p">)</span>
 		<span class="n">array</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>
@@ -252,8 +250,7 @@ MathJax.Hub.Register.StartupHook('TeX Jax Ready', function () {
 
 <h5 id="solution-2">Solution</h5>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">postOrder</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">postOrder</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">array</span> <span class="o">=</span> <span class="p">[]):</span>
 	<span class="k">if</span> <span class="n">tree</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
 		<span class="n">postOrderHelper</span><span class="p">(</span><span class="n">tree</span><span class="p">.</span><span class="n">left</span><span class="p">,</span><span class="n">array</span><span class="p">)</span>
 		<span class="n">postOrderHelper</span><span class="p">(</span><span class="n">tree</span><span class="p">.</span><span class="n">right</span><span class="p">,</span><span class="n">array</span><span class="p">)</span>
@@ -304,7 +301,7 @@ MathJax.Hub.Register.StartupHook('TeX Jax Ready', function () {
 				</a></li>
 			 
 				<li><a href="/categories.html#Algorithms-ref">
-					Algorithms <span>(1)</span>
+					Algorithms <span>(2)</span>
 					
 				</a></li>
 			
@@ -384,11 +381,9 @@ MathJax.Hub.Register.StartupHook('TeX Jax Ready', function () {
 		  <li class="previous"><a href="/game%20theory/mathematics/2020/11/19/St-Petersburg-Paradox.html" title="The St. Petersburg Paradox, When EV Isn't Enough">← Previous</a></li>
 		  
 		  
-			<li class="next disabled">
-<a>Next →</a>
+		  <li class="next"><a href="/algorithms/game%20theory/2020/11/23/CFRM-Basics.html" title="Basic Counterfactual Regret Minimization (Rock Paper Scissors)">Next →</a></li>
 		  
-		</li>
-</ul>
+		</ul>
 
 		<hr>
 	</div>
