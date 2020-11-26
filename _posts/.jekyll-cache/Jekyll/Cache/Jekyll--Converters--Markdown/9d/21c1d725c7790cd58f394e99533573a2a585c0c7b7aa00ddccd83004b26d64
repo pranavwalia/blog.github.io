@@ -1,4 +1,4 @@
-I"»v<p><img src="/home/pranav/Documents/Projects/blog.github.io/assets/images/ai.jpg" alt="AI" /></p>
+I"Þv<p><img src="/assets/images/ai.jpg" alt="AI" /></p>
 
 <h1 id="counterfactual-regret-minimization-rock-paper-scissors">Counterfactual Regret Minimization (Rock Paper Scissors)</h1>
 
@@ -264,7 +264,7 @@ Maximally Exploitative Strat [6.666666666666666e-07, 0.999999, 3.333333333333333
 </code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Player 1                                                     Player 2
-([0.34083239238186, 0.3340920629119219, 0.3250755447062181], [0.32967926313477963, 0.33222032740623947, 0.3381004094589809])
+([0.34083239238186, 0.3340920629119219, 0.3250755447062181], [0.32967926313477963, 0.33222032740623947, 0.3381004094589809]) As we can see. The final strategy is around 33% for all options for each player.
 </code></pre></div></div>
 
 :ET

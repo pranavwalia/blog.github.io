@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>Simple Monte Carlo Options Pricer In Python</title>
+	
+	<meta name="description" content="In this article we will cover the math behind options pricing and implement a monte carlo model in Python.">
+	
+	<meta name="author" content="Pranav Ahluwalia">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+
+	<!-- 'sha256-VYsgBNznL/PxRPaK8bYXrpDgo7OaXeSW/MaZMQN9s0k=' --><style type="text/css">
+                            .mjpage .MJX-monospace {
+                            font-family: monospace
+                            }
+
+                            .mjpage .MJX-sans-serif {
+                            font-family: sans-serif
+                            }
+
+                            .mjpage {
+                            display: inline;
+                            font-style: normal;
+                            font-weight: normal;
+                            line-height: normal;
+                            font-size: 100%;
+                            font-size-adjust: none;
+                            text-indent: 0;
+                            text-align: left;
+                            text-transform: none;
+                            letter-spacing: normal;
+                            word-spacing: normal;
+                            word-wrap: normal;
+                            white-space: nowrap;
+                            float: none;
+                            direction: ltr;
+                            max-width: none;
+                            max-height: none;
+                            min-width: 0;
+                            min-height: 0;
+                            border: 0;
+                            padding: 0;
+                            margin: 0
+                            }
+
+                            .mjpage * {
+                            transition: none;
+                            -webkit-transition: none;
+                            -moz-transition: none;
+                            -ms-transition: none;
+                            -o-transition: none
+                            }
+
+                            .mjx-svg-href {
+                            fill: blue;
+                            stroke: blue
+                            }
+
+                            .MathJax_SVG_LineBox {
+                            display: table!important
+                            }
+
+                            .MathJax_SVG_LineBox span {
+                            display: table-cell!important;
+                            width: 10000em!important;
+                            min-width: 0;
+                            max-width: none;
+                            padding: 0;
+                            border: 0;
+                            margin: 0
+                            }
+
+                            .mjpage__block {
+                            text-align: center;
+                            margin: 1em 0em;
+                            position: relative;
+                            display: block!important;
+                            text-indent: 0;
+                            max-width: none;
+                            max-height: none;
+                            min-width: 0;
+                            min-height: 0;
+                            width: 100%
+                            }</style>
+<!-- 'sha256-JWBYcZFLYkIIJbmou2YeCn7XLIVyzVxL+3MATEIcehQ=' --><style>.mathjax-inline-f17333b774e07e18{vertical-align: -0.838ex;}.mathjax-inline-f2702d65ab5f1fc9{vertical-align: -0.671ex;}.mathjax-inline-bd4bdaf2678151b0{vertical-align: -0.338ex;}.mathjax-inline-ed0372193ca06b70{vertical-align: -1.838ex;}.mathjax-inline-224b51a7b428d98b{display: none;}</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/pranavwalia">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:ahluwalia.pr@northeastern.edu">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			<a class="navbar-brand" href="/">
+				<img src="/avatar1.jpg" class="img-circle">
+				Pranav on Software
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/">Home</a></li>
+				<li><a href="/categories.html">Categories</a></li>
+				<li><a href="/tags.html">Tags</a></li>
+			</ul>
+		</div>
+<!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			<li><a href="/categories.html"><i class="fa fa-folder"></i>Categories</a></li>
+			<li><a href="/tags.html"><i class="fa fa-tags"></i>Tags</a></li>
+			<li class="divider">
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs" style="">
+		<!-- sidebar.html -->
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="/avatar.jpg" class="img-circle">
+	</a>
+	<h3 class="title">
+        <a href="/">Pranav on Software</a>
+    </h3>
+</header>
+
+
+<div id="bio" class="text-center">
+	My name is Pranav Ahluwalia. I am a computer scientist, esports athlete, and avid poker player
+</div>
+
+
+<div id="contact-list" class="text-center">
+        <ul class="list-unstyled list-inline">
+                <li>
+                        <a class="btn btn-default btn-sm" href="https://www.prandev.com"><i class="fa fa-user fa-lg"></i></a>
+                </li>
+                
+                <li>
+                        <a class="btn btn-default btn-sm" href="mailto:ahluwalia.pr@northeastern.edu">
+                                <i class="fa fa-envelope fa-lg"></i>
+                        </a>
+                </li>
+                
+
+                
+                <li>
+                        <a class="btn btn-default btn-sm" href="https://github.com/pranavwalia">
+                                <i class="fa fa-github-alt fa-lg"></i>
+                        </a>
+                </li>
+                
+                
+                
+                
+                <li>
+                        <a class="btn btn-default btn-sm" href="https://linkedin.com/in/pranav-ahluwalia-a19221116">
+                                <i class="fa fa-linkedin fa-lg"></i>
+                        </a>
+                </li>
+
+                <li>
+                        <a class="btn btn-default btn-sm" href="https://www.youtube.com/channel/UCV0XasiN2IqVwvxOaOacqDA">
+                                <i class="fa fa-youtube fa-lg"></i>
+                        </a>
+                </li>
+<!--
+                
+                <li>
+                        <a class="btn btn-default btn-sm" href="/feed.xml">
+                                <i class="fa fa-rss fa-lg"></i>
+                        </a>
+                </li>
+-->
+        </ul>
+</div>
+
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>Simple Monte Carlo Options Pricer In Python </h1>
+</div>
+<article>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Register.StartupHook('TeX Jax Ready', function () {
+  MathJax.InputJax.TeX.prefilterHooks.Add(function (data) {
+    data.math = data.math.replace(/^% <!\[CDATA\[/, '').replace(/%\]\]>$/, '');
+  });
+});
+</script>
+
+	<div class="col-sm-10">
+	 <span class="post-date">
+	   
+	   November 
+	   26th,
+	   
+	   2020
+	 </span>
+	  <div class="article_body">
+	  <p><img src="/assets/images/black-scholes.jpeg" alt="black-scholes"></p>
+
+<p>Today we will be pricing a vanilla call option using a monte carlo simulation in Python. Monte Carlo models are used by quantitative analysts to determine accurate and fair prices for securities. Typically, these models are implemented in a fast low level language such as C++. However, for the sake of ease, we’ll be using Python.</p>
+
+<h2 id="pre-requisites">Pre-Requisites:</h2>
+<p>Below is a list of pre-requisite knowledge to get the most out of this tutorial.</p>
+
+<h3 id="required">Required:</h3>
+<ul>
+  <li>Calculus</li>
+  <li>Probability and Statistics</li>
+  <li>Very basic programming</li>
+</ul>
+
+<h3 id="reccomended">Reccomended:</h3>
+<ul>
+  <li>Stochastic Processes</li>
+  <li>Stochastic Calculus or an introductory asset pricing class</li>
+</ul>
+
+<h2 id="understanding-the-math">Understanding The Math</h2>
+<p>Before diving into the code, we’ll cover some of the basic financial mathematics necessary to understand the model.</p>
+
+<h3 id="assumptions">Assumptions</h3>
+<p>In our model we will make the following assumptions.</p>
+<ul>
+  <li>The price of our stock will generally increase with respect to time</li>
+  <li>The expected return is a fixed rate of the current share price</li>
+  <li>The stock follows a random-walk behavior</li>
+</ul>
+
+<h3 id="the-stock-price-evolution-model">The Stock Price Evolution Model</h3>
+<p>We will be using a stochastic differential equation as the model of our stock price evolution. It will consist of a component representing the expected return on the stock $S_{t}$ over an infintesimal period of time $dt$, represented by:</p>
+
+<span class="mjpage mjpage__block"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="5.708ex" height="2.676ex" viewbox="0 -791.3 2457.6 1152.1" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-1-Title" class=" mathjax-inline-f17333b774e07e18">
+<title id="MathJax-SVG-1-Title">\mu S_{t}dt</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-3BC" x="0" y="0"></use>
+<g transform="translate(603,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="867" y="-213"></use>
+</g>
+ <use xlink:href="#MJMATHI-64" x="1572" y="0"></use>
+ <use xlink:href="#MJMATHI-74" x="2096" y="0"></use>
+</g>
+</svg></span>
+
+<p>Where <span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="2.251ex" height="2.509ex" viewbox="0 -791.3 969.1 1080.4" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-2-Title" class=" mathjax-inline-f2702d65ab5f1fc9">
+<title id="MathJax-SVG-2-Title">S_{t}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="867" y="-213"></use>
+</g>
+</svg></span> is the price of our share with respect to time, and $\mu$ is our expected rate of return.</p>
+
+<p>To make our model representative of real share price behavior we must also add a stochastic element represented by a fixed fraction of our price $\sigma$, our share price <span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="2.251ex" height="2.509ex" viewbox="0 -791.3 969.1 1080.4" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-3-Title" class=" mathjax-inline-f2702d65ab5f1fc9">
+<title id="MathJax-SVG-3-Title">S_{t}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="867" y="-213"></use>
+</g>
+</svg></span> and a random walk process <span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="4.236ex" height="2.509ex" viewbox="0 -791.3 1823.6 1080.4" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-4-Title" class=" mathjax-inline-f2702d65ab5f1fc9">
+<title id="MathJax-SVG-4-Title">dW_{t}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-64" x="0" y="0"></use>
+<g transform="translate(523,0)">
+ <use xlink:href="#MJMATHI-57" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="1335" y="-213"></use>
+</g>
+</g>
+</svg></span> to construct</p>
+
+<span class="mjpage mjpage__block"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="7.816ex" height="2.509ex" viewbox="0 -791.3 3365.2 1080.4" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-5-Title" class=" mathjax-inline-f2702d65ab5f1fc9">
+<title id="MathJax-SVG-5-Title">\sigma S_{t} dW_{t}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-3C3" x="0" y="0"></use>
+<g transform="translate(572,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="867" y="-213"></use>
+</g>
+ <use xlink:href="#MJMATHI-64" x="1541" y="0"></use>
+<g transform="translate(2065,0)">
+ <use xlink:href="#MJMATHI-57" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="1335" y="-213"></use>
+</g>
+</g>
+</svg></span>
+
+<p>Altogether, we get the equation:</p>
+
+<span class="mjpage mjpage__block"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="22.93ex" height="2.676ex" viewbox="0 -791.3 9872.5 1152.1" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-6-Title" class=" mathjax-inline-f17333b774e07e18">
+<title id="MathJax-SVG-6-Title">dS_{t} = \mu S_{t}dt + \sigma S_{t} dW_{t}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-64" x="0" y="0"></use>
+<g transform="translate(523,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="867" y="-213"></use>
+</g>
+ <use xlink:href="#MJMAIN-3D" x="1770" y="0"></use>
+ <use xlink:href="#MJMATHI-3BC" x="2826" y="0"></use>
+<g transform="translate(3430,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="867" y="-213"></use>
+</g>
+ <use xlink:href="#MJMATHI-64" x="4399" y="0"></use>
+ <use xlink:href="#MJMATHI-74" x="4922" y="0"></use>
+ <use xlink:href="#MJMAIN-2B" x="5506" y="0"></use>
+ <use xlink:href="#MJMATHI-3C3" x="6507" y="0"></use>
+<g transform="translate(7079,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="867" y="-213"></use>
+</g>
+ <use xlink:href="#MJMATHI-64" x="8048" y="0"></use>
+<g transform="translate(8572,0)">
+ <use xlink:href="#MJMATHI-57" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="1335" y="-213"></use>
+</g>
+</g>
+</svg></span>
+
+<h3 id="black-scholes-option-pricing-model">Black-Scholes Option Pricing Model</h3>
+<p>The Black-Scholes option pricing model tells us the the price of a vanilla option with a compounding rate <span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.049ex" height="1.676ex" viewbox="0 -576.1 451.5 721.6" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-7-Title" class=" mathjax-inline-bd4bdaf2678151b0">
+<title id="MathJax-SVG-7-Title">r</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-72" x="0" y="0"></use>
+</g>
+</svg></span>
+, expiration <span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.636ex" height="2.176ex" viewbox="0 -791.3 704.5 936.9" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-8-Title" class=" mathjax-inline-bd4bdaf2678151b0">
+<title id="MathJax-SVG-8-Title">T</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-54" x="0" y="0"></use>
+</g>
+</svg></span> and payoff function <span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.279ex" height="2.509ex" viewbox="0 -791.3 550.5 1080.4" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-9-Title" class=" mathjax-inline-f2702d65ab5f1fc9">
+<title id="MathJax-SVG-9-Title">f</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-66" x="0" y="0"></use>
+</g>
+</svg></span> is:</p>
+
+<span class="mjpage mjpage__block"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="13.98ex" height="3.176ex" viewbox="0 -1006.6 6019.1 1367.4" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-10-Title" class=" mathjax-inline-f17333b774e07e18">
+<title id="MathJax-SVG-10-Title">e^{-rT}E(f(S_{T}))</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-65" x="0" y="0"></use>
+<g transform="translate(466,412)">
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2212" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-72" x="778" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-54" x="1230" y="0"></use>
+</g>
+ <use xlink:href="#MJMATHI-45" x="1934" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="2698" y="0"></use>
+ <use xlink:href="#MJMATHI-66" x="3088" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="3638" y="0"></use>
+<g transform="translate(4028,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-54" x="867" y="-213"></use>
+</g>
+ <use xlink:href="#MJMAIN-29" x="5240" y="0"></use>
+ <use xlink:href="#MJMAIN-29" x="5629" y="0"></use>
+</g>
+</svg></span>
+
+<h4 id="solving-for-expectation">Solving for Expectation</h4>
+<p>In order to finish deriving an expression for our fair options price, we must solve the expression within the expected payoff function. To begin with, we will use a risk-neutral stochastic differential equation (see stock price evolution model) for the expectation of 
+<span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="2.251ex" height="2.509ex" viewbox="0 -791.3 969.1 1080.4" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-11-Title" class=" mathjax-inline-f2702d65ab5f1fc9">
+<title id="MathJax-SVG-11-Title">S_{t}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="867" y="-213"></use>
+</g>
+</svg></span>:</p>
+
+<span class="mjpage mjpage__block"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="22.832ex" height="2.509ex" viewbox="0 -791.3 9830.4 1080.4" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-12-Title" class=" mathjax-inline-f2702d65ab5f1fc9">
+<title id="MathJax-SVG-12-Title">dS_{t} = rS_{t}dt + \sigma S_{t}dW{t}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-64" x="0" y="0"></use>
+<g transform="translate(523,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="867" y="-213"></use>
+</g>
+ <use xlink:href="#MJMAIN-3D" x="1770" y="0"></use>
+ <use xlink:href="#MJMATHI-72" x="2826" y="0"></use>
+<g transform="translate(3278,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="867" y="-213"></use>
+</g>
+ <use xlink:href="#MJMATHI-64" x="4247" y="0"></use>
+ <use xlink:href="#MJMATHI-74" x="4770" y="0"></use>
+ <use xlink:href="#MJMAIN-2B" x="5354" y="0"></use>
+ <use xlink:href="#MJMATHI-3C3" x="6355" y="0"></use>
+<g transform="translate(6927,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="867" y="-213"></use>
+</g>
+ <use xlink:href="#MJMATHI-64" x="7896" y="0"></use>
+ <use xlink:href="#MJMATHI-57" x="8420" y="0"></use>
+ <use xlink:href="#MJMATHI-74" x="9468" y="0"></use>
+</g>
+</svg></span>
+
+<p>By taking the log of both sides of the equation and using Ito’s lemma, a solution to the stochastic process:</p>
+
+<span class="mjpage mjpage__block"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="32.276ex" height="5.176ex" viewbox="0 -1437.2 13896.6 2228.5" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-13-Title" class=" mathjax-inline-ed0372193ca06b70">
+<title id="MathJax-SVG-13-Title">d\log(S_{t}) = (r - \frac{1}{2}\sigma^2)dt + \sigma dW_{t}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-64" x="0" y="0"></use>
+<g transform="translate(690,0)">
+ <use xlink:href="#MJMAIN-6C"></use>
+ <use xlink:href="#MJMAIN-6F" x="278" y="0"></use>
+ <use xlink:href="#MJMAIN-67" x="779" y="0"></use>
+</g>
+ <use xlink:href="#MJMAIN-28" x="1969" y="0"></use>
+<g transform="translate(2359,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="867" y="-213"></use>
+</g>
+ <use xlink:href="#MJMAIN-29" x="3328" y="0"></use>
+ <use xlink:href="#MJMAIN-3D" x="3995" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="5051" y="0"></use>
+ <use xlink:href="#MJMATHI-72" x="5441" y="0"></use>
+ <use xlink:href="#MJMAIN-2212" x="6115" y="0"></use>
+<g transform="translate(6893,0)">
+<g transform="translate(342,0)">
+<rect stroke="none" width="620" height="60" x="0" y="220"></rect>
+ <use xlink:href="#MJMAIN-31" x="60" y="676"></use>
+ <use xlink:href="#MJMAIN-32" x="60" y="-687"></use>
+</g>
+</g>
+<g transform="translate(7976,0)">
+ <use xlink:href="#MJMATHI-3C3" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-32" x="810" y="583"></use>
+</g>
+ <use xlink:href="#MJMAIN-29" x="9003" y="0"></use>
+ <use xlink:href="#MJMATHI-64" x="9392" y="0"></use>
+ <use xlink:href="#MJMATHI-74" x="9916" y="0"></use>
+ <use xlink:href="#MJMAIN-2B" x="10499" y="0"></use>
+ <use xlink:href="#MJMATHI-3C3" x="11500" y="0"></use>
+ <use xlink:href="#MJMATHI-64" x="12072" y="0"></use>
+<g transform="translate(12596,0)">
+ <use xlink:href="#MJMATHI-57" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="1335" y="-213"></use>
+</g>
+</g>
+</svg></span>
+
+<p>substituting a constant coefficient for d, (a convinient model simplification) we will obtain the final expression:</p>
+
+<span class="mjpage mjpage__block"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="39.91ex" height="5.176ex" viewbox="0 -1437.2 17183.5 2228.5" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-14-Title" class=" mathjax-inline-ed0372193ca06b70">
+<title id="MathJax-SVG-14-Title">d\log(S_{t}) = log(S_{0}) + (r - \frac{1}{2}\sigma^2)t + \sigma W_{t}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-64" x="0" y="0"></use>
+<g transform="translate(690,0)">
+ <use xlink:href="#MJMAIN-6C"></use>
+ <use xlink:href="#MJMAIN-6F" x="278" y="0"></use>
+ <use xlink:href="#MJMAIN-67" x="779" y="0"></use>
+</g>
+ <use xlink:href="#MJMAIN-28" x="1969" y="0"></use>
+<g transform="translate(2359,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="867" y="-213"></use>
+</g>
+ <use xlink:href="#MJMAIN-29" x="3328" y="0"></use>
+ <use xlink:href="#MJMAIN-3D" x="3995" y="0"></use>
+ <use xlink:href="#MJMATHI-6C" x="5051" y="0"></use>
+ <use xlink:href="#MJMATHI-6F" x="5350" y="0"></use>
+ <use xlink:href="#MJMATHI-67" x="5835" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="6316" y="0"></use>
+<g transform="translate(6705,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="867" y="-213"></use>
+</g>
+ <use xlink:href="#MJMAIN-29" x="7773" y="0"></use>
+ <use xlink:href="#MJMAIN-2B" x="8384" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="9385" y="0"></use>
+ <use xlink:href="#MJMATHI-72" x="9775" y="0"></use>
+ <use xlink:href="#MJMAIN-2212" x="10448" y="0"></use>
+<g transform="translate(11227,0)">
+<g transform="translate(342,0)">
+<rect stroke="none" width="620" height="60" x="0" y="220"></rect>
+ <use xlink:href="#MJMAIN-31" x="60" y="676"></use>
+ <use xlink:href="#MJMAIN-32" x="60" y="-687"></use>
+</g>
+</g>
+<g transform="translate(12310,0)">
+ <use xlink:href="#MJMATHI-3C3" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-32" x="810" y="583"></use>
+</g>
+ <use xlink:href="#MJMAIN-29" x="13336" y="0"></use>
+ <use xlink:href="#MJMATHI-74" x="13726" y="0"></use>
+ <use xlink:href="#MJMAIN-2B" x="14310" y="0"></use>
+ <use xlink:href="#MJMATHI-3C3" x="15310" y="0"></use>
+<g transform="translate(15883,0)">
+ <use xlink:href="#MJMATHI-57" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="1335" y="-213"></use>
+</g>
+</g>
+</svg></span>
+
+<p><span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="3.02ex" height="2.509ex" viewbox="0 -791.3 1300.1 1080.4" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-15-Title" class=" mathjax-inline-f2702d65ab5f1fc9">
+<title id="MathJax-SVG-15-Title">W_{t}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-57" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="1335" y="-213"></use>
+</g>
+</svg></span> is a brownian motion process with a mean <span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.162ex" height="2.176ex" viewbox="0 -791.3 500.5 936.9" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-16-Title" class=" mathjax-inline-bd4bdaf2678151b0">
+<title id="MathJax-SVG-16-Title">0</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMAIN-30" x="0" y="0"></use>
+</g>
+</svg></span> and variance <span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.636ex" height="2.176ex" viewbox="0 -791.3 704.5 936.9" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-17-Title" class=" mathjax-inline-bd4bdaf2678151b0">
+<title id="MathJax-SVG-17-Title">T</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-54" x="0" y="0"></use>
+</g>
+</svg></span> and normally distributed random variable <span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="7.232ex" height="2.843ex" viewbox="0 -863.1 3113.7 1223.9" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-18-Title" class=" mathjax-inline-f17333b774e07e18">
+<title id="MathJax-SVG-18-Title">N(0,1)</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-4E" x="0" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="888" y="0"></use>
+ <use xlink:href="#MJMAIN-30" x="1278" y="0"></use>
+ <use xlink:href="#MJMAIN-2C" x="1778" y="0"></use>
+ <use xlink:href="#MJMAIN-31" x="2223" y="0"></use>
+ <use xlink:href="#MJMAIN-29" x="2724" y="0"></use>
+</g>
+</svg></span>:</p>
+
+<span class="mjpage mjpage__block"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="17.485ex" height="3.176ex" viewbox="0 -1006.6 7528.4 1367.4" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-19-Title" class=" mathjax-inline-f17333b774e07e18">
+<title id="MathJax-SVG-19-Title">W_{T} = \sqrt{T}N(0,1)</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-57" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-54" x="1335" y="-213"></use>
+ <use xlink:href="#MJMAIN-3D" x="1820" y="0"></use>
+<g transform="translate(2876,0)">
+ <use xlink:href="#MJMAIN-221A" x="0" y="14"></use>
+<rect stroke="none" width="704" height="60" x="833" y="755"></rect>
+ <use xlink:href="#MJMATHI-54" x="833" y="0"></use>
+</g>
+ <use xlink:href="#MJMATHI-4E" x="4414" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="5303" y="0"></use>
+ <use xlink:href="#MJMAIN-30" x="5692" y="0"></use>
+ <use xlink:href="#MJMAIN-2C" x="6193" y="0"></use>
+ <use xlink:href="#MJMAIN-31" x="6638" y="0"></use>
+ <use xlink:href="#MJMAIN-29" x="7138" y="0"></use>
+</g>
+</svg></span>
+
+<p>Our final expression for <span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="2.251ex" height="2.509ex" viewbox="0 -791.3 969.1 1080.4" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-20-Title" class=" mathjax-inline-f2702d65ab5f1fc9">
+<title id="MathJax-SVG-20-Title">S_{t}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-74" x="867" y="-213"></use>
+</g>
+</svg></span> is:</p>
+
+<span class="mjpage mjpage__block"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="47.417ex" height="5.176ex" viewbox="0 -1437.2 20415.4 2228.5" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-21-Title" class=" mathjax-inline-ed0372193ca06b70">
+<title id="MathJax-SVG-21-Title">log(S_{T}) = log(S_{0}) + (r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-6C" x="0" y="0"></use>
+ <use xlink:href="#MJMATHI-6F" x="298" y="0"></use>
+ <use xlink:href="#MJMATHI-67" x="784" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="1264" y="0"></use>
+<g transform="translate(1654,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-54" x="867" y="-213"></use>
+</g>
+ <use xlink:href="#MJMAIN-29" x="2865" y="0"></use>
+ <use xlink:href="#MJMAIN-3D" x="3532" y="0"></use>
+ <use xlink:href="#MJMATHI-6C" x="4589" y="0"></use>
+ <use xlink:href="#MJMATHI-6F" x="4887" y="0"></use>
+ <use xlink:href="#MJMATHI-67" x="5373" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="5853" y="0"></use>
+<g transform="translate(6243,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="867" y="-213"></use>
+</g>
+ <use xlink:href="#MJMAIN-29" x="7310" y="0"></use>
+ <use xlink:href="#MJMAIN-2B" x="7922" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="8923" y="0"></use>
+ <use xlink:href="#MJMATHI-72" x="9312" y="0"></use>
+ <use xlink:href="#MJMAIN-2212" x="9986" y="0"></use>
+<g transform="translate(10764,0)">
+<g transform="translate(342,0)">
+<rect stroke="none" width="620" height="60" x="0" y="220"></rect>
+ <use xlink:href="#MJMAIN-31" x="60" y="676"></use>
+ <use xlink:href="#MJMAIN-32" x="60" y="-687"></use>
+</g>
+</g>
+<g transform="translate(11847,0)">
+ <use xlink:href="#MJMATHI-3C3" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-32" x="810" y="583"></use>
+</g>
+ <use xlink:href="#MJMAIN-29" x="12874" y="0"></use>
+ <use xlink:href="#MJMATHI-54" x="13263" y="0"></use>
+ <use xlink:href="#MJMAIN-2B" x="14190" y="0"></use>
+ <use xlink:href="#MJMATHI-3C3" x="15191" y="0"></use>
+<g transform="translate(15763,0)">
+ <use xlink:href="#MJMAIN-221A" x="0" y="14"></use>
+<rect stroke="none" width="704" height="60" x="833" y="755"></rect>
+ <use xlink:href="#MJMATHI-54" x="833" y="0"></use>
+</g>
+ <use xlink:href="#MJMATHI-4E" x="17301" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="18190" y="0"></use>
+ <use xlink:href="#MJMAIN-30" x="18579" y="0"></use>
+ <use xlink:href="#MJMAIN-2C" x="19080" y="0"></use>
+ <use xlink:href="#MJMAIN-31" x="19525" y="0"></use>
+ <use xlink:href="#MJMAIN-29" x="20025" y="0"></use>
+</g>
+</svg></span>
+
+<p>Raising the <span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.083ex" height="1.676ex" viewbox="0 -576.1 466.5 721.6" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-22-Title" class=" mathjax-inline-bd4bdaf2678151b0">
+<title id="MathJax-SVG-22-Title">e</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-65" x="0" y="0"></use>
+</g>
+</svg></span> to the equation, we can simplify to:</p>
+
+<span class="mjpage mjpage__block"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="27.024ex" height="3.843ex" viewbox="0 -1365.4 11635.5 1654.5" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-23-Title" class=" mathjax-inline-f2702d65ab5f1fc9">
+<title id="MathJax-SVG-23-Title">S_{T} = S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-54" x="867" y="-213"></use>
+ <use xlink:href="#MJMAIN-3D" x="1489" y="0"></use>
+<g transform="translate(2545,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="867" y="-213"></use>
+</g>
+<g transform="translate(3613,0)">
+ <use xlink:href="#MJMATHI-65" x="0" y="0"></use>
+<g transform="translate(466,508)">
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-28" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-72" x="389" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2212" x="841" y="0"></use>
+<g transform="translate(1145,0)">
+<g transform="translate(120,0)">
+<rect stroke="none" width="407" height="60" x="0" y="146"></rect>
+ <use transform="scale(0.574)" xlink:href="#MJMAIN-31" x="104" y="647"></use>
+ <use transform="scale(0.574)" xlink:href="#MJMAIN-32" x="104" y="-698"></use>
+</g>
+</g>
+<g transform="translate(1792,0)">
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-3C3" x="0" y="0"></use>
+ <use transform="scale(0.574)" xlink:href="#MJMAIN-32" x="705" y="446"></use>
+</g>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-29" x="3614" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-54" x="4003" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2B" x="4708" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-3C3" x="5486" y="0"></use>
+<g transform="translate(4284,0)">
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-221A" x="0" y="22"></use>
+<rect stroke="none" width="498" height="42" x="589" y="539"></rect>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-54" x="833" y="0"></use>
+</g>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-4E" x="7597" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-28" x="8485" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="8875" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2C" x="9375" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="9654" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-29" x="10154" y="0"></use>
+</g>
+</g>
+</g>
+</svg></span>
+
+<p>We will continously sample random numbers for $N(0,1)$ into the equation while maintaining a running sum:</p>
+
+<span class="mjpage mjpage__block"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="17.411ex" height="2.843ex" viewbox="0 -863.1 7496.5 1223.9" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-24-Title" class=" mathjax-inline-f17333b774e07e18">
+<title id="MathJax-SVG-24-Title">f(S) = (S - K)_{+}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-66" x="0" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="550" y="0"></use>
+ <use xlink:href="#MJMATHI-53" x="940" y="0"></use>
+ <use xlink:href="#MJMAIN-29" x="1585" y="0"></use>
+ <use xlink:href="#MJMAIN-3D" x="2252" y="0"></use>
+ <use xlink:href="#MJMAIN-28" x="3309" y="0"></use>
+ <use xlink:href="#MJMATHI-53" x="3698" y="0"></use>
+ <use xlink:href="#MJMAIN-2212" x="4566" y="0"></use>
+ <use xlink:href="#MJMATHI-4B" x="5567" y="0"></use>
+<g transform="translate(6456,0)">
+ <use xlink:href="#MJMAIN-29" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2B" x="550" y="-213"></use>
+</g>
+</g>
+</svg></span>
+
+<p>Where <span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="2.066ex" height="2.176ex" viewbox="0 -791.3 889.5 936.9" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-25-Title" class=" mathjax-inline-bd4bdaf2678151b0">
+<title id="MathJax-SVG-25-Title">K</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-4B" x="0" y="0"></use>
+</g>
+</svg></span> is the strike price. The average of this expression where n is the number of random samples we take will be</p>
+
+<span class="mjpage mjpage__block"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="30.914ex" height="6.843ex" viewbox="0 -2154.8 13310 2946.1" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-26-Title" class=" mathjax-inline-ed0372193ca06b70">
+<title id="MathJax-SVG-26-Title">\frac{\sum_{i}^{n} S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K}{n}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+<g transform="translate(120,0)">
+<rect stroke="none" width="13069" height="60" x="0" y="220"></rect>
+<g transform="translate(60,814)">
+ <use xlink:href="#MJSZ1-2211" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-6E" x="1494" y="675"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1494" y="-405"></use>
+<g transform="translate(1747,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="867" y="-213"></use>
+</g>
+<g transform="translate(2815,0)">
+ <use xlink:href="#MJMATHI-65" x="0" y="0"></use>
+<g transform="translate(466,508)">
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-28" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-72" x="389" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2212" x="841" y="0"></use>
+<g transform="translate(1145,0)">
+<g transform="translate(120,0)">
+<rect stroke="none" width="407" height="60" x="0" y="146"></rect>
+ <use transform="scale(0.574)" xlink:href="#MJMAIN-31" x="104" y="647"></use>
+ <use transform="scale(0.574)" xlink:href="#MJMAIN-32" x="104" y="-698"></use>
+</g>
+</g>
+<g transform="translate(1792,0)">
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-3C3" x="0" y="0"></use>
+ <use transform="scale(0.574)" xlink:href="#MJMAIN-32" x="705" y="446"></use>
+</g>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-29" x="3614" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-54" x="4003" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2B" x="4708" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-3C3" x="5486" y="0"></use>
+<g transform="translate(4284,0)">
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-221A" x="0" y="22"></use>
+<rect stroke="none" width="498" height="42" x="589" y="539"></rect>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-54" x="833" y="0"></use>
+</g>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-4E" x="7597" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-28" x="8485" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="8875" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2C" x="9375" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="9654" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-29" x="10154" y="0"></use>
+</g>
+</g>
+ <use xlink:href="#MJMAIN-2212" x="11059" y="0"></use>
+ <use xlink:href="#MJMATHI-4B" x="12060" y="0"></use>
+</g>
+ <use xlink:href="#MJMATHI-6E" x="6234" y="-686"></use>
+</g>
+</g>
+</svg></span>
+
+<h4 id="final-expression">Final Expression</h4>
+<p>Our final expression for the fair price of the option will be the above expression multiplied by <span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="4.493ex" height="2.509ex" viewbox="0 -934.9 1934.4 1080.4" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-27-Title" class=" mathjax-inline-bd4bdaf2678151b0">
+<title id="MathJax-SVG-27-Title">e^{-rT}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-65" x="0" y="0"></use>
+<g transform="translate(466,362)">
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2212" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-72" x="778" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-54" x="1230" y="0"></use>
+</g>
+</g>
+</svg></span> to complete our original black scholes model.</p>
+
+<span class="mjpage mjpage__block"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="36.686ex" height="6.843ex" viewbox="0 -2154.8 15795.2 2946.1" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-28-Title" class=" mathjax-inline-ed0372193ca06b70">
+<title id="MathJax-SVG-28-Title">e^{(-rT)}\frac{\sum_{i}^{n} S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K}{n}</title>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
+ <use xlink:href="#MJMATHI-65" x="0" y="0"></use>
+<g transform="translate(466,412)">
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-28" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2212" x="389" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-72" x="1168" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-54" x="1619" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-29" x="2324" y="0"></use>
+</g>
+<g transform="translate(2485,0)">
+<g transform="translate(120,0)">
+<rect stroke="none" width="13069" height="60" x="0" y="220"></rect>
+<g transform="translate(60,814)">
+ <use xlink:href="#MJSZ1-2211" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-6E" x="1494" y="675"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-69" x="1494" y="-405"></use>
+<g transform="translate(1747,0)">
+ <use xlink:href="#MJMATHI-53" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="867" y="-213"></use>
+</g>
+<g transform="translate(2815,0)">
+ <use xlink:href="#MJMATHI-65" x="0" y="0"></use>
+<g transform="translate(466,508)">
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-28" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-72" x="389" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2212" x="841" y="0"></use>
+<g transform="translate(1145,0)">
+<g transform="translate(120,0)">
+<rect stroke="none" width="407" height="60" x="0" y="146"></rect>
+ <use transform="scale(0.574)" xlink:href="#MJMAIN-31" x="104" y="647"></use>
+ <use transform="scale(0.574)" xlink:href="#MJMAIN-32" x="104" y="-698"></use>
+</g>
+</g>
+<g transform="translate(1792,0)">
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-3C3" x="0" y="0"></use>
+ <use transform="scale(0.574)" xlink:href="#MJMAIN-32" x="705" y="446"></use>
+</g>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-29" x="3614" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-54" x="4003" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2B" x="4708" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-3C3" x="5486" y="0"></use>
+<g transform="translate(4284,0)">
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-221A" x="0" y="22"></use>
+<rect stroke="none" width="498" height="42" x="589" y="539"></rect>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-54" x="833" y="0"></use>
+</g>
+ <use transform="scale(0.707)" xlink:href="#MJMATHI-4E" x="7597" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-28" x="8485" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-30" x="8875" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-2C" x="9375" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="9654" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#MJMAIN-29" x="10154" y="0"></use>
+</g>
+</g>
+ <use xlink:href="#MJMAIN-2212" x="11059" y="0"></use>
+ <use xlink:href="#MJMATHI-4B" x="12060" y="0"></use>
+</g>
+ <use xlink:href="#MJMATHI-6E" x="6234" y="-686"></use>
+</g>
+</g>
+</g>
+</svg></span>
+
+<h2 id="the-code">The Code</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">class</span> <span class="nc">SimpleMCPricer</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expiry</span><span class="p">,</span> <span class="n">strike</span><span class="p">,</span> <span class="n">spot</span><span class="p">,</span> <span class="n">vol</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">paths</span><span class="p">):</span>
+        <span class="c1">#The sigma value on the left side of the exponent
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">variance</span> <span class="o">=</span> <span class="n">vol</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">expiry</span>
+        <span class="c1">#The sigma value on the right side of the e exponent
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">root_Variance</span> <span class="o">=</span> <span class="n">math</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">variance</span><span class="p">)</span>
+        <span class="c1">#Corresponds to the (-1/2 * sigma^2)
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">itoCorr</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="p">.</span><span class="n">variance</span>
+        <span class="c1">##Corresponds to S0e^(rT - 1/2 sigma^2T)
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">movedSpot</span> <span class="o">=</span> <span class="n">spot</span><span class="o">*</span><span class="n">math</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">expiry</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">itoCorr</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">runningSum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1">##Simulate for all paths
+</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">paths</span><span class="p">):</span>
+            <span class="n">thisGauss</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">thisGauss</span> <span class="o">=</span> <span class="n">thisGauss</span><span class="o">/</span><span class="mi">1000</span>
+            <span class="c1">##Our rootVariance already has been multiplied by the expiry
+</span>            <span class="n">thisSpot</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">movedSpot</span><span class="o">*</span><span class="n">math</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">root_Variance</span><span class="o">*</span><span class="n">thisGauss</span><span class="p">)</span>
+            <span class="c1">#Determine payoff of this specific path
+</span>            <span class="n">thisPayoff</span> <span class="o">=</span> <span class="n">thisSpot</span> <span class="o">-</span> <span class="n">strike</span>
+            <span class="c1">#Value of option is zero is our price is less than the strike
+</span>            <span class="n">thisPayoff</span> <span class="o">=</span> <span class="n">thisPayoff</span> <span class="k">if</span> <span class="n">thisPayoff</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">runningSum</span><span class="o">+=</span><span class="n">thisPayoff</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">mean</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">runningSum</span><span class="o">/</span><span class="n">paths</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">mean</span><span class="o">*=</span> <span class="n">math</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r</span> <span class="o">*</span> <span class="n">expiry</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">getMean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">mean</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="run-the-model">Run the Model!</h3>
+<p>Let us run the model on an option with expiration in 2 years, with a strike price of 32 dollars, a current price of 30 dollars, a 10% volatility parameter, and a 3% rate of return. We will simulate 100,000 paths and determine the fair price.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="n">SimpleMCPricer</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">30</span><span class="p">,.</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.03</span><span class="p">,</span><span class="mi">1000000</span><span class="p">)</span>
+<span class="n">model</span><span class="p">.</span><span class="n">getMean</span><span class="p">()</span>
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.79
+</code></pre></div></div>
+
+<p>As you can see, the calculated fair price of the option is 1.79 dollars.</p>
+
+<h2 id="sources-and-further-reading">Sources and Further Reading</h2>
+<p>[1] C++ Design Patterns and Derivatives Pricing, Mark S. Joshi</p>
+
+<p>[2] The Concepts and Practices of Mathematical Finance, Mark S. Joshi</p>
+
+<p>[3] Stock price modelling: Theory and Practice, Abdelmoula Dmouj</p>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/categories.html#Computer%20Science-ref">
+					Computer Science <span>(2)</span>
+					,
+				</a></li>
+			 
+				<li><a href="/categories.html#Mathematics-ref">
+					Mathematics <span>(2)</span>
+					,
+				</a></li>
+			 
+				<li><a href="/categories.html#Quantitative%20Finance-ref">
+					Quantitative Finance <span>(1)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tags.html#Options-ref">
+					Options <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#Design%20Patterns-ref">
+					Design Patterns <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#Finance-ref">
+					Finance <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Simple%20Monte%20Carlo%20Options%20Pricer%20In%20Python" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus" onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+
+      <section class="col-sm-6 author">
+        <img src="/avatar1.jpg" class="img-rounded author-image">
+        <h4 class="section-title author-name">Pranav Ahluwalia</h4>
+	<p class="author-bio">My name is Pranav Ahluwalia. I am a computer scientist, esports athlete, and avid poker player<br><a href="https://www.prandev.com">More About Me</a></p>
+      </section>
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/algorithms/game%20theory/2020/11/23/CFRM-Basics.html" title="Basic Counterfactual Regret Minimization (Rock Paper Scissors)">← Previous</a></li>
+		  
+		  
+			<li class="next disabled">
+<a>Next →</a>
+		  
+		</li>
+</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+
+
+
+
+		<footer>
+			<hr>
+			<p>
+				© 2020 Pranav Ahluwalia with <a href="http://jekyllrb.com/">Jekyll</a>. Theme: <a href="https://github.com/dbtek/dbyll">dbyll</a> by dbtek.
+			</p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'G-MF130YPYZE', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" class=" mathjax-inline-224b51a7b428d98b"><defs id="MathJax_SVG_glyphs"><path stroke-width="1" id="MJMATHI-3BC" d="M58 -216Q44 -216 34 -208T23 -186Q23 -176 96 116T173 414Q186 442 219 442Q231 441 239 435T249 423T251 413Q251 401 220 279T187 142Q185 131 185 107V99Q185 26 252 26Q261 26 270 27T287 31T302 38T315 45T327 55T338 65T348 77T356 88T365 100L372 110L408 253Q444 395 448 404Q461 431 491 431Q504 431 512 424T523 412T525 402L449 84Q448 79 448 68Q448 43 455 35T476 26Q485 27 496 35Q517 55 537 131Q543 151 547 152Q549 153 557 153H561Q580 153 580 144Q580 138 575 117T555 63T523 13Q510 0 491 -8Q483 -10 467 -10Q446 -10 429 -4T402 11T385 29T376 44T374 51L368 45Q362 39 350 30T324 12T288 -4T246 -11Q199 -11 153 12L129 -85Q108 -167 104 -180T92 -202Q76 -216 58 -216Z"></path><path stroke-width="1" id="MJMATHI-53" d="M308 24Q367 24 416 76T466 197Q466 260 414 284Q308 311 278 321T236 341Q176 383 176 462Q176 523 208 573T273 648Q302 673 343 688T407 704H418H425Q521 704 564 640Q565 640 577 653T603 682T623 704Q624 704 627 704T632 705Q645 705 645 698T617 577T585 459T569 456Q549 456 549 465Q549 471 550 475Q550 478 551 494T553 520Q553 554 544 579T526 616T501 641Q465 662 419 662Q362 662 313 616T263 510Q263 480 278 458T319 427Q323 425 389 408T456 390Q490 379 522 342T554 242Q554 216 546 186Q541 164 528 137T492 78T426 18T332 -20Q320 -22 298 -22Q199 -22 144 33L134 44L106 13Q83 -14 78 -18T65 -22Q52 -22 52 -14Q52 -11 110 221Q112 227 130 227H143Q149 221 149 216Q149 214 148 207T144 186T142 153Q144 114 160 87T203 47T255 29T308 24Z"></path><path stroke-width="1" id="MJMATHI-74" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path><path stroke-width="1" id="MJMATHI-64" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path><path stroke-width="1" id="MJMATHI-57" d="M436 683Q450 683 486 682T553 680Q604 680 638 681T677 682Q695 682 695 674Q695 670 692 659Q687 641 683 639T661 637Q636 636 621 632T600 624T597 615Q597 603 613 377T629 138L631 141Q633 144 637 151T649 170T666 200T690 241T720 295T759 362Q863 546 877 572T892 604Q892 619 873 628T831 637Q817 637 817 647Q817 650 819 660Q823 676 825 679T839 682Q842 682 856 682T895 682T949 681Q1015 681 1034 683Q1048 683 1048 672Q1048 666 1045 655T1038 640T1028 637Q1006 637 988 631T958 617T939 600T927 584L923 578L754 282Q586 -14 585 -15Q579 -22 561 -22Q546 -22 542 -17Q539 -14 523 229T506 480L494 462Q472 425 366 239Q222 -13 220 -15T215 -19Q210 -22 197 -22Q178 -22 176 -15Q176 -12 154 304T131 622Q129 631 121 633T82 637H58Q51 644 51 648Q52 671 64 683H76Q118 680 176 680Q301 680 313 683H323Q329 677 329 674T327 656Q322 641 318 637H297Q236 634 232 620Q262 160 266 136L501 550L499 587Q496 629 489 632Q483 636 447 637Q428 637 422 639T416 648Q416 650 418 660Q419 664 420 669T421 676T424 680T428 682T436 683Z"></path><path stroke-width="1" id="MJMATHI-3C3" d="M184 -11Q116 -11 74 34T31 147Q31 247 104 333T274 430Q275 431 414 431H552Q553 430 555 429T559 427T562 425T565 422T567 420T569 416T570 412T571 407T572 401Q572 357 507 357Q500 357 490 357T476 358H416L421 348Q439 310 439 263Q439 153 359 71T184 -11ZM361 278Q361 358 276 358Q152 358 115 184Q114 180 114 178Q106 141 106 117Q106 67 131 47T188 26Q242 26 287 73Q316 103 334 153T356 233T361 278Z"></path><path stroke-width="1" id="MJMAIN-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path stroke-width="1" id="MJMAIN-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path><path stroke-width="1" id="MJMATHI-72" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path stroke-width="1" id="MJMATHI-54" d="M40 437Q21 437 21 445Q21 450 37 501T71 602L88 651Q93 669 101 677H569H659Q691 677 697 676T704 667Q704 661 687 553T668 444Q668 437 649 437Q640 437 637 437T631 442L629 445Q629 451 635 490T641 551Q641 586 628 604T573 629Q568 630 515 631Q469 631 457 630T439 622Q438 621 368 343T298 60Q298 48 386 46Q418 46 427 45T436 36Q436 31 433 22Q429 4 424 1L422 0Q419 0 415 0Q410 0 363 1T228 2Q99 2 64 0H49Q43 6 43 9T45 27Q49 40 55 46H83H94Q174 46 189 55Q190 56 191 56Q196 59 201 76T241 233Q258 301 269 344Q339 619 339 625Q339 630 310 630H279Q212 630 191 624Q146 614 121 583T67 467Q60 445 57 441T43 437H40Z"></path><path stroke-width="1" id="MJMATHI-66" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path><path stroke-width="1" id="MJMATHI-65" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path><path stroke-width="1" id="MJMAIN-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path><path stroke-width="1" id="MJMATHI-45" d="M492 213Q472 213 472 226Q472 230 477 250T482 285Q482 316 461 323T364 330H312Q311 328 277 192T243 52Q243 48 254 48T334 46Q428 46 458 48T518 61Q567 77 599 117T670 248Q680 270 683 272Q690 274 698 274Q718 274 718 261Q613 7 608 2Q605 0 322 0H133Q31 0 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H757Q764 676 764 669Q764 664 751 557T737 447Q735 440 717 440H705Q698 445 698 453L701 476Q704 500 704 528Q704 558 697 578T678 609T643 625T596 632T532 634H485Q397 633 392 631Q388 629 386 622Q385 619 355 499T324 377Q347 376 372 376H398Q464 376 489 391T534 472Q538 488 540 490T557 493Q562 493 565 493T570 492T572 491T574 487T577 483L544 351Q511 218 508 216Q505 213 492 213Z"></path><path stroke-width="1" id="MJMAIN-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path stroke-width="1" id="MJMAIN-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path><path stroke-width="1" id="MJMAIN-6C" d="M42 46H56Q95 46 103 60V68Q103 77 103 91T103 124T104 167T104 217T104 272T104 329Q104 366 104 407T104 482T104 542T103 586T103 603Q100 622 89 628T44 637H26V660Q26 683 28 683L38 684Q48 685 67 686T104 688Q121 689 141 690T171 693T182 694H185V379Q185 62 186 60Q190 52 198 49Q219 46 247 46H263V0H255L232 1Q209 2 183 2T145 3T107 3T57 1L34 0H26V46H42Z"></path><path stroke-width="1" id="MJMAIN-6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z"></path><path stroke-width="1" id="MJMAIN-67" d="M329 409Q373 453 429 453Q459 453 472 434T485 396Q485 382 476 371T449 360Q416 360 412 390Q410 404 415 411Q415 412 416 414V415Q388 412 363 393Q355 388 355 386Q355 385 359 381T368 369T379 351T388 325T392 292Q392 230 343 187T222 143Q172 143 123 171Q112 153 112 133Q112 98 138 81Q147 75 155 75T227 73Q311 72 335 67Q396 58 431 26Q470 -13 470 -72Q470 -139 392 -175Q332 -206 250 -206Q167 -206 107 -175Q29 -140 29 -75Q29 -39 50 -15T92 18L103 24Q67 55 67 108Q67 155 96 193Q52 237 52 292Q52 355 102 398T223 442Q274 442 318 416L329 409ZM299 343Q294 371 273 387T221 404Q192 404 171 388T145 343Q142 326 142 292Q142 248 149 227T179 192Q196 182 222 182Q244 182 260 189T283 207T294 227T299 242Q302 258 302 292T299 343ZM403 -75Q403 -50 389 -34T348 -11T299 -2T245 0H218Q151 0 138 -6Q118 -15 107 -34T95 -74Q95 -84 101 -97T122 -127T170 -155T250 -167Q319 -167 361 -139T403 -75Z"></path><path stroke-width="1" id="MJMAIN-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path stroke-width="1" id="MJMAIN-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path stroke-width="1" id="MJMATHI-6C" d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z"></path><path stroke-width="1" id="MJMATHI-6F" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path><path stroke-width="1" id="MJMATHI-67" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path><path stroke-width="1" id="MJMAIN-30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path><path stroke-width="1" id="MJMATHI-4E" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path><path stroke-width="1" id="MJMAIN-2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path><path stroke-width="1" id="MJMAIN-221A" d="M95 178Q89 178 81 186T72 200T103 230T169 280T207 309Q209 311 212 311H213Q219 311 227 294T281 177Q300 134 312 108L397 -77Q398 -77 501 136T707 565T814 786Q820 800 834 800Q841 800 846 794T853 782V776L620 293L385 -193Q381 -200 366 -200Q357 -200 354 -197Q352 -195 256 15L160 225L144 214Q129 202 113 190T95 178Z"></path><path stroke-width="1" id="MJMATHI-4B" d="M285 628Q285 635 228 637Q205 637 198 638T191 647Q191 649 193 661Q199 681 203 682Q205 683 214 683H219Q260 681 355 681Q389 681 418 681T463 682T483 682Q500 682 500 674Q500 669 497 660Q496 658 496 654T495 648T493 644T490 641T486 639T479 638T470 637T456 637Q416 636 405 634T387 623L306 305Q307 305 490 449T678 597Q692 611 692 620Q692 635 667 637Q651 637 651 648Q651 650 654 662T659 677Q662 682 676 682Q680 682 711 681T791 680Q814 680 839 681T869 682Q889 682 889 672Q889 650 881 642Q878 637 862 637Q787 632 726 586Q710 576 656 534T556 455L509 418L518 396Q527 374 546 329T581 244Q656 67 661 61Q663 59 666 57Q680 47 717 46H738Q744 38 744 37T741 19Q737 6 731 0H720Q680 3 625 3Q503 3 488 0H478Q472 6 472 9T474 27Q478 40 480 43T491 46H494Q544 46 544 71Q544 75 517 141T485 216L427 354L359 301L291 248L268 155Q245 63 245 58Q245 51 253 49T303 46H334Q340 37 340 35Q340 19 333 5Q328 0 317 0Q314 0 280 1T180 2Q118 2 85 2T49 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Z"></path><path stroke-width="1" id="MJSZ1-2211" d="M61 748Q64 750 489 750H913L954 640Q965 609 976 579T993 533T999 516H979L959 517Q936 579 886 621T777 682Q724 700 655 705T436 710H319Q183 710 183 709Q186 706 348 484T511 259Q517 250 513 244L490 216Q466 188 420 134T330 27L149 -187Q149 -188 362 -188Q388 -188 436 -188T506 -189Q679 -189 778 -162T936 -43Q946 -27 959 6H999L913 -249L489 -250Q65 -250 62 -248Q56 -246 56 -239Q56 -234 118 -161Q186 -81 245 -11L428 206Q428 207 242 462L57 717L56 728Q56 744 61 748Z"></path><path stroke-width="1" id="MJMATHI-6E" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path><path stroke-width="1" id="MJMATHI-69" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></defs></svg>
+</body>
+</html>
