@@ -21,7 +21,7 @@ Below is a list of pre-requisite knowledge to get the most out of this tutorial.
 - Probability and Statistics
 - Very basic programming
 
-### Reccomended:
+### Recommended:
 - Stochastic Processes
 - Stochastic Calculus or an introductory asset pricing class
 
@@ -54,7 +54,6 @@ $$
 ### Black-Scholes Option Pricing Model
 The Black-Scholes option pricing model tells us the the price of a vanilla option with a compounding rate $$r$$
 , expiration $$T$$ and payoff function $$f$$ is:
-
 $$
 e^{-rT}E(f(S_{T}))
 $$
@@ -155,7 +154,7 @@ class SimpleMCPricer():
 ```
 
 ### Run the Model!
-Let us run the model on an option with expiration in 2 years, with a strike price of 32 dollars, a current price of 30 dollars, a 10% volatility parameter, and a 3% rate of return. We will simulate 100,000 paths and determine the fair price. 
+Let us run the model on an option with expiration in 2 years, with a strike price of 32 dollars, a current price of 30 dollars, a 10% volatility parameter, and a 3% rate of return. We will simulate 1,000,000 paths and determine the fair price. 
 
 
 ```python
