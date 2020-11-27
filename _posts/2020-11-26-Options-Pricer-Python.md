@@ -106,7 +106,7 @@ $$
 Where $$K$$ is the strike price. The average of this expression where n is the number of random samples we take will be
 
 $$
-\frac{\sum_{i}^{n} S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K}{n}
+\frac{\sum_{i}^{n} (S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K)}{n}
 $$
 
 #### Final Expression
