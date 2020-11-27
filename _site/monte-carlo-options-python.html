@@ -263,7 +263,7 @@ MathJax.Hub.Register.StartupHook('TeX Jax Ready', function () {
   <li>Very basic programming</li>
 </ul>
 
-<h3 id="reccomended">Reccomended:</h3>
+<h3 id="recommended">Recommended:</h3>
 <ul>
   <li>Stochastic Processes</li>
   <li>Stochastic Calculus or an introductory asset pricing class</li>
@@ -386,13 +386,12 @@ MathJax.Hub.Register.StartupHook('TeX Jax Ready', function () {
 <g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
  <use xlink:href="#MJMATHI-66" x="0" y="0"></use>
 </g>
-</svg></span> is:</p>
-
-<span class="mjpage mjpage__block"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="13.98ex" height="3.176ex" viewbox="0 -1006.6 6019.1 1367.4" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-10-Title" class=" mathjax-inline-f17333b774e07e18">
+</svg></span> is:
+<span class="mjpage"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="13.98ex" height="3.009ex" viewbox="0 -934.9 6019.1 1295.7" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-10-Title" class=" mathjax-inline-f17333b774e07e18">
 <title id="MathJax-SVG-10-Title">e^{-rT}E(f(S_{T}))</title>
 <g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true">
  <use xlink:href="#MJMATHI-65" x="0" y="0"></use>
-<g transform="translate(466,412)">
+<g transform="translate(466,362)">
  <use transform="scale(0.707)" xlink:href="#MJMAIN-2212" x="0" y="0"></use>
  <use transform="scale(0.707)" xlink:href="#MJMATHI-72" x="778" y="0"></use>
  <use transform="scale(0.707)" xlink:href="#MJMATHI-54" x="1230" y="0"></use>
@@ -408,7 +407,7 @@ MathJax.Hub.Register.StartupHook('TeX Jax Ready', function () {
  <use xlink:href="#MJMAIN-29" x="5240" y="0"></use>
  <use xlink:href="#MJMAIN-29" x="5629" y="0"></use>
 </g>
-</svg></span>
+</svg></span></p>
 
 <h4 id="solving-for-expectation">Solving for Expectation</h4>
 <p>In order to finish deriving an expression for our fair options price, we must solve the expression within the expected payoff function. To begin with, we will use a risk-neutral stochastic differential equation (see stock price evolution model) for the expectation of 
@@ -908,7 +907,7 @@ MathJax.Hub.Register.StartupHook('TeX Jax Ready', function () {
 </code></pre></div></div>
 
 <h3 id="run-the-model">Run the Model!</h3>
-<p>Let us run the model on an option with expiration in 2 years, with a strike price of 32 dollars, a current price of 30 dollars, a 10% volatility parameter, and a 3% rate of return. We will simulate 100,000 paths and determine the fair price.</p>
+<p>Let us run the model on an option with expiration in 2 years, with a strike price of 32 dollars, a current price of 30 dollars, a 10% volatility parameter, and a 3% rate of return. We will simulate 1,000,000 paths and determine the fair price.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="n">SimpleMCPricer</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">30</span><span class="p">,.</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.03</span><span class="p">,</span><span class="mi">1000000</span><span class="p">)</span>
 <span class="n">model</span><span class="p">.</span><span class="n">getMean</span><span class="p">()</span>
@@ -1016,7 +1015,7 @@ MathJax.Hub.Register.StartupHook('TeX Jax Ready', function () {
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/algorithms/game%20theory/2020/11/23/CFRM-Basics.html" title="Basic Counterfactual Regret Minimization (Rock Paper Scissors)">← Previous</a></li>
+		  <li class="previous"><a href="/CFRM-RPS" title="Basic Counterfactual Regret Minimization (Rock Paper Scissors)">← Previous</a></li>
 		  
 		  
 			<li class="next disabled">

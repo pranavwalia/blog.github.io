@@ -1,5 +1,5 @@
-I"Ý,
-<h1 id="simple-monte-carlo-options-pricer-in-python">Simple Monte Carlo Options Pricer In Python</h1>
+I"Å,<p><img src="/assets/images/black-scholes.jpeg" alt="black-scholes" /></p>
+
 <p>Today we will be pricing a vanilla call option using a monte carlo simulation in Python. Monte Carlo models are used by quantitative analysts to determine accurate and fair prices for securities. Typically, these models are implemented in a fast low level language such as C++. However, for the sake of ease, weâ€™ll be using Python.</p>
 
 <h2 id="pre-requisites">Pre-Requisites:</h2>
@@ -12,7 +12,7 @@
   <li>Very basic programming</li>
 </ul>
 
-<h3 id="reccomended">Reccomended:</h3>
+<h3 id="recommended">Recommended:</h3>
 <ul>
   <li>Stochastic Processes</li>
   <li>Stochastic Calculus or an introductory asset pricing class</li>
@@ -46,9 +46,8 @@
 
 <h3 id="black-scholes-option-pricing-model">Black-Scholes Option Pricing Model</h3>
 <p>The Black-Scholes option pricing model tells us the the price of a vanilla option with a compounding rate \(r\)
-, expiration \(T\) and payoff function \(f\) is:</p>
-
-\[e^{-rT}E(f(S_{T}))\]
+, expiration \(T\) and payoff function \(f\) is:
+\(e^{-rT}E(f(S_{T}))\)</p>
 
 <h4 id="solving-for-expectation">Solving for Expectation</h4>
 <p>In order to finish deriving an expression for our fair options price, we must solve the expression within the expected payoff function. To begin with, we will use a risk-neutral stochastic differential equation (see stock price evolution model) for the expectation of 
@@ -85,7 +84,7 @@
 \[\frac{\sum_{i}^{n} S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K}{n}\]
 
 <h4 id="final-expression">Final Expression</h4>
-<p>Our final expression for the fair price of the option will be the above expression multiplied by $e^{-rT}$ to complete our original black scholes model.</p>
+<p>Our final expression for the fair price of the option will be the above expression multiplied by \(e^{-rT}\) to complete our original black scholes model.</p>
 
 \[e^{(-rT)}\frac{\sum_{i}^{n} S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K}{n}\]
 
@@ -125,7 +124,7 @@
 </code></pre></div></div>
 
 <h3 id="run-the-model">Run the Model!</h3>
-<p>Let us run the model on an option with expiration in 2 years, with a strike price of 32 dollars, a current price of 30 dollars, a 10% volatility parameter, and a 3% rate of return. We will simulate 100,000 paths and determine the fair price.</p>
+<p>Let us run the model on an option with expiration in 2 years, with a strike price of 32 dollars, a current price of 30 dollars, a 10% volatility parameter, and a 3% rate of return. We will simulate 1,000,000 paths and determine the fair price.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="n">SimpleMCPricer</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">30</span><span class="p">,.</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.03</span><span class="p">,</span><span class="mi">1000000</span><span class="p">)</span>
 <span class="n">model</span><span class="p">.</span><span class="n">getMean</span><span class="p">()</span>

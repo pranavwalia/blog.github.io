@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>http://localhost:4000/poker%20strategy/game%20theory/2020/11/17/Poker-Theory-Fundamentals.html</loc>
+<loc>http://localhost:4000/poker-theory-fundamentals</loc>
 <lastmod>2020-11-17T00:00:00-08:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/poker%20strategy/book%20reviews/2020/11/19/Best-Poker-Strategy-Books.html</loc>
+<loc>http://localhost:4000/best-poker-books</loc>
 <lastmod>2020-11-19T00:00:00-08:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/game%20theory/mathematics/2020/11/19/St-Petersburg-Paradox.html</loc>
+<loc>http://localhost:4000/st-petersburg-paradox</loc>
 <lastmod>2020-11-19T00:00:00-08:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/computer%20science/algorithms/2020/11/21/Binary-Tree-Traversal.html</loc>
+<loc>http://localhost:4000/binary-tree-traversal-cheat-sheet</loc>
 <lastmod>2020-11-21T00:00:00-08:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/algorithms/game%20theory/2020/11/23/CFRM-Basics.html</loc>
+<loc>http://localhost:4000/CFRM-RPS</loc>
 <lastmod>2020-11-23T00:00:00-08:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/computer%20science/mathematics/quantitative%20finance/2020/11/26/Options-Pricer-Python.html</loc>
+<loc>http://localhost:4000/monte-carlo-options-python</loc>
 <lastmod>2020-11-26T00:00:00-08:00</lastmod>
 </url>
 <url>

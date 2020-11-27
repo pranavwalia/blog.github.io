@@ -1,4 +1,0 @@
-I"¼
-<h1 id="simple-monte-carlo-options-pricer-in-python">Simple Monte Carlo Options Pricer In Python</h1>
-<p>Today we will be pricing a vanilla call option using a monte carlo simulation in Python. Monte Carlo models are used by quantitative analysts to determine accurate and fair prices for securities. Typically, these models are implemented in a fast low level language such as C++. However, for the sake of ease, weâ€™ll be using Python.</p>
-:ET

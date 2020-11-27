@@ -22,7 +22,7 @@
   &lt;li&gt;Very basic programming&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;reccomended&quot;&gt;Reccomended:&lt;/h3&gt;
+&lt;h3 id=&quot;recommended&quot;&gt;Recommended:&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;Stochastic Processes&lt;/li&gt;
   &lt;li&gt;Stochastic Calculus or an introductory asset pricing class&lt;/li&gt;
@@ -56,9 +56,8 @@
 
 &lt;h3 id=&quot;black-scholes-option-pricing-model&quot;&gt;Black-Scholes Option Pricing Model&lt;/h3&gt;
 &lt;p&gt;The Black-Scholes option pricing model tells us the the price of a vanilla option with a compounding rate \(r\)
-, expiration \(T\) and payoff function \(f\) is:&lt;/p&gt;
-
-\[e^{-rT}E(f(S_{T}))\]
+, expiration \(T\) and payoff function \(f\) is:
+\(e^{-rT}E(f(S_{T}))\)&lt;/p&gt;
 
 &lt;h4 id=&quot;solving-for-expectation&quot;&gt;Solving for Expectation&lt;/h4&gt;
 &lt;p&gt;In order to finish deriving an expression for our fair options price, we must solve the expression within the expected payoff function. To begin with, we will use a risk-neutral stochastic differential equation (see stock price evolution model) for the expectation of 
@@ -135,7 +134,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;run-the-model&quot;&gt;Run the Model!&lt;/h3&gt;
-&lt;p&gt;Let us run the model on an option with expiration in 2 years, with a strike price of 32 dollars, a current price of 30 dollars, a 10% volatility parameter, and a 3% rate of return. We will simulate 100,000 paths and determine the fair price.&lt;/p&gt;
+&lt;p&gt;Let us run the model on an option with expiration in 2 years, with a strike price of 32 dollars, a current price of 30 dollars, a 10% volatility parameter, and a 3% rate of return. We will simulate 1,000,000 paths and determine the fair price.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SimpleMCPricer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.03&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getMean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
@@ -155,8 +154,8 @@
 &lt;p&gt;[3] Stock price modelling: Theory and Practice, Abdelmoula Dmouj&lt;/p&gt;
 </description>
 				<pubDate>Thu, 26 Nov 2020 00:00:00 -0800</pubDate>
-				<link>/computer%20science/mathematics/quantitative%20finance/2020/11/26/Options-Pricer-Python.html</link>
-				<guid isPermaLink="true">/computer%20science/mathematics/quantitative%20finance/2020/11/26/Options-Pricer-Python.html</guid>
+				<link>/monte-carlo-options-python</link>
+				<guid isPermaLink="true">/monte-carlo-options-python</guid>
 			</item>
 		
 			<item>
@@ -432,8 +431,8 @@ Maximally Exploitative Strat [6.666666666666666e-07, 0.999999, 3.333333333333333
 
 </description>
 				<pubDate>Mon, 23 Nov 2020 00:00:00 -0800</pubDate>
-				<link>/algorithms/game%20theory/2020/11/23/CFRM-Basics.html</link>
-				<guid isPermaLink="true">/algorithms/game%20theory/2020/11/23/CFRM-Basics.html</guid>
+				<link>/CFRM-RPS</link>
+				<guid isPermaLink="true">/CFRM-RPS</guid>
 			</item>
 		
 			<item>
@@ -550,8 +549,8 @@ Maximally Exploitative Strat [6.666666666666666e-07, 0.999999, 3.333333333333333
 
 </description>
 				<pubDate>Sat, 21 Nov 2020 00:00:00 -0800</pubDate>
-				<link>/computer%20science/algorithms/2020/11/21/Binary-Tree-Traversal.html</link>
-				<guid isPermaLink="true">/computer%20science/algorithms/2020/11/21/Binary-Tree-Traversal.html</guid>
+				<link>/binary-tree-traversal-cheat-sheet</link>
+				<guid isPermaLink="true">/binary-tree-traversal-cheat-sheet</guid>
 			</item>
 		
 			<item>
@@ -597,8 +596,8 @@ Maximally Exploitative Strat [6.666666666666666e-07, 0.999999, 3.333333333333333
 &lt;p&gt;The paradox is that despite the game having such a high payoff, nobody with common sense would pay more than a few dollars to play the game. This is because the branches of the game tree with high payoffs are extremely hard to reach, yet since the utility of those branches grow at a similar rate, the expectation does not diminish for lower probability events as it would in most games.&lt;/p&gt;
 </description>
 				<pubDate>Thu, 19 Nov 2020 00:00:00 -0800</pubDate>
-				<link>/game%20theory/mathematics/2020/11/19/St-Petersburg-Paradox.html</link>
-				<guid isPermaLink="true">/game%20theory/mathematics/2020/11/19/St-Petersburg-Paradox.html</guid>
+				<link>/st-petersburg-paradox</link>
+				<guid isPermaLink="true">/st-petersburg-paradox</guid>
 			</item>
 		
 			<item>
@@ -678,8 +677,8 @@ Maximally Exploitative Strat [6.666666666666666e-07, 0.999999, 3.333333333333333
 
 </description>
 				<pubDate>Thu, 19 Nov 2020 00:00:00 -0800</pubDate>
-				<link>/poker%20strategy/book%20reviews/2020/11/19/Best-Poker-Strategy-Books.html</link>
-				<guid isPermaLink="true">/poker%20strategy/book%20reviews/2020/11/19/Best-Poker-Strategy-Books.html</guid>
+				<link>/best-poker-books</link>
+				<guid isPermaLink="true">/best-poker-books</guid>
 			</item>
 		
 			<item>
@@ -873,8 +872,8 @@ By solving for the appropriate calling frequency we arrive at the conclusion tha
 
 </description>
 				<pubDate>Tue, 17 Nov 2020 00:00:00 -0800</pubDate>
-				<link>/poker%20strategy/game%20theory/2020/11/17/Poker-Theory-Fundamentals.html</link>
-				<guid isPermaLink="true">/poker%20strategy/game%20theory/2020/11/17/Poker-Theory-Fundamentals.html</guid>
+				<link>/poker-theory-fundamentals</link>
+				<guid isPermaLink="true">/poker-theory-fundamentals</guid>
 			</item>
 		
 	</channel>

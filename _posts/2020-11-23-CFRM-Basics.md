@@ -4,6 +4,7 @@ title: Basic Counterfactual Regret Minimization (Rock Paper Scissors)
 description: In this article we will introduce an important concept of algorithmic game theory through the basic example of rock paper scissors.
 categories: [Algorithms, Game Theory]
 tags: [CFRM, AI, algorithms, game theory, implementation]
+permalink: CFRM-RPS
 fullview: false
 usemathjax: true
 comments: false

@@ -5,6 +5,7 @@ description: In this article we will cover the math behind options pricing and i
 categories: [Computer Science, Mathematics, Quantitative Finance]
 tags: [Options, Design Patterns, Finance]
 fullview: false
+permalink: monte-carlo-options-python
 usemathjax: true
 comments: false
 ---

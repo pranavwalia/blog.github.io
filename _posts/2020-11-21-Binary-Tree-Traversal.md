@@ -4,6 +4,7 @@ title: Binary Tree Traversal Cheat Sheet
 description: In this post I will teach you all the ways to traverse a binary tree namely; in-order traversal, pre-order traversal, post-order traversal, and level order traversal
 categories: [Computer Science, Algorithms]
 tags: [Computer Science, Algorithms, Binary Trees, Interview Prep]
+permalink: binary-tree-traversal-cheat-sheet
 fullview: false
 usemathjax: true
 comments: false
