@@ -2,7 +2,7 @@
 layout: post
 title: Poker Theory Fundamentals
 categories: [Poker Strategy, Game Theory]
-tags: [Poker, Game Theory, Math, Theory]
+tags: [Poker Strategy, Game Theory]
 permalink: poker-theory-fundamentals
 fullview: false
 usemathjax: true

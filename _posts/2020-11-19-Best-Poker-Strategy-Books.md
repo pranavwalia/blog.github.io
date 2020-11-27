@@ -2,7 +2,7 @@
 layout: post
 title: The ONLY Poker Books Worth Reading
 categories: [Poker Strategy, Book Reviews]
-tags: [Poker,Book Reviews,GTO]
+tags: [Poker Strategy,Book Reviews,GTO]
 permalink: best-poker-books
 fullview: false
 usemathjax: true
