@@ -113,7 +113,7 @@ $$
 Our final expression for the fair price of the option will be the above expression multiplied by $$e^{-rT}$$ to complete our original black scholes model.
 
 $$
-e^{(-rT)}\frac{\sum_{i}^{n} (S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K}){n}
+e^{(-rT)}\frac{\sum_{i}^{n} (S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K)}{n}
 $$
 
 
