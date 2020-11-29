@@ -6,5 +6,6 @@ group :jekyll_plugins do
   gem "pygments.rb"
   gem "jekyll-mathjax-csp"
   gem "jekyll-sitemap"
+  gem 'jekyll-seo-tag'
 end
 

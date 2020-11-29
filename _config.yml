@@ -37,6 +37,7 @@ plugins:
         - jekyll-paginate
         - jekyll-mathjax-csp
         - jekyll-sitemap
+        - jekyll-seo-tag
 exclude:
         - node_modules
         - package.json
