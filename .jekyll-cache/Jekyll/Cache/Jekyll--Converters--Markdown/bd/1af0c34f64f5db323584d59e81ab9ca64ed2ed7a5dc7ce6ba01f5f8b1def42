@@ -1,4 +1,4 @@
-I"Å,<p><img src="/assets/images/black-scholes.jpeg" alt="black-scholes" /></p>
+I"É,<p><img src="/assets/images/black-scholes.jpeg" alt="black-scholes" /></p>
 
 <p>Today we will be pricing a vanilla call option using a monte carlo simulation in Python. Monte Carlo models are used by quantitative analysts to determine accurate and fair prices for securities. Typically, these models are implemented in a fast low level language such as C++. However, for the sake of ease, weâ€™ll be using Python.</p>
 
@@ -81,12 +81,12 @@
 
 <p>Where \(K\) is the strike price. The average of this expression where n is the number of random samples we take will be</p>
 
-\[\frac{\sum_{i}^{n} S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K}{n}\]
+\[\frac{\sum_{i}^{n} (S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K)}{n}\]
 
 <h4 id="final-expression">Final Expression</h4>
 <p>Our final expression for the fair price of the option will be the above expression multiplied by \(e^{-rT}\) to complete our original black scholes model.</p>
 
-\[e^{(-rT)}\frac{\sum_{i}^{n} S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K}{n}\]
+\[e^{(-rT)}\frac{\sum_{i}^{n} (S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K)}{n}\]
 
 <h2 id="the-code">The Code</h2>
 

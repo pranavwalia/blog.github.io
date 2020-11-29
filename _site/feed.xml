@@ -7,6 +7,61 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>C++ For Jupyter Notebook</title>
+				<description>&lt;p&gt;When I’m experimenting with models I typically prefer to have my math and code in the same place. Python is the language of choice for data scientists as it integrates seamlessly with &lt;a href=&quot;https://jupyter.org/&quot;&gt;Jupyter Notebook&lt;/a&gt; allowing for carefully placed analysis and explanations alongside code modules. However, recently I’ve been working on integrating a model into a piece of software where low latency is vital. C++ was the obvious answer in terms of language choice. I began looking for an interactive computing solution in C++ and eventually came across &lt;a href=&quot;https://github.com/jupyter-xeus/xeus&quot;&gt;Xeus&lt;/a&gt;; a C++ kernel for &lt;a href=&quot;https://jupyter.org/&quot;&gt;Jupyter Notebook&lt;/a&gt; and &lt;a href=&quot;https://github.com/jupyter-xeus/xeus-cling&quot;&gt;Xeus-Cling&lt;/a&gt;; a C++ interpreter. Together, these two frameworks allow for seamless interactive computing.&lt;/p&gt;
+
+&lt;h2 id=&quot;requirements&quot;&gt;Requirements:&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Mac OS/Linux/(Windows is still experimental at the time of this article)&lt;/li&gt;
+  &lt;li&gt;Conda package manager&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;step-1-install-conda&quot;&gt;Step 1: Install Conda&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Download the &lt;a href=&quot;https://www.anaconda.com/products/individual&quot;&gt;conda&lt;/a&gt; package manager and install the appropriate version for your operating system&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;step-2-setup&quot;&gt;Step 2: Setup&lt;/h2&gt;
+
+&lt;p&gt;Before you install the modules, you want to set up your own environment to prevent conflicts with your default setup. Open up a terminal and type ‘conda activate’. Enter the following commands&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;conda create &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; cling
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next, you want to install cling to your particular environment.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;conda &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;xeus-cling &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; conda-forge
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Finally, install Xeus:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;conda &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;xeus &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; conda-forge
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;step-3-open-a-notebook&quot;&gt;Step 3: Open A Notebook&lt;/h2&gt;
+
+&lt;p&gt;Open a shell and switch to your cling environment.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;conda activate cling
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Open a notebook&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jupyter notebook
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You should now see the option to create a C++ notebook in Jupyter.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/xeus-cling.png&quot; alt=&quot;xeus-cling&quot; /&gt;&lt;/p&gt;
+</description>
+				<pubDate>Sat, 28 Nov 2020 00:00:00 -0800</pubDate>
+				<link>/cplusplus-for-jupyter</link>
+				<guid isPermaLink="true">/cplusplus-for-jupyter</guid>
+			</item>
+		
+			<item>
 				<title>Simple Monte Carlo Options Pricer In Python</title>
 				<description>&lt;p&gt;&lt;img src=&quot;/assets/images/black-scholes.jpeg&quot; alt=&quot;black-scholes&quot; /&gt;&lt;/p&gt;
 
@@ -91,12 +146,12 @@
 
 &lt;p&gt;Where \(K\) is the strike price. The average of this expression where n is the number of random samples we take will be&lt;/p&gt;
 
-\[\frac{\sum_{i}^{n} S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K}{n}\]
+\[\frac{\sum_{i}^{n} (S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K)}{n}\]
 
 &lt;h4 id=&quot;final-expression&quot;&gt;Final Expression&lt;/h4&gt;
 &lt;p&gt;Our final expression for the fair price of the option will be the above expression multiplied by \(e^{-rT}\) to complete our original black scholes model.&lt;/p&gt;
 
-\[e^{(-rT)}\frac{\sum_{i}^{n} S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K}{n}\]
+\[e^{(-rT)}\frac{\sum_{i}^{n} (S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K)}{n}\]
 
 &lt;h2 id=&quot;the-code&quot;&gt;The Code&lt;/h2&gt;
 

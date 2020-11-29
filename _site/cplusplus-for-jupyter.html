@@ -3,7 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta charset="utf-8">
-	<title>Pranav on Software</title>
+	<title>C++ For Jupyter Notebook</title>
+	
+	<meta name="description" content="Today I will show you how to get an interactive computing environment for C++ working with Jupyter Notebook.">
 	
 	<meta name="author" content="Pranav Ahluwalia">
 
@@ -154,209 +156,164 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>Pranav on Software </h1>
+  <h1>C++ For Jupyter Notebook </h1>
 </div>
+<article>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Register.StartupHook('TeX Jax Ready', function () {
+  MathJax.InputJax.TeX.prefilterHooks.Add(function (data) {
+    data.math = data.math.replace(/^% <!\[CDATA\[/, '').replace(/%\]\]>$/, '');
+  });
+});
+</script>
 
+	<div class="col-sm-10">
+	 <span class="post-date">
+	   
+	   November 
+	   28th,
+	   
+	   2020
+	 </span>
+	  <div class="article_body">
+	  <p>When I’m experimenting with models I typically prefer to have my math and code in the same place. Python is the language of choice for data scientists as it integrates seamlessly with <a href="https://jupyter.org/">Jupyter Notebook</a> allowing for carefully placed analysis and explanations alongside code modules. However, recently I’ve been working on integrating a model into a piece of software where low latency is vital. C++ was the obvious answer in terms of language choice. I began looking for an interactive computing solution in C++ and eventually came across <a href="https://github.com/jupyter-xeus/xeus">Xeus</a>; a C++ kernel for <a href="https://jupyter.org/">Jupyter Notebook</a> and <a href="https://github.com/jupyter-xeus/xeus-cling">Xeus-Cling</a>; a C++ interpreter. Together, these two frameworks allow for seamless interactive computing.</p>
 
+<h2 id="requirements">Requirements:</h2>
 
-<article class="home">
-
-  <span class="post-date">
-    
-    November
-    28th,
-    
-    2020
-  </span>
-
-  <h2>
-    <a href="/cplusplus-for-jupyter">C++ For Jupyter Notebook</a>
-  </h2>
-
-  <div>
-    
-    
-    Today I will show you how to get an interactive computing environment for C++ working with Jupyter Notebook.
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-
-  <span class="post-date">
-    
-    November
-    26th,
-    
-    2020
-  </span>
-
-  <h2>
-    <a href="/monte-carlo-options-python">Simple Monte Carlo Options Pricer In Python</a>
-  </h2>
-
-  <div>
-    
-    
-    In this article we will cover the math behind options pricing and implement a monte carlo model in Python.
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-
-  <span class="post-date">
-    
-    November
-    23rd,
-    
-    2020
-  </span>
-
-  <h2>
-    <a href="/CFRM-RPS">Basic Counterfactual Regret Minimization (Rock Paper Scissors)</a>
-  </h2>
-
-  <div>
-    
-    
-    In this article we will introduce an important concept of algorithmic game theory through the basic example of rock paper scissors.
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-
-  <span class="post-date">
-    
-    November
-    21st,
-    
-    2020
-  </span>
-
-  <h2>
-    <a href="/binary-tree-traversal-cheat-sheet">Binary Tree Traversal Cheat Sheet</a>
-  </h2>
-
-  <div>
-    
-    
-    In this post I will teach you all the ways to traverse a binary tree namely; in-order traversal, pre-order traversal, post-order traversal, and level order traversal
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-
-  <span class="post-date">
-    
-    November
-    19th,
-    
-    2020
-  </span>
-
-  <h2>
-    <a href="/st-petersburg-paradox">The St. Petersburg Paradox, When EV Isn't Enough</a>
-  </h2>
-
-  <div>
-    
-    
-    <p>Today we will discuss a famous problem known as the St. Petersburg Paradox. The problem was originally presented by <a href="https://en.wikipedia.org/wiki/Daniel_Bernoulli">Daniel Bernoulli</a> in 1738 in the Commentaries of the Imperial Academy of Science of Saint Petersburg (hence the name). The problem demonstrates that certain games may have extremely high payoff/utility yet the variance of outcomes can be such that no sensible person would participate (despite extremely high expectation).</p>
-
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-
-  <span class="post-date">
-    
-    November
-    19th,
-    
-    2020
-  </span>
-
-  <h2>
-    <a href="/best-poker-books">The ONLY Poker Books Worth Reading</a>
-  </h2>
-
-  <div>
-    
-    
-    <p>One of the trickiest parts about improving as a Poker player is finding high quality learning resources. There are numerous successful players over the years who have written books on their approaches to the game, yet Poker evolves so quickly that these books are often outdated within a few years.</p>
-
-    
-    
-  </div>
-
-</article>
-
-
-<article class="home">
-
-  <span class="post-date">
-    
-    November
-    17th,
-    
-    2020
-  </span>
-
-  <h2>
-    <a href="/poker-theory-fundamentals">Poker Theory Fundamentals</a>
-  </h2>
-
-  <div>
-    
-    
-    <p>In this article I will lay out the foundational knowledge required to begin learning modern GTO (Game Theory Optimal) poker. At this point, the GTO vs Exploitative debate has essentially been settled and most reasonable people have acknowledged that if you want to be a profitable poker player you need to have a solid understanding of theory. Any exploitation should generally occur as a deliberate deviation from what you understand to be a theoretically correct play. But, if you do not have a foundational understanding of what theoretically correct play even is, your exploitative plays will be based on accurate hunches (at best) and complete delusion (at worst).</p>
-
-    
-    
-  </div>
-
-</article>
-
-<hr>
-
-<ul class="pager"> 
-
-  
-  <li class="previous disabled">
-    <a>← Newer</a>
-  </li>
-  
-  
-  <li>
-    <span class="page_number">Page: 1 of 1</span>
-  </li>
-
-  
-  <li class="next disabled">
-    <a>Older →</a>        
-  </li>
-  
-
+<ul>
+  <li>Mac OS/Linux/(Windows is still experimental at the time of this article)</li>
+  <li>Conda package manager</li>
 </ul>
+
+<h2 id="step-1-install-conda">Step 1: Install Conda</h2>
+
+<ul>
+  <li>Download the <a href="https://www.anaconda.com/products/individual">conda</a> package manager and install the appropriate version for your operating system</li>
+</ul>
+
+<h2 id="step-2-setup">Step 2: Setup</h2>
+
+<p>Before you install the modules, you want to set up your own environment to prevent conflicts with your default setup. Open up a terminal and type ‘conda activate’. Enter the following commands</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create <span class="nt">-n</span> cling
+</code></pre></div></div>
+
+<p>Next, you want to install cling to your particular environment.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda <span class="nb">install </span>xeus-cling <span class="nt">-c</span> conda-forge
+</code></pre></div></div>
+
+<p>Finally, install Xeus:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda <span class="nb">install </span>xeus <span class="nt">-c</span> conda-forge
+</code></pre></div></div>
+
+<h2 id="step-3-open-a-notebook">Step 3: Open A Notebook</h2>
+
+<p>Open a shell and switch to your cling environment.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda activate cling
+</code></pre></div></div>
+
+<p>Open a notebook</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jupyter notebook
+</code></pre></div></div>
+
+<p>You should now see the option to create a C++ notebook in Jupyter.</p>
+
+<p><img src="/assets/images/xeus-cling.png" alt="xeus-cling"></p>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/categories.html#Computer%20Science-ref">
+					Computer Science <span>(4)</span>
+					,
+				</a></li>
+			 
+				<li><a href="/categories.html#C++-ref">
+					C++ <span>(1)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tags.html#C++-ref">
+					C++ <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=C++%20For%20Jupyter%20Notebook" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus" onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+
+      <section class="col-sm-6 author">
+        <img src="/avatar1.jpg" class="img-rounded author-image">
+        <h4 class="section-title author-name">Pranav Ahluwalia</h4>
+	<p class="author-bio">My name is Pranav Ahluwalia. I am a computer scientist, esports athlete, and avid poker player<br><a href="https://www.prandev.com">More About Me</a></p>
+      </section>
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/monte-carlo-options-python" title="Simple Monte Carlo Options Pricer In Python">← Previous</a></li>
+		  
+		  
+			<li class="next disabled">
+<a>Next →</a>
+		  
+		</li>
+</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
 
 
 
