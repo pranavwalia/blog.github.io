@@ -3,7 +3,7 @@ layout: post
 title: Simple Monte Carlo Options Pricer In Python
 description: In this article we will cover the math behind options pricing and implement a monte carlo model in Python. 
 categories: [Computer Science, Mathematics, Quantitative Finance]
-tags: [Options, Design Patterns, Simulation, Finance]
+tags: [Derivatives Pricing, Design Patterns, Monte Carlo]
 fullview: false
 permalink: monte-carlo-options-python
 usemathjax: true

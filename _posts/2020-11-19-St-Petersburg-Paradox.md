@@ -2,7 +2,7 @@
 layout: post
 title: The St. Petersburg Paradox, When EV Isn't Enough
 categories: [Game Theory, Mathematics]
-tags: [Game Theory, Risk, Mathematics]
+tags: [Game Theory Problems]
 permalink: st-petersburg-paradox
 fullview: false
 usemathjax: true
