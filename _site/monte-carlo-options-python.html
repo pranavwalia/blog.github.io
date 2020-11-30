@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary">
 <meta property="twitter:title" content="Simple Monte Carlo Options Pricer In Python">
 <script type="application/ld+json">
-{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/monte-carlo-options-python"},"author":{"@type":"Person","name":"Pranav Ahluwalia"},"headline":"Simple Monte Carlo Options Pricer In Python","dateModified":"2020-11-26T00:00:00-08:00","datePublished":"2020-11-26T00:00:00-08:00","description":"In this article we will cover the math behind options pricing and implement a monte carlo model in Python.","url":"http://localhost:4000/monte-carlo-options-python","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","headline":"Simple Monte Carlo Options Pricer In Python","dateModified":"2020-11-26T00:00:00-08:00","datePublished":"2020-11-26T00:00:00-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/monte-carlo-options-python"},"author":{"@type":"Person","name":"Pranav Ahluwalia"},"description":"In this article we will cover the math behind options pricing and implement a monte carlo model in Python.","url":"http://localhost:4000/monte-carlo-options-python","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -898,8 +898,10 @@ MathJax.Hub.Register.StartupHook('TeX Jax Ready', function () {
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
 
-<span class="k">class</span> <span class="nc">SimpleMCPricer</span><span class="p">():</span>
+<span class="c1">##Simple Monte Carlo Pricing Class for Vanilla Call Option
+</span><span class="k">class</span> <span class="nc">SimpleMCPricer</span><span class="p">():</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expiry</span><span class="p">,</span> <span class="n">strike</span><span class="p">,</span> <span class="n">spot</span><span class="p">,</span> <span class="n">vol</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">paths</span><span class="p">):</span>
         <span class="c1">#The sigma value on the left side of the exponent
 </span>        <span class="bp">self</span><span class="p">.</span><span class="n">variance</span> <span class="o">=</span> <span class="n">vol</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">expiry</span>
@@ -912,8 +914,7 @@ MathJax.Hub.Register.StartupHook('TeX Jax Ready', function () {
         <span class="bp">self</span><span class="p">.</span><span class="n">runningSum</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="c1">##Simulate for all paths
 </span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">paths</span><span class="p">):</span>
-            <span class="n">thisGauss</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">thisGauss</span> <span class="o">=</span> <span class="n">thisGauss</span><span class="o">/</span><span class="mi">1000</span>
+            <span class="n">thisGauss</span> <span class="o">=</span> <span class="n">numpy</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">normal</span><span class="p">()</span>
             <span class="c1">##Our rootVariance already has been multiplied by the expiry
 </span>            <span class="n">thisSpot</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">movedSpot</span><span class="o">*</span><span class="n">math</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">root_Variance</span><span class="o">*</span><span class="n">thisGauss</span><span class="p">)</span>
             <span class="c1">#Determine payoff of this specific path

@@ -123,7 +123,9 @@ $$
 ```python
 import math
 import random
+import numpy
 
+##Simple Monte Carlo Pricing Class for Vanilla Call Option
 class SimpleMCPricer():
     def __init__(self, expiry, strike, spot, vol, r, paths):
         #The sigma value on the left side of the exponent
@@ -137,8 +139,7 @@ class SimpleMCPricer():
         self.runningSum = 0
         ##Simulate for all paths
         for i in range(0,paths):
-            thisGauss = random.randrange(0,1000,1)
-            thisGauss = thisGauss/1000
+            thisGauss = numpy.random.normal()
             ##Our rootVariance already has been multiplied by the expiry
             thisSpot = self.movedSpot*math.exp(self.root_Variance*thisGauss)
             #Determine payoff of this specific path
