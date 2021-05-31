@@ -1,0 +1,109 @@
+I"m"<h2 id="introduction">Introduction</h2>
+
+<p>In this article, I will discuss performance variation, methods of practice, and the fundamental problem solving skills that I believe contribute to high performance in technical fields. These insights are informed by documented concepts in performance psychology.</p>
+
+<h2 id="performance-gradients">Performance Gradients</h2>
+
+<p>It is typical for people to believe their skill at any task exists at some fixed constant. The reality is that one’s performance follows a normal distribution. let us define:</p>
+
+<ul>
+  <li>A-Performance: peak mental clarity; also known as a ‘flow state’</li>
+  <li>B-Performance: Average performance; not incredible but enough to get the job done</li>
+  <li>C-Performance: Your worst performance; everything is a struggle</li>
+</ul>
+
+<h3 id="the-inch-worm-model">The Inch Worm Model</h3>
+
+<p>As your skill level increases at any task, gradually your A performance will become your B-performance, Your old B performance will now be your C-performance, and your new A-performance will blast into new frontiers. As such, skill progression occurs in an ‘inch-worm’ like fashion where the normal distribution slowly creeps forward one standard deviation at a time. Previously difficult tasks gradually become effortless.</p>
+
+<h3 id="defining-mastery">Defining Mastery</h3>
+
+<p>Let us define mastery as the ability to competently execute a task in a state of C-Performance. I recall being adamant about proving this theorem to my father after a long early morning flight home to Dallas following a late-night dinner party in Boston just to make sure I had mastered the proof [For proof details see bottom of article]. 
+\(Prove \space 3|a-b \implies\space 9|a^{3}-b^{3}\)
+I needed to demonstrate mastery to myself by proving this theorem in a state of helplessness and exhaustion.</p>
+
+<h4 id="handling-the-pressure">Handling The Pressure</h4>
+
+<p>There is a common complaint among undergraduate students in Computer Science that goes something like “I am just a bad test taker.” But the reality is this: by default, everyone is a bad test taker. The nature of an exam dictates that you are in a controlled environment where you must overcome a set of challenges under tight time constraints. Furthermore, your performance across 90 minutes dictates 75% of your results after 3 months of hard work. Few people if any are naturally acclimated to such high stakes.</p>
+
+<p>Yet, if you are unable to effectively recall and execute on your knowledge in a high pressure environment, is it going to be of any use to you in the first place? Life is full of pressures, and any high performance work environment will reflect similar if not greater challenges. Of course, I am not arguing that exam performance is a direct indicator of work performance. I am arguing that exams are a perfectly valid way to assess mastery in subjects where the quality of one’s work is closely coupled to one’s mental state.</p>
+
+<p>I have taken exams in a state of sleep deprivation, hunger, and varying degrees of suboptimal conditions; and when I have truly known the material: I have aced said exams under C-performance conditions. The aim of learning should be to internalize information to the extent that it becomes second nature.</p>
+
+<h2 id="categories-of-practice">Categories of Practice</h2>
+
+<p>There are different ways to practice programming/math. Not all practice mechanisms are created equal. There are three categories of practice one can engage in. They are listed in order of their effectiveness.</p>
+
+<h3 id="frontier-practice">Frontier Practice</h3>
+
+<p>The speed at which one enhances their skills is heavily dependent on how much ‘frontier practice’ they engage in. Frontier practice occurs when one is operating at the upper limits of their capabilities. Solving that really windy, and complex proof. Writing a solution to that very difficult dynamic programming question. Figuring out how to automate testing for a highly complex and out-dated C++ code-base.</p>
+
+<h3 id="execution-practice">Execution Practice</h3>
+
+<p>Execution practice is practice where one solidifies their understanding of previously learned concepts by executing them repeatedly until they become effortless. This is an important aspect of mastery but should not be overused as one can get comfortable staying within a certain difficulty level. Deriving those continuity proofs at lightning speed. Using a familiar web-application framework to create a MVP over a few days. This is the sweet spot where most of your work capitalization will occur.</p>
+
+<h3 id="affirmation-practice">Affirmation Practice</h3>
+
+<p>Affirmation practice can be considered the lowest form of practice. You have already mastered these tasks and are simply performing them out of necessity or to affirm just how good you are at them. This is not where growth occurs. Additionally, any exam or ‘test’ scenario should be at the level of affirmation, not at the level of execution.</p>
+
+<h3 id="how-much-of-each">How Much of Each?</h3>
+
+<p>Exactly how much time should be dedicated to frontier practice vs execution practice is something I have experimented with heavily. Frontier practice is crucial but will exhaust you of your emotional and mental energy fast. As such, frontier practice is where the greatest skill jumps occur but not where the greatest productivity occurs. Execution practice is the bread and butter of where you will produce your best work, but if you are not constantly pushing into new frontiers, the value of your skills will soon run dry.</p>
+
+<h2 id="decomposing-problem-solving-skills">Decomposing Problem Solving Skills</h2>
+
+<p>What are the fundamental skills that allow an individual to attain excellence in Computer Science and Mathematics? After surveying numerous professors and industry professionals these are the answers I have walked away with.</p>
+
+<h3 id="abstraction">Abstraction</h3>
+
+<p>The ability to solve a particular problem, and generalize the techniques to other problems</p>
+
+<h4 id="abstraction-example">Abstraction Example</h4>
+
+<p>You know the proof to 
+\(\sum_{i=1}^{n}i = \frac{n(n+1)}{2}\)
+Therefore you are able to easily prove 
+\(\sum_{i}^{n}i^{3} = (\sum_{i}^{n}i)^{2}\)
+This is an example of abstraction. You take the general method of proof by induction and are able to generalize this tactic to more complex problems. If you know the proof to the first problem, and you are unable to prove the one above, you might have weak abstraction skills.</p>
+
+<h4 id="abstraction-practice-tactics">Abstraction Practice Tactics</h4>
+
+<p>The only way to practice the skill of abstraction is to solve the hardest problems available to you in a given category. If you are learning continuity proofs in your real analysis class for example, do not be content with the homework questions given to you. Make sure you solve the hardest questions in the book that require you to integrate multiple concepts into a single problem.</p>
+
+<h3 id="computation">Computation</h3>
+
+<p>The ability to execute previously memorized techniques and algorithms</p>
+
+<h4 id="computation-practice-tactics">Computation Practice Tactics</h4>
+
+<p>Solving derivatives, integrals, difficult equations, tough questions in probability, and practicing mental math are all ways to enhance your computation skills. While the subject matter of these questions is simple, the difficulty of these questions can be modulated infinitely.</p>
+
+<h3 id="construction">Construction</h3>
+
+<p>While abstraction is the ability to generalize previously seen problem solving techniques, construction is the ability to derive entirely new problem solving strategies. This is the hardest skill to cultivate. I personally do not know how one can cultivate the ability to consistently produce breakthroughs and the quest for such powers will likely be the aim of my life until I die.</p>
+
+<h4 id="construction-examples">Construction Examples</h4>
+
+<p>Newton inventing Calculus, Archimedes discovering how to calculate the volume of a sphere and cylinder. Less impressive: solving that weird computer graphics question on one of my algorithm assignments</p>
+
+<h2 id="bonus-proof">Bonus Proof</h2>
+
+<p>Prove that if 3 divides into a - b, then 9 divides into ‘a’ minus ‘b’ cubed.</p>
+
+\[Prove \space 3|a-b \implies\space 9|a^{3}-b^{3} \\
+Let \space a-b = 3c\\
+(a-b)^{3} = a^{3} -3a^{2}b + 3ab^{2} - b^{3} = a^{3} -3ab(a - b) - b^{3} \\
+Add \space 3ab(a-b) \\
+a^{3} - b^{3} \therefore a^{3} - b^{3} = (a-b)^{3} +3ab(a-b) = 27c^{3} + 3ab(3c)\\
+Factor \space out \space 9 \\
+9(3c^{3} + abc)\\
+Q.E.D.\]
+
+<h2 id="sources">Sources</h2>
+
+<p>[1] The Psychology of Poker - Jerrod Tendler</p>
+
+<p>[2] Deep Work - Cal Newport</p>
+
+<p>[3] A Mind For Numbers - Barbara Oakly</p>
+:ET

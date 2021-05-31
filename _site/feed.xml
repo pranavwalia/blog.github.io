@@ -7,6 +7,183 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Performance Psychology For Computer Science and Math</title>
+				<description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;In this article, I will discuss performance variation, methods of practice, and the fundamental problem solving skills that I believe contribute to high performance in technical fields. These insights are informed by documented concepts in performance psychology.&lt;/p&gt;
+
+&lt;h2 id=&quot;performance-gradients&quot;&gt;Performance Gradients&lt;/h2&gt;
+
+&lt;p&gt;It is typical for people to believe their skill at any task exists at some fixed constant. The reality is that one’s performance follows a normal distribution. let us define:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A-Performance: peak mental clarity; also known as a ‘flow state’&lt;/li&gt;
+  &lt;li&gt;B-Performance: Average performance; not incredible but enough to get the job done&lt;/li&gt;
+  &lt;li&gt;C-Performance: Your worst performance; everything is a struggle&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;the-inch-worm-model&quot;&gt;The Inch Worm Model&lt;/h3&gt;
+
+&lt;p&gt;As your skill level increases at any task, gradually your A performance will become your B-performance, Your old B performance will now be your C-performance, and your new A-performance will blast into new frontiers. As such, skill progression occurs in an ‘inch-worm’ like fashion where the normal distribution slowly creeps forward one standard deviation at a time. Previously difficult tasks gradually become effortless.&lt;/p&gt;
+
+&lt;h3 id=&quot;defining-mastery&quot;&gt;Defining Mastery&lt;/h3&gt;
+
+&lt;p&gt;Let us define mastery as the ability to competently execute a task in a state of C-Performance. I recall being adamant about proving this theorem to my father after a long early morning flight home to Dallas following a late-night dinner party in Boston just to make sure I had mastered the proof [For proof details see bottom of article].&lt;/p&gt;
+
+\[Prove \space 3|a-b \implies\space 9|a^{3}-b^{3}\]
+
+&lt;p&gt;I needed to demonstrate mastery to myself by proving this theorem in a state of helplessness and exhaustion.&lt;/p&gt;
+
+&lt;h4 id=&quot;handling-the-pressure&quot;&gt;Handling The Pressure&lt;/h4&gt;
+
+&lt;p&gt;There is a common complaint among undergraduate students in Computer Science that goes something like “I am just a bad test taker.” But the reality is this: by default, everyone is a bad test taker. The nature of an exam dictates that you are in a controlled environment where you must overcome a set of challenges under tight time constraints. Furthermore, your performance across 90 minutes dictates 75% of your results after 3 months of hard work. Few people if any are naturally acclimated to such high stakes.&lt;/p&gt;
+
+&lt;p&gt;Yet, if you are unable to effectively recall and execute on your knowledge in a high pressure environment, is it going to be of any use to you in the first place? Life is full of pressures, and any high performance work environment will reflect similar if not greater challenges. Of course, I am not arguing that exam performance is a direct indicator of work performance. I am arguing that exams are a perfectly valid way to assess mastery in subjects where the quality of one’s work is closely coupled to one’s mental state.&lt;/p&gt;
+
+&lt;p&gt;I have taken exams in a state of sleep deprivation, hunger, and varying degrees of suboptimal conditions; and when I have truly known the material: I have aced said exams under C-performance conditions. The aim of learning should be to internalize information to the extent that it becomes second nature.&lt;/p&gt;
+
+&lt;h2 id=&quot;categories-of-practice&quot;&gt;Categories of Practice&lt;/h2&gt;
+
+&lt;p&gt;There are different ways to practice programming/math. Not all practice mechanisms are created equal. There are three categories of practice one can engage in. They are listed in order of their effectiveness.&lt;/p&gt;
+
+&lt;h3 id=&quot;frontier-practice&quot;&gt;Frontier Practice&lt;/h3&gt;
+
+&lt;p&gt;The speed at which one enhances their skills is heavily dependent on how much ‘frontier practice’ they engage in. Frontier practice occurs when one is operating at the upper limits of their capabilities. Solving that really windy, and complex proof. Writing a solution to that very difficult dynamic programming question. Figuring out how to automate testing for a highly complex and out-dated C++ code-base.&lt;/p&gt;
+
+&lt;h3 id=&quot;execution-practice&quot;&gt;Execution Practice&lt;/h3&gt;
+
+&lt;p&gt;Execution practice is practice where one solidifies their understanding of previously learned concepts by executing them repeatedly until they become effortless. This is an important aspect of mastery but should not be overused as one can get comfortable staying within a certain difficulty level. Deriving those continuity proofs at lightning speed. Using a familiar web-application framework to create a MVP over a few days. This is the sweet spot where most of your work capitalization will occur.&lt;/p&gt;
+
+&lt;h3 id=&quot;affirmation-practice&quot;&gt;Affirmation Practice&lt;/h3&gt;
+
+&lt;p&gt;Affirmation practice can be considered the lowest form of practice. You have already mastered these tasks and are simply performing them out of necessity or to affirm just how good you are at them. This is not where growth occurs. Additionally, any exam or ‘test’ scenario should be at the level of affirmation, not at the level of execution.&lt;/p&gt;
+
+&lt;h3 id=&quot;how-much-of-each&quot;&gt;How Much of Each?&lt;/h3&gt;
+
+&lt;p&gt;Exactly how much time should be dedicated to frontier practice vs execution practice is something I have experimented with heavily. Frontier practice is crucial but will exhaust you of your emotional and mental energy fast. As such, frontier practice is where the greatest skill jumps occur but not where the greatest productivity occurs. Execution practice is the bread and butter of where you will produce your best work, but if you are not constantly pushing into new frontiers, the value of your skills will soon run dry.&lt;/p&gt;
+
+&lt;h2 id=&quot;decomposing-problem-solving-skills&quot;&gt;Decomposing Problem Solving Skills&lt;/h2&gt;
+
+&lt;p&gt;What are the fundamental skills that allow an individual to attain excellence in Computer Science and Mathematics? After surveying numerous professors and industry professionals these are the answers I have walked away with.&lt;/p&gt;
+
+&lt;h3 id=&quot;abstraction&quot;&gt;Abstraction&lt;/h3&gt;
+
+&lt;p&gt;The ability to solve a particular problem, and generalize the techniques to other problems&lt;/p&gt;
+
+&lt;h4 id=&quot;abstraction-example&quot;&gt;Abstraction Example&lt;/h4&gt;
+
+&lt;p&gt;You know the proof to 
+\(\sum_{i=1}^{n}i = \frac{n(n+1)}{2}\)
+Therefore you are able to easily prove 
+\(\sum_{i}^{n}i^{3} = (\sum_{i}^{n}i)^{2}\)
+This is an example of abstraction. You take the general method of proof by induction and are able to generalize this tactic to more complex problems. If you know the proof to the first problem, and you are unable to prove the one above, you might have weak abstraction skills.&lt;/p&gt;
+
+&lt;h4 id=&quot;abstraction-practice-tactics&quot;&gt;Abstraction Practice Tactics&lt;/h4&gt;
+
+&lt;p&gt;The only way to practice the skill of abstraction is to solve the hardest problems available to you in a given category. If you are learning continuity proofs in your real analysis class for example, do not be content with the homework questions given to you. Make sure you solve the hardest questions in the book that require you to integrate multiple concepts into a single problem.&lt;/p&gt;
+
+&lt;h3 id=&quot;computation&quot;&gt;Computation&lt;/h3&gt;
+
+&lt;p&gt;The ability to execute previously memorized techniques and algorithms&lt;/p&gt;
+
+&lt;h4 id=&quot;computation-practice-tactics&quot;&gt;Computation Practice Tactics&lt;/h4&gt;
+
+&lt;p&gt;Solving derivatives, integrals, difficult equations, tough questions in probability, and practicing mental math are all ways to enhance your computation skills. While the subject matter of these questions is simple, the difficulty of these questions can be modulated infinitely.&lt;/p&gt;
+
+&lt;h3 id=&quot;construction&quot;&gt;Construction&lt;/h3&gt;
+
+&lt;p&gt;While abstraction is the ability to generalize previously seen problem solving techniques, construction is the ability to derive entirely new problem solving strategies. This is the hardest skill to cultivate. I personally do not know how one can cultivate the ability to consistently produce breakthroughs and the quest for such powers will likely be the aim of my life until I die.&lt;/p&gt;
+
+&lt;h4 id=&quot;construction-examples&quot;&gt;Construction Examples&lt;/h4&gt;
+
+&lt;p&gt;Newton inventing Calculus, Archimedes discovering how to calculate the volume of a sphere and cylinder. Less impressive: solving that weird computer graphics question on one of my algorithm assignments&lt;/p&gt;
+
+&lt;h2 id=&quot;bonus-proof&quot;&gt;Bonus Proof&lt;/h2&gt;
+
+&lt;p&gt;Prove that if 3 divides into a - b, then 9 divides into ‘a’ minus ‘b’ cubed.&lt;/p&gt;
+
+\[Prove \space 3|a-b \implies\space 9|a^{3}-b^{3} \\
+Let \space a-b = 3c\\
+(a-b)^{3} = a^{3} -3a^{2}b + 3ab^{2} - b^{3} = a^{3} -3ab(a - b) - b^{3} \\
+Add \space 3ab(a-b) \\
+a^{3} - b^{3} \therefore a^{3} - b^{3} = (a-b)^{3} +3ab(a-b) = 27c^{3} + 3ab(3c)\\
+Factor \space out \space 9 \\
+9(3c^{3} + abc)\\
+Q.E.D.\]
+
+&lt;h2 id=&quot;sources&quot;&gt;Sources&lt;/h2&gt;
+
+&lt;p&gt;[1] The Psychology of Poker - Jerrod Tendler&lt;/p&gt;
+
+&lt;p&gt;[2] Deep Work - Cal Newport&lt;/p&gt;
+
+&lt;p&gt;[3] A Mind For Numbers - Barbara Oakly&lt;/p&gt;
+</description>
+				<pubDate>Sun, 30 May 2021 00:00:00 -0700</pubDate>
+				<link>/performance-psychology-for-computer-science-and-math</link>
+				<guid isPermaLink="true">/performance-psychology-for-computer-science-and-math</guid>
+			</item>
+		
+			<item>
+				<title>Continuity and Uniform Continuity Quick Notes (Real Analysis)</title>
+				<description>&lt;h1 id=&quot;continuity-and-uniform-continuity-quick-notes-real-analysis&quot;&gt;Continuity and Uniform Continuity Quick-Notes (Real Analysis)&lt;/h1&gt;
+
+&lt;p&gt;In this quick-notes post, we will briefly cover the definitions of continuity and uniform continuity. These concepts are fundamental to Real Analysis and the study of functions. These quick notes are no substitute for reading the text on these topics, nor are they as rigorous as lecture notes. These are a supplement that may be used to refresh proficiency or aid in the completion of problem sets.&lt;/p&gt;
+
+&lt;h2 id=&quot;basic-continuity&quot;&gt;Basic Continuity&lt;/h2&gt;
+
+&lt;h3 id=&quot;continuity-at-a-point&quot;&gt;Continuity at a point&lt;/h3&gt;
+
+\[\forall x \in I, \exists\delta &amp;gt; 0,\epsilon&amp;gt;0,c \\
+|x - c| &amp;lt; \delta \implies |f(x) - f(c)| &amp;lt; \epsilon\]
+
+&lt;p&gt;For all delta, and epsilon greater than zero, if the difference between x and c is less than some arbitrarily small delta, then the difference between a function and it’s value at that point will be less than an arbitrarily small epsilon. Intuitively this just means that as x approaches a value c, the value of a function approaches f at c.&lt;/p&gt;
+
+&lt;h3 id=&quot;continuity-everywhere&quot;&gt;Continuity Everywhere&lt;/h3&gt;
+
+\[\forall x,c \in I, \exists\delta &amp;gt; 0,\epsilon&amp;gt;0, \\
+|x - c| &amp;lt; \delta \implies |f(x) - f(c)| &amp;lt; \epsilon\]
+
+&lt;h3 id=&quot;example-problem&quot;&gt;Example Problem:&lt;/h3&gt;
+&lt;p&gt;In our scratch work, we first determine that by fixing delta at a value less than or equal to 1 (we are allowed to do this since delta can be as small as we like), this implies that x must be less than 2 which in turn shows us that our |x + 3| expression must be less than 5. Notice that we now have an algebraic expression that must be less than 5 times delta. Since we stipulated that delta must be less than or equal to one, we must set delta to the minimum of 1 and epsilon divided by five (when it is less than one). Knowing our restriction on the |x - 1| expression based on our allocation of delta, we now can do a straightforward proof once we factor our function in terms of an expression that is bound to be less than delta.&lt;/p&gt;
+
+\[Let \space f: R \rightarrow R \space given \space by \space f(x) = x^{2} + 2x + 1\\
+Prove \space the \space function \space is \space continuous \space at \space x=1 \\
+Scratch \space Work:\\
+|x - 1| \leq \delta \implies |f(x) - f(1)| &amp;lt; \epsilon \\
+|f(x) - f(1)| = |x^{2} + 2x - 3| = |x - 1||x+3| \\
+let \space \delta &amp;lt; 1, \space then \space |x-1| &amp;lt; 1 \implies -1 &amp;lt; x - 1 &amp;lt; 1 \implies 0 &amp;lt; x &amp;lt; 2\\
+\therefore |x + 3| &amp;lt; |2 + 3| = 5 \space and \space |x-1||x+3| &amp;lt; 5|x-1| \\
+Formal \space Proof \\
+Let \space \delta = \min(1,\frac{\epsilon}{5}) \\
+|x - 1| &amp;lt; \delta \implies |f(x) - f(1)| &amp;lt; 5|x-1| &amp;lt; 5\delta = 5(\frac{\epsilon}{5}) = \epsilon\]
+
+&lt;h2 id=&quot;uniform-continuity&quot;&gt;Uniform Continuity&lt;/h2&gt;
+
+&lt;p&gt;Uniform continuity stipulates that there must be some functionally consistent relationship between the distance of x from our target value c, and the distance between our function and the function at the value of c. To prove uniform continuity, we must show that our delta depends on some value of epsilon indicated by some expression.&lt;/p&gt;
+
+\[Take \space \epsilon &amp;gt; 0, \delta &amp;gt; 0 \\
+|x - c| &amp;lt; \delta(\epsilon) \implies |f(x) - f(c) | &amp;lt; \epsilon //\]
+
+&lt;h3 id=&quot;example-problem-1&quot;&gt;Example Problem:&lt;/h3&gt;
+
+\[Assuming \space f \space and \space g \space are \space both \space bounded \space and \space uniformly \space continuous, \space prove \space fg \space is\space uniformly \space continuous. \\
+\\
+since \space f\space and \space g\space are \space bounded \space \exists k_{f},k_{g} &amp;gt; 0 \space such \space that \\
+\forall x \in I \space |f(x)| &amp;lt; k_{f} \space |g(x)| &amp;lt; k_{g} \\
+\forall x,y \in I \space \exists\delta_{f}(\epsilon),\delta_{g}(\epsilon) &amp;gt; 0\space such \space that \\
+|x - y| &amp;lt; \delta_{f} \implies |f(x) - f(y)| &amp;lt; \frac{\epsilon}{2k_{g}} \\
+|x - y| &amp;lt; \delta_{g} \implies |g(x) - g(y)| &amp;lt; \frac{\epsilon}{2k_{f}}\\
+let \space \delta = min(\delta_{f},\delta_{g})\\
+|x - y| &amp;lt; \delta \implies |f(x)g(x) - f(y)g(y)| = |f(x)g(x) - f(x)g(y) + f(x)g(y) - f(y)g(y)|\\ = |f(x)||g(x)-g(y) + |g(y)|f(x)-f(y)| &amp;lt; k_{f}\frac{\epsilon}{2k_{f}} + k_{g}\frac{\epsilon}{2k_{g}} = \epsilon\]
+
+</description>
+				<pubDate>Sun, 09 May 2021 00:00:00 -0700</pubDate>
+				<link>/continuity-uniform-continuity</link>
+				<guid isPermaLink="true">/continuity-uniform-continuity</guid>
+			</item>
+		
+			<item>
 				<title>C++ For Jupyter Notebook</title>
 				<description>&lt;p&gt;When I’m experimenting with models I typically prefer to have my math and code in the same place. Python is the language of choice for data scientists as it integrates seamlessly with &lt;a href=&quot;https://jupyter.org/&quot;&gt;Jupyter Notebook&lt;/a&gt; allowing for carefully placed analysis and explanations alongside code modules. However, recently I’ve been working on integrating a model into a piece of software where low latency is vital. C++ was the obvious answer in terms of language choice. I began looking for an interactive computing solution in C++ and eventually came across &lt;a href=&quot;https://github.com/jupyter-xeus/xeus&quot;&gt;Xeus&lt;/a&gt;; a C++ kernel for &lt;a href=&quot;https://jupyter.org/&quot;&gt;Jupyter Notebook&lt;/a&gt; and &lt;a href=&quot;https://github.com/jupyter-xeus/xeus-cling&quot;&gt;Xeus-Cling&lt;/a&gt;; a C++ interpreter. Together, these two frameworks allow for seamless interactive computing.&lt;/p&gt;
 
