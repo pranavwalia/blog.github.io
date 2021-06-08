@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Counting Trailing Zeros of A Factorial With Legendre's Formula
+title: Trailing Zeros of A Factorial With Legendre's Formula
 description: Around a year ago, I was in a zoom interview for a large tech company. I was given two reasonably challenging coding problems and aced them with ease. Then came the number theory. The interviewer asked the question "How many trailing zeros are there in 100 factorial?" 
 categories: [Mathematics]
 tags: [Interview Prep, Number Theory]
