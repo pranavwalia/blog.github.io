@@ -7,6 +7,65 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Counting Trailing Zeros of A Factorial With Legendre's Formula</title>
+				<description>&lt;p&gt;&lt;img src=&quot;/assets/images/factorial.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Around a year ago, I was in a zoom interview for a large tech company. I was given two reasonably challenging coding problems and aced them with ease. Then came the number theory. The interviewer asked the question “How many trailing zeros are there in 100 factorial?”&lt;/p&gt;
+
+&lt;p&gt;This wasn’t a coding question. It was a mental math question. I had no clue where to start and guessed “16.” I was wrong. When the interview was over, I immediately googled the question. Unless you take a dedicated course in number theory, your only chance at running into this concept is in discrete math; and let’s be honest, nobody remembers discrete math.&lt;/p&gt;
+
+&lt;h2 id=&quot;legendres-formula&quot;&gt;Legendre’s Formula&lt;/h2&gt;
+
+&lt;p&gt;There is a theorem in number theory known as &lt;a href=&quot;https://artofproblemsolving.com/wiki/index.php/Legendre%27s_Formula&quot;&gt;&lt;em&gt;Legendre’s Formula&lt;/em&gt;&lt;/a&gt;. It states that if N is a positive integer and p is a prime number, then the highest power of p that divides N! is given by the following formula&lt;/p&gt;
+
+\[e_{p} = \sum_{i = 1}^{\infty}\lfloor{\frac{N}{p^{i}}}\rfloor\]
+
+&lt;p&gt;Translating math to english this reads “The highest power of p that divides N! is the infinite sum of the floor of N divided by p to the current exponent”&lt;/p&gt;
+
+&lt;p&gt;We know that the infinite sum will eventually reach a terminal value of 0 as at some point, we will reach a large enough exponent for p that the result of dividing n by p raised to i is less than 1. And taking the &lt;a href=&quot;https://en.wikipedia.org/wiki/Floor_and_ceiling_functions&quot;&gt;floor&lt;/a&gt; of any value less than 1 will give us 0. Therefore, we do not need to worry about adding up an infinite amount of quotients unless our N is astronomically large.&lt;/p&gt;
+
+&lt;h3 id=&quot;adaptation-for-trailing-zeros&quot;&gt;Adaptation For Trailing Zeros&lt;/h3&gt;
+
+&lt;p&gt;This formula will allow us to determine the highest power of p in N!. But what about non-prime values? We can take the prime factorization of our target number and run separate instances of the function. Since 10 is the product of 2 and 5, we can simply take the minimum value returned by running the formula on 2, and then 5.&lt;/p&gt;
+
+\[\min(\sum_{i = 1}^{\infty}\lfloor{\frac{N}{2^{i}}}\rfloor,\sum_{i = 1}^{\infty}\lfloor{\frac{N}{5^{i}}}\rfloor)\]
+
+&lt;p&gt;But, knowing that powers of 5 will always be larger than powers of two, the number returned by Legendre’s formula for 5 will always be smaller. Therefore, we can dispense with the minimum function altogether and simply find out how many exponents of 5 divide into the factorial. This will give us the number of trailing zeros.&lt;/p&gt;
+
+&lt;h2 id=&quot;example-problems&quot;&gt;Example Problems&lt;/h2&gt;
+
+&lt;h4 id=&quot;trailing-zeros-in-100&quot;&gt;Trailing zeros in 100!&lt;/h4&gt;
+
+\[\sum_{i = 1}^{\infty}\lfloor{\frac{100}{5^{i}}}\rfloor) = \lfloor\frac{100}{5}\rfloor + \lfloor\frac{100}{5^{2}}\rfloor = 20 +4 = 24\]
+
+&lt;p&gt;We have 24 trailing zeros in 100!&lt;/p&gt;
+
+&lt;h4 id=&quot;trailing-zeros-in-95&quot;&gt;Trailing zeros in 95!&lt;/h4&gt;
+
+\[\sum_{i = 1}^{\infty}\lfloor{\frac{95}{5^{i}}}\rfloor) = \lfloor\frac{95}{5}\rfloor + \lfloor\frac{95}{5^{2}}\rfloor = 19 + 3 = 22\]
+
+&lt;p&gt;We have 22 traling zeros in 95!&lt;/p&gt;
+
+&lt;h2 id=&quot;trailing-zeros-coding-question&quot;&gt;Trailing Zeros Coding Question&lt;/h2&gt;
+
+&lt;p&gt;Suppose we want to write a program to find the number of trailing zeros in n!. We can simply translate our algorithm into code. We will use a while loop to iterate until the floor of our number divided by 5 to our current exponent yields zero. While iterating we will track the sum and return it upon termination. Leetcode features &lt;a href=&quot;https://leetcode.com/problems/factorial-trailing-zeroes/&quot;&gt;this exact question&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;trailingZeroes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;power&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;power&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;power&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;power&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+				<pubDate>Tue, 08 Jun 2021 00:00:00 -0700</pubDate>
+				<link>/factorial-trailing-zeros</link>
+				<guid isPermaLink="true">/factorial-trailing-zeros</guid>
+			</item>
+		
+			<item>
 				<title>Performance Psychology For Computer Science and Math</title>
 				<description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
