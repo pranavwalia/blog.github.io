@@ -12,10 +12,6 @@ comments: false
 
 ![](/assets/images/factorial.jpg)
 
-Around a year ago, I was in a zoom interview for a large tech company. I was given two reasonably challenging coding problems and aced them with ease. Then came the number theory. The interviewer asked the question "How many trailing zeros are there in 100 factorial?"
-
-This wasn't a coding question. It was a mental math question. I had no clue where to start and guessed "16." I was wrong. When the interview was over, I immediately googled the question. Unless you take a dedicated course in number theory, your only chance at running into this concept is in discrete math; and let's be honest, nobody remembers discrete math.
-
 ## Legendre's Formula
 
 There is a theorem in number theory known as [*Legendre's Formula*](https://artofproblemsolving.com/wiki/index.php/Legendre%27s_Formula). It states that if N is a positive integer and p is a prime number, then the highest power of p that divides N! is given by the following formula
