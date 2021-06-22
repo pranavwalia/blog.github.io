@@ -1,8 +1,4 @@
-I"�<p><img src="/assets/images/factorial.jpg" alt="" /></p>
-
-<p>Around a year ago, I was in a zoom interview for a large tech company. I was given two reasonably challenging coding problems and aced them with ease. Then came the number theory. The interviewer asked the question “How many trailing zeros are there in 100 factorial?”</p>
-
-<p>This wasn’t a coding question. It was a mental math question. I had no clue where to start and guessed “16.” I was wrong. When the interview was over, I immediately googled the question. Unless you take a dedicated course in number theory, your only chance at running into this concept is in discrete math; and let’s be honest, nobody remembers discrete math.</p>
+I"�<p><img src="/assets/images/factorial.jpg" alt="" /></p>
 
 <h2 id="legendres-formula">Legendre’s Formula</h2>
 
@@ -18,7 +14,7 @@
 
 <p>This formula will allow us to determine the highest power of p in N!. But what about non-prime values? We can take the prime factorization of our target number and run separate instances of the function. Since 10 is the product of 2 and 5, we can simply take the minimum value returned by running the formula on 2, and then 5.</p>
 
-\[\min(\sum_{i = 1}^{\infin}\lfloor{\frac{N}{2^{i}}}\rfloor,\sum_{i = 1}^{\infin}\lfloor{\frac{N}{5^{i}}}\rfloor)\]
+\[\min(\sum_{i = 1}^{\infty}\lfloor{\frac{N}{2^{i}}}\rfloor,\sum_{i = 1}^{\infty}\lfloor{\frac{N}{5^{i}}}\rfloor)\]
 
 <p>But, knowing that powers of 5 will always be larger than powers of two, the number returned by Legendre’s formula for 5 will always be smaller. Therefore, we can dispense with the minimum function altogether and simply find out how many exponents of 5 divide into the factorial. This will give us the number of trailing zeros.</p>
 
@@ -26,13 +22,13 @@
 
 <h4 id="trailing-zeros-in-100">Trailing zeros in 100!</h4>
 
-\[\sum_{i = 1}^{\infin}\lfloor{\frac{100}{5^{i}}}\rfloor) = \lfloor\frac{100}{5}\rfloor + \lfloor\frac{100}{5^{2}}\rfloor = 20 +4 = 24\]
+\[\sum_{i = 1}^{\infty}\lfloor{\frac{100}{5^{i}}}\rfloor) = \lfloor\frac{100}{5}\rfloor + \lfloor\frac{100}{5^{2}}\rfloor = 20 +4 = 24\]
 
 <p>We have 24 trailing zeros in 100!</p>
 
 <h4 id="trailing-zeros-in-95">Trailing zeros in 95!</h4>
 
-\[\sum_{i = 1}^{\infin}\lfloor{\frac{95}{5^{i}}}\rfloor) = \lfloor\frac{95}{5}\rfloor + \lfloor\frac{95}{5^{2}}\rfloor = 19 + 3 = 22\]
+\[\sum_{i = 1}^{\infty}\lfloor{\frac{95}{5^{i}}}\rfloor) = \lfloor\frac{95}{5}\rfloor + \lfloor\frac{95}{5^{2}}\rfloor = 19 + 3 = 22\]
 
 <p>We have 22 traling zeros in 95!</p>
 
