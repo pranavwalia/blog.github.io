@@ -1,7 +1,7 @@
 ---
 layout: post
 title: How to Ace Number Theory (and Other Proof-Based Classes)
-description: I want to discuss the correct study approach for performing well in *proof based* math classes as they differ significantly from application based math courses. The American primary school system focuses almost exclusively on applied math concepts. This leaves most college students unprepared for the absolute onslaught of proofs involved in an undergraduate math degree.
+description: I want to discuss the correct study approach for performing well in proof based math classes as they differ significantly from application based math courses. The American primary school system focuses almost exclusively on applied math concepts. This leaves most college students unprepared for the absolute onslaught of proofs involved in an undergraduate math degree.
 categories: [Mathematics, Study Hacks]
 tags: [Guides]
 fullview: false
