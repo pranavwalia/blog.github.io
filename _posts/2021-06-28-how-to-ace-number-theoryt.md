@@ -87,11 +87,11 @@ You will be given homework assignments. During the first pass-through, you will 
 * I have a good understanding of each problem and how it relates to the topics covered in class
 * I can recall all of the definitions, theorems, and axioms the homework has covered
 
-## Strategy 3: Hard Questions Only (exam prep)
+## Strategy 4: Hard Questions Only (exam prep)
 
 There are two variables that will effect your exam performance: accuracy and speed. You have already done every homework assignment twice; mastered all the content in your lectures as you learned it. There isn't much left to do. Most students study lightly throughout the semester and study intensively around exam time. We have done the inverse: mastered every topic as we learned it. Before the exam, pick a few of the hardest questions from your homework assignments and lectures. Make sure you are able to solve these problems at lightning speed. Studying base-case or easy problems is a waste of time. The time spent before exams should be focused on making sure there aren't any subtle misconceptions lingering in your mind.
 
-## Strategy 4: Exam Performance
+## Strategy 5: Exam Performance
 
 Even if you prepare rigorously for the exam, there is still a chance you will see problems you cannot immediately solve. This is normal as some of the problems might be tricky and require deep thought/insight. If you come across such a problem, do not linger on it. Read it, think about it briefly, and proceed to solve other problems. Once all questions you are able to immediately solve are complete, return to the harder questions.
 
