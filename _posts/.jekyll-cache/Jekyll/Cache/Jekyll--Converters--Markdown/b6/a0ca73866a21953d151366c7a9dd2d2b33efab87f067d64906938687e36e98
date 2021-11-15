@@ -1,0 +1,49 @@
+I"�
+<p>When I’m experimenting with models I typically prefer to have my math and code in the same place. Python is the language of choice for data scientists as it integrates seamlessly with <a href="https://jupyter.org/">Jupyter Notebook</a> allowing for carefully placed analysis and explanations alongside code modules. However, recently I’ve been working on integrating a model into a piece of software where low latency is vital. C++ was the obvious answer in terms of language choice. I began looking for an interactive computing solution in C++ and eventually came across <a href="https://github.com/jupyter-xeus/xeus">Xeus</a>; a C++ kernel for <a href="https://jupyter.org/">Jupyter Notebook</a> and <a href="https://github.com/jupyter-xeus/xeus-cling">Xeus-Cling</a>; a C++ interpreter. Together, these two frameworks allow for seamless interactive computing.</p>
+
+<h2 id="requirements">Requirements:</h2>
+
+<ul>
+  <li>Mac OS/Linux/(Windows is still experimental at the time of this article)</li>
+  <li>Conda package manager</li>
+</ul>
+
+<h2 id="step-1-install-conda">Step 1: Install Conda</h2>
+
+<ul>
+  <li>Download the <a href="https://www.anaconda.com/products/individual">conda</a> package manager and install the appropriate version for your operating system</li>
+</ul>
+
+<h2 id="step-2-setup">Step 2: Setup</h2>
+
+<p>Before you install the modules, you want to set up your own environment to prevent conflicts with your default setup. Open up a terminal and type ‘conda activate’. Enter the following commands</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create <span class="nt">-n</span> cling
+</code></pre></div></div>
+
+<p>Next, you want to install cling to your particular environment.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda <span class="nb">install </span>xeus-cling <span class="nt">-c</span> conda-forge
+</code></pre></div></div>
+
+<p>Finally, install Xeus:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda <span class="nb">install </span>xeus <span class="nt">-c</span> conda-forge
+</code></pre></div></div>
+
+<h2 id="step-3-open-a-notebook">Step 3: Open A Notebook</h2>
+
+<p>Open a shell and switch to your cling environment.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda activate cling
+</code></pre></div></div>
+
+<p>Open a notebook</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jupyter notebook
+</code></pre></div></div>
+
+<p>You should now see the option to create a C++ notebook in Jupyter.</p>
+
+<p><img src="/assets/images/xeus-cling.png" alt="xeus-cling" /></p>
+:ET

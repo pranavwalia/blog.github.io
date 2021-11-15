@@ -1,0 +1,51 @@
+<h1 id="continuity-and-uniform-continuity-quick-notes-real-analysis">Continuity and Uniform Continuity Quick-Notes (Real Analysis)</h1>
+
+<p>In this quick-notes post, we will briefly cover the definitions of continuity and uniform continuity. These concepts are fundamental to Real Analysis and the study of functions. These quick notes are no substitute for reading the text on these topics, nor are they as rigorous as lecture notes. These are a supplement that may be used to refresh proficiency or aid in the completion of problem sets.</p>
+
+<h2 id="basic-continuity">Basic Continuity</h2>
+
+<h3 id="continuity-at-a-point">Continuity at a point</h3>
+
+\[\forall x \in I, \exists\delta &gt; 0,\epsilon&gt;0,c \\
+|x - c| &lt; \delta \implies |f(x) - f(c)| &lt; \epsilon\]
+
+<p>For all delta, and epsilon greater than zero, if the difference between x and c is less than some arbitrarily small delta, then the difference between a function and it’s value at that point will be less than an arbitrarily small epsilon. Intuitively this just means that as x approaches a value c, the value of a function approaches f at c.</p>
+
+<h3 id="continuity-everywhere">Continuity Everywhere</h3>
+
+\[\forall x,c \in I, \exists\delta &gt; 0,\epsilon&gt;0, \\
+|x - c| &lt; \delta \implies |f(x) - f(c)| &lt; \epsilon\]
+
+<h3 id="example-problem">Example Problem:</h3>
+<p>In our scratch work, we first determine that by fixing delta at a value less than or equal to 1 (we are allowed to do this since delta can be as small as we like), this implies that x must be less than 2 which in turn shows us that our |x + 3| expression must be less than 5. Notice that we now have an algebraic expression that must be less than 5 times delta. Since we stipulated that delta must be less than or equal to one, we must set delta to the minimum of 1 and epsilon divided by five (when it is less than one). Knowing our restriction on the |x - 1| expression based on our allocation of delta, we now can do a straightforward proof once we factor our function in terms of an expression that is bound to be less than delta.</p>
+
+\[Let \space f: R \rightarrow R \space given \space by \space f(x) = x^{2} + 2x + 1\\
+Prove \space the \space function \space is \space continuous \space at \space x=1 \\
+Scratch \space Work:\\
+|x - 1| \leq \delta \implies |f(x) - f(1)| &lt; \epsilon \\
+|f(x) - f(1)| = |x^{2} + 2x - 3| = |x - 1||x+3| \\
+let \space \delta &lt; 1, \space then \space |x-1| &lt; 1 \implies -1 &lt; x - 1 &lt; 1 \implies 0 &lt; x &lt; 2\\
+\therefore |x + 3| &lt; |2 + 3| = 5 \space and \space |x-1||x+3| &lt; 5|x-1| \\
+Formal \space Proof \\
+Let \space \delta = \min(1,\frac{\epsilon}{5}) \\
+|x - 1| &lt; \delta \implies |f(x) - f(1)| &lt; 5|x-1| &lt; 5\delta = 5(\frac{\epsilon}{5}) = \epsilon\]
+
+<h2 id="uniform-continuity">Uniform Continuity</h2>
+
+<p>Uniform continuity stipulates that there must be some functionally consistent relationship between the distance of x from our target value c, and the distance between our function and the function at the value of c. To prove uniform continuity, we must show that our delta depends on some value of epsilon indicated by some expression.</p>
+
+\[Take \space \epsilon &gt; 0, \delta &gt; 0 \\
+|x - c| &lt; \delta(\epsilon) \implies |f(x) - f(c) | &lt; \epsilon //\]
+
+<h3 id="example-problem-1">Example Problem:</h3>
+
+\[Assuming \space f \space and \space g \space are \space both \space bounded \space and \space uniformly \space continuous, \space prove \space fg \space is\space uniformly \space continuous. \\
+\\
+since \space f\space and \space g\space are \space bounded \space \exists k_{f},k_{g} &gt; 0 \space such \space that \\
+\forall x \in I \space |f(x)| &lt; k_{f} \space |g(x)| &lt; k_{g} \\
+\forall x,y \in I \space \exists\delta_{f}(\epsilon),\delta_{g}(\epsilon) &gt; 0\space such \space that \\
+|x - y| &lt; \delta_{f} \implies |f(x) - f(y)| &lt; \frac{\epsilon}{2k_{g}} \\
+|x - y| &lt; \delta_{g} \implies |g(x) - g(y)| &lt; \frac{\epsilon}{2k_{f}}\\
+let \space \delta = min(\delta_{f},\delta_{g})\\
+|x - y| &lt; \delta \implies |f(x)g(x) - f(y)g(y)| = |f(x)g(x) - f(x)g(y) + f(x)g(y) - f(y)g(y)|\\ = |f(x)||g(x)-g(y) + |g(y)|f(x)-f(y)| &lt; k_{f}\frac{\epsilon}{2k_{f}} + k_{g}\frac{\epsilon}{2k_{g}} = \epsilon\]
+

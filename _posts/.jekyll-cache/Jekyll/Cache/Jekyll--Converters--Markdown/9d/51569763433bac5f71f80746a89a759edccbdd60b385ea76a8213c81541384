@@ -1,3 +1,5 @@
+I"Z,<p><img src="/assets/images/black-scholes.jpeg" alt="black-scholes" /></p>
+
 <p>Today we will be pricing a vanilla call option using a monte carlo simulation in Python. Monte Carlo models are used by quantitative analysts to determine accurate and fair prices for securities. Typically, these models are implemented in a fast low level language such as C++. However, for the sake of ease, we’ll be using Python.</p>
 
 <h2 id="pre-requisites">Pre-Requisites:</h2>
@@ -10,7 +12,7 @@
   <li>Very basic programming</li>
 </ul>
 
-<h3 id="reccomended">Reccomended:</h3>
+<h3 id="recommended">Recommended:</h3>
 <ul>
   <li>Stochastic Processes</li>
   <li>Stochastic Calculus or an introductory asset pricing class</li>
@@ -44,9 +46,8 @@
 
 <h3 id="black-scholes-option-pricing-model">Black-Scholes Option Pricing Model</h3>
 <p>The Black-Scholes option pricing model tells us the the price of a vanilla option with a compounding rate \(r\)
-, expiration \(T\) and payoff function \(f\) is:</p>
-
-\[e^{-rT}E(f(S_{T}))\]
+, expiration \(T\) and payoff function \(f\) is:
+\(e^{-rT}E(f(S_{T}))\)</p>
 
 <h4 id="solving-for-expectation">Solving for Expectation</h4>
 <p>In order to finish deriving an expression for our fair options price, we must solve the expression within the expected payoff function. To begin with, we will use a risk-neutral stochastic differential equation (see stock price evolution model) for the expectation of 
@@ -80,19 +81,21 @@
 
 <p>Where \(K\) is the strike price. The average of this expression where n is the number of random samples we take will be</p>
 
-\[\frac{\sum_{i}^{n} S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K}{n}\]
+\[\frac{\sum_{i}^{n} (S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K)}{n}\]
 
 <h4 id="final-expression">Final Expression</h4>
 <p>Our final expression for the fair price of the option will be the above expression multiplied by \(e^{-rT}\) to complete our original black scholes model.</p>
 
-\[e^{(-rT)}\frac{\sum_{i}^{n} S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K}{n}\]
+\[e^{(-rT)}\frac{\sum_{i}^{n} (S_{0}e^{(r - \frac{1}{2}\sigma^2)T + \sigma \sqrt{T}N(0,1)} - K)}{n}\]
 
 <h2 id="the-code">The Code</h2>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
 
-<span class="k">class</span> <span class="nc">SimpleMCPricer</span><span class="p">():</span>
+<span class="c1">##Simple Monte Carlo Pricing Class for Vanilla Call Option
+</span><span class="k">class</span> <span class="nc">SimpleMCPricer</span><span class="p">():</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expiry</span><span class="p">,</span> <span class="n">strike</span><span class="p">,</span> <span class="n">spot</span><span class="p">,</span> <span class="n">vol</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">paths</span><span class="p">):</span>
         <span class="c1">#The sigma value on the left side of the exponent
 </span>        <span class="bp">self</span><span class="p">.</span><span class="n">variance</span> <span class="o">=</span> <span class="n">vol</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">expiry</span>
@@ -105,8 +108,7 @@
         <span class="bp">self</span><span class="p">.</span><span class="n">runningSum</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="c1">##Simulate for all paths
 </span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">paths</span><span class="p">):</span>
-            <span class="n">thisGauss</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">thisGauss</span> <span class="o">=</span> <span class="n">thisGauss</span><span class="o">/</span><span class="mi">1000</span>
+            <span class="n">thisGauss</span> <span class="o">=</span> <span class="n">numpy</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">normal</span><span class="p">()</span>
             <span class="c1">##Our rootVariance already has been multiplied by the expiry
 </span>            <span class="n">thisSpot</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">movedSpot</span><span class="o">*</span><span class="n">math</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">root_Variance</span><span class="o">*</span><span class="n">thisGauss</span><span class="p">)</span>
             <span class="c1">#Determine payoff of this specific path
@@ -123,7 +125,7 @@
 </code></pre></div></div>
 
 <h3 id="run-the-model">Run the Model!</h3>
-<p>Let us run the model on an option with expiration in 2 years, with a strike price of 32 dollars, a current price of 30 dollars, a 10% volatility parameter, and a 3% rate of return. We will simulate 100,000 paths and determine the fair price.</p>
+<p>Let us run the model on an option with expiration in 2 years, with a strike price of 32 dollars, a current price of 30 dollars, a 10% volatility parameter, and a 3% rate of return. We will simulate 1,000,000 paths and determine the fair price.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="n">SimpleMCPricer</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">30</span><span class="p">,.</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.03</span><span class="p">,</span><span class="mi">1000000</span><span class="p">)</span>
 <span class="n">model</span><span class="p">.</span><span class="n">getMean</span><span class="p">()</span>
@@ -141,3 +143,4 @@
 <p>[2] The Concepts and Practices of Mathematical Finance, Mark S. Joshi</p>
 
 <p>[3] Stock price modelling: Theory and Practice, Abdelmoula Dmouj</p>
+:ET

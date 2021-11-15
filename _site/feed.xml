@@ -7,6 +7,166 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Fibonacci Sequence Exploration - Patterns, Proofs, Code</title>
+				<description>&lt;p&gt;&lt;img src=&quot;/assets/images/fib.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;fibonacci-sequence-exploration---patterns-proofs-code&quot;&gt;Fibonacci Sequence Exploration - Patterns, Proofs, Code&lt;/h1&gt;
+
+&lt;p&gt;In this article we will explore various algorithms for calculating the nth Fibonacci term, derive formulas for various Fibonacci sums, and turn those formulas into programs.&lt;/p&gt;
+
+&lt;p&gt;If you are vaguely acquainted with mathematics it is likely that you have heard of the Fibonacci sequence. A particular term of the Fibonacci sequence is the sum of the previous two terms.&lt;/p&gt;
+
+\[F_{1} = 1 \\
+F_2 = 1 \\
+F_3 = 2 \\
+F_4 = 3 \\
+F_n = F_{n-1} + F_{n-2}\]
+
+&lt;p&gt;Using basic induction, we can derive expressions for the sums of Fibonacci terms.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-sum-of-the-first-n-fibonacci-terms&quot;&gt;The Sum of the First N Fibonacci Terms&lt;/h2&gt;
+
+&lt;p&gt;We will claim and prove that the sum of the first n terms of the Fibonacci sequence is equal to the sum of the nth term with the n+1th term minus 1.&lt;/p&gt;
+
+\[claim:\space \sum_{i}^nF_i = F_{n+2} - 1\\
+Base\space case:\\
+\sum_{i = 1}^{2} = F_{1} + F_{2} = 2 = F_{3} -1 \\
+Induction: \space assume \space claim \space holds \space true \space for \space nth \space term, \space prove \space for \space n+1.\\
+[F_{(n + 2)} - 1] + F_{n+1} = F_{n + 3} - 1 = F_{((n + 1) + 2)} - 1\\
+Q.E.D.\]
+
+&lt;h2 id=&quot;the-sum-of-first-n-fibonacci-terms-with-odd-indices&quot;&gt;The Sum of First N Fibonacci Terms With Odd Indices&lt;/h2&gt;
+
+&lt;p&gt;The sum of the first n Fibonacci terms with odd indices is the term located at 2n.&lt;/p&gt;
+
+\[Claim: \sum_{k = 2i-1}^{2n-1}F_{k} = F_{2n}\\
+Base \space Case: F_1 + F_3 = F_4 = 3\\
+Induction: \space Assume \space claim \space holds \space true \space for \space nth \space term. \space Prove \space for \space n + 1. \\
+Simply \space add \space the \space next \space odd \space indexed \space term \\
+F_{2n} + F_{2n + 1} = F_{2n+2} = F_{2(n +1)} \\
+Q.E.D.\]
+
+&lt;h2 id=&quot;the-sum-of-first-n-fibonacci-terms-with-even-indices&quot;&gt;The Sum of First N Fibonacci Terms With Even Indices&lt;/h2&gt;
+
+&lt;p&gt;Now let’s use our previous two results to derive the first N terms with even indices. We can simply take the sum of the first 2n terms, and subtract the sum of the first n odd terms. The result will be the sum of the Fibonacci terms of even indices.&lt;/p&gt;
+
+\[Claim: \sum_{k=2i}^{2n}F(k) = F_{2n + 1}-1\\
+\sum_{i}^{2n}F_{i} - \sum_{k=2i - 1}^{2n}F_{k} = \sum_{k=2i}^{2n}F_{k} = F_{2n + 2} - 1 - F_{2n}\\
+= F_{2n + 1} + F_{2n} -1 - F_{2n} = F_{2n+1}-1 \\
+Q.E.D.\]
+
+&lt;h2 id=&quot;nth-fibonacci-term-coding-question&quot;&gt;Nth Fibonacci Term Coding Question&lt;/h2&gt;
+
+&lt;p&gt;We will now explore four different programs; each of which return the nth Fibonacci term. We will begin with a  basic recursive technique and build up to a constant time O(1) solution.&lt;/p&gt;
+
+&lt;h3 id=&quot;recursive-solution&quot;&gt;Recursive Solution&lt;/h3&gt;
+
+&lt;p&gt;A recursive solution is the most obvious implementation of the nth Fibonacci term as the sequence itself is a recurrence relation.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;nth_fibonacci&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nth_fibonacci&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nth_fibonacci&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;time-complexity-analysis&quot;&gt;Time Complexity Analysis&lt;/h4&gt;
+
+&lt;p&gt;We can apply the master theorem on the recurrence relation; seeing that the second recursive call is approximately the same as the first recursive call, we get the following approximation of the time complexity.&lt;/p&gt;
+
+\[T(n) = T(n-1) + T(n-2) \approx 2T(n-1) \implies \frac{a}{b^{d}} = 2 \implies O(2^n)\]
+
+&lt;h3 id=&quot;memoizationdynamic-programming-solution&quot;&gt;Memoization/Dynamic Programming Solution&lt;/h3&gt;
+
+&lt;p&gt;One of the flaws in our recursive approach is that we will have repeat recursive calls. To demonstrate this, we will unwind the derived recurrence relation from above.&lt;/p&gt;
+
+\[T(n) = T(n-1) + T(n-2) = [T(n-2) + T(n-3)] + [T(n-3) + T(n-4)]\]
+
+&lt;p&gt;As you can see, for the first unwinding, we already have a redundant call. Just imagine how many redundant calls we accumulate for any sizeable n! To remedy this; we can use an altered approach where the computer remembers these redundant values so we do not need to recalculate them. This is known as memoization.&lt;/p&gt;
+
+&lt;p&gt;We can drastically improve our time complexity by using an array two store previous terms. We can then produce our current term by summing up two terms which have already been saved.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;#Initialize first two terms
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the code above; we initialize the first two terms of the Fibonacci sequence and iteratively build up to our desired term by saving previous ones.&lt;/p&gt;
+
+&lt;h4 id=&quot;time-and-space-complexity-analysis&quot;&gt;Time and Space Complexity Analysis&lt;/h4&gt;
+
+&lt;p&gt;The time complexity of this algorithm is O(n) as we only need to perform n constant time calculations within our main loop. The space complexity is also O(n) as our array must store n terms.&lt;/p&gt;
+
+&lt;h3 id=&quot;space-efficient-fibonacci-dp-solution&quot;&gt;Space Efficient Fibonacci DP Solution&lt;/h3&gt;
+
+&lt;p&gt;The above dynamic programming solution reduces the time complexity for the nth Fibonacci term; but is still memory inefficient. How can we reduce our space complexity? On any given calculation; we are only utilizing the calculations of the previous two terms. For that reason; we can get away with using an array of size 3 to calculate any Fibonacci term. We can simply reallocate terms as we iterate.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;#initialize length 3 array
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; 
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The first two terms are base cases. The trick is that we calculate the current term and then allocate the second term as the first, and our current term as the second in the array. This prepares the array for the next calculation.&lt;/p&gt;
+
+&lt;h4 id=&quot;time-and-space-complexity-analysis-1&quot;&gt;Time and Space Complexity Analysis&lt;/h4&gt;
+
+&lt;p&gt;The time complexity of this solution is still O(n), and the space complexity is now O(1) as we have a constant time array initialized.&lt;/p&gt;
+
+&lt;h3 id=&quot;constant-time-fibonacci-solution&quot;&gt;Constant Time Fibonacci Solution&lt;/h3&gt;
+
+&lt;p&gt;It turns out there is an even faster method of calculation for the nth Fibonacci term. We will utilize &lt;a href=&quot;https://artofproblemsolving.com/wiki/index.php/Binet%27s_Formula&quot;&gt;Binet’s formula&lt;/a&gt; for the golden ratio to produce an O(1) time and space solution.&lt;/p&gt;
+
+\[\rho = \frac{1+\sqrt{5}}{2}\\
+f(n) = \frac{\rho^{n}}{\sqrt{5}}\]
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;fibonacci-sums-with-code&quot;&gt;Fibonacci Sums With Code&lt;/h2&gt;
+
+&lt;p&gt;Using the first three theorems we proved above, and our new optimal solution for the nth Fibonacci term; we can write code which calculations the sums of the first n terms, the first n even indexed terms, and odd indexed terms all in constant time and space.&lt;/p&gt;
+
+&lt;h3 id=&quot;first-n-terms-sum&quot;&gt;First N Terms Sum&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fib_sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;first-n-terms-sum-odd-indices&quot;&gt;First N Terms Sum Odd Indices&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fib_odd_sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;first-n-terms-sum-even-indices&quot;&gt;First N Terms Sum Even Indices&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fib_even_sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+				<pubDate>Sun, 14 Nov 2021 00:00:00 -0800</pubDate>
+				<link>/fibonacci-sequence-exploration-patterns-proofs-code</link>
+				<guid isPermaLink="true">/fibonacci-sequence-exploration-patterns-proofs-code</guid>
+			</item>
+		
+			<item>
 				<title>How to Ace Number Theory (and Other Proof-Based Classes)</title>
 				<description>&lt;p&gt;&lt;img src=&quot;/assets/images/number-theory.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
@@ -92,11 +252,11 @@
   &lt;li&gt;I can recall all of the definitions, theorems, and axioms the homework has covered&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;strategy-3-hard-questions-only-exam-prep&quot;&gt;Strategy 3: Hard Questions Only (exam prep)&lt;/h2&gt;
+&lt;h2 id=&quot;strategy-4-hard-questions-only-exam-prep&quot;&gt;Strategy 4: Hard Questions Only (exam prep)&lt;/h2&gt;
 
 &lt;p&gt;There are two variables that will effect your exam performance: accuracy and speed. You have already done every homework assignment twice; mastered all the content in your lectures as you learned it. There isn’t much left to do. Most students study lightly throughout the semester and study intensively around exam time. We have done the inverse: mastered every topic as we learned it. Before the exam, pick a few of the hardest questions from your homework assignments and lectures. Make sure you are able to solve these problems at lightning speed. Studying base-case or easy problems is a waste of time. The time spent before exams should be focused on making sure there aren’t any subtle misconceptions lingering in your mind.&lt;/p&gt;
 
-&lt;h2 id=&quot;strategy-4-exam-performance&quot;&gt;Strategy 4: Exam Performance&lt;/h2&gt;
+&lt;h2 id=&quot;strategy-5-exam-performance&quot;&gt;Strategy 5: Exam Performance&lt;/h2&gt;
 
 &lt;p&gt;Even if you prepare rigorously for the exam, there is still a chance you will see problems you cannot immediately solve. This is normal as some of the problems might be tricky and require deep thought/insight. If you come across such a problem, do not linger on it. Read it, think about it briefly, and proceed to solve other problems. Once all questions you are able to immediately solve are complete, return to the harder questions.&lt;/p&gt;
 
@@ -1125,53 +1285,6 @@ Maximally Exploitative Strat [6.666666666666666e-07, 0.999999, 3.333333333333333
 				<pubDate>Sat, 21 Nov 2020 00:00:00 -0800</pubDate>
 				<link>/binary-tree-traversal-cheat-sheet</link>
 				<guid isPermaLink="true">/binary-tree-traversal-cheat-sheet</guid>
-			</item>
-		
-			<item>
-				<title>The St. Petersburg Paradox, When EV Isn't Enough</title>
-				<description>&lt;p&gt;Today we will discuss a famous problem known as the St. Petersburg Paradox. The problem was originally presented by &lt;a href=&quot;https://en.wikipedia.org/wiki/Daniel_Bernoulli&quot;&gt;Daniel Bernoulli&lt;/a&gt; in 1738 in the Commentaries of the Imperial Academy of Science of Saint Petersburg (hence the name). The problem demonstrates that certain games may have extremely high payoff/utility yet the variance of outcomes can be such that no sensible person would participate (despite extremely high expectation).&lt;/p&gt;
-
-&lt;h3 id=&quot;the-problem&quot;&gt;The Problem&lt;/h3&gt;
-
-&lt;p&gt;Suppose you are paying a fixed fee to participate in a coin tossing game. Assume that the coin is evenly weighted (fair). The coin will be tossed repeatedly.&lt;/p&gt;
-
-&lt;p&gt;There is a cash prize that starts at 1$. Every time the coin lands heads, the size of the pot doubles. Once the coin lands of tails, the game ends and you win whatever is contained in the pot.&lt;/p&gt;
-
-&lt;p&gt;How much should you pay to play this game in order to break even?&lt;/p&gt;
-
-&lt;h3 id=&quot;expected-value-of-the-game&quot;&gt;Expected Value of The Game&lt;/h3&gt;
-
-&lt;p&gt;Well from basic decision theory we know that a break-even decision is one where the cost is equal to the utility of a decision. Therefore, in order to calculate the break-even price, we simply need to calculate the expected value of the game.&lt;/p&gt;
-
-&lt;p&gt;We know that the probability of flipping n heads consecutively is&lt;/p&gt;
-
-\[\frac{1}{2^n}\]
-
-&lt;p&gt;Since we win $1 if the first flip is tails (0 heads), the payoff on the nth consecutive head is&lt;/p&gt;
-
-\[2^{n -1}\]
-
-&lt;p&gt;So for a single value of n, where n is the number of consecutive heads we get in a single session of the game, the expectation would be&lt;/p&gt;
-
-\[\frac{1}{2^n} * 2^{n -1}\]
-
-&lt;p&gt;​	Are we done? NO! A single value of n only measures one branch of the game tree. But there are an infinite number of branches on the game tree. The higher n is, the lower the probability of that specific outcome on the game tree, yet there is an outcome for every possible branch. Therefore, the entire expectation can be represented by an infinite sum.&lt;/p&gt;
-
-\[\sum_{n=1}^{\infty} \frac{1}{2^n} * 2^{n -1} = \infty\]
-
-&lt;p&gt;We can see that the infinite sum converges to infinity! Don’t believe me? Let’s step through the sum for each value of n.&lt;/p&gt;
-
-\[E[\infty] = (\frac{1}{2} * 1) + (\frac{1}{4} * 2) + (\frac{1}{8} * 4)...\]
-
-&lt;p&gt;We can see that if we continue we will get an infinite sum of 1/2’s. Therefore, the expectation of the game is infinity! So hypothetically, the break-even price to play this game is also infinity.&lt;/p&gt;
-
-&lt;h3 id=&quot;wheres-the-paradox&quot;&gt;Where’s The Paradox?&lt;/h3&gt;
-
-&lt;p&gt;The paradox is that despite the game having such a high payoff, nobody with common sense would pay more than a few dollars to play the game. This is because the branches of the game tree with high payoffs are extremely hard to reach, yet since the utility of those branches grow at a similar rate, the expectation does not diminish for lower probability events as it would in most games.&lt;/p&gt;
-</description>
-				<pubDate>Thu, 19 Nov 2020 00:00:00 -0800</pubDate>
-				<link>/st-petersburg-paradox</link>
-				<guid isPermaLink="true">/st-petersburg-paradox</guid>
 			</item>
 		
 	</channel>

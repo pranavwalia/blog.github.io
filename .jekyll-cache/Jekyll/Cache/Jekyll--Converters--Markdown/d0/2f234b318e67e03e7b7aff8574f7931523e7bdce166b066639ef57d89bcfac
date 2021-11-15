@@ -1,0 +1,153 @@
+I"�7<p><img src="/assets/images/fib.PNG" alt="" /></p>
+
+<h1 id="fibonacci-sequence-exploration---patterns-proofs-code">Fibonacci Sequence Exploration - Patterns, Proofs, Code</h1>
+
+<p>In this article we will explore various algorithms for calculating the nth Fibonacci term, derive formulas for various Fibonacci sums, and turn those formulas into programs.</p>
+
+<p>If you are vaguely acquainted with mathematics it is likely that you have heard of the Fibonacci sequence. A particular term of the Fibonacci sequence is the sum of the previous two terms.</p>
+
+\[F_{1} = 1 \\
+F_2 = 1 \\
+F_3 = 2 \\
+F_4 = 3 \\
+F_n = F_{n-1} + F_{n-2}\]
+
+<p>Using basic induction, we can derive expressions for the sums of Fibonacci terms.</p>
+
+<h2 id="the-sum-of-the-first-n-fibonacci-terms">The Sum of the First N Fibonacci Terms</h2>
+
+<p>We will claim and prove that the sum of the first n terms of the Fibonacci sequence is equal to the sum of the nth term with the n+1th term minus 1.</p>
+
+\[claim:\space \sum_{i}^nF_i = F_{n+2} - 1\\
+Base\space case:\\
+\sum_{i = 1}^{2} = F_{1} + F_{2} = 2 = F_{3} -1 \\
+Induction: \space assume \space claim \space holds \space true \space for \space nth \space term, \space prove \space for \space n+1.\\
+[F_{(n + 2)} - 1] + F_{n+1} = F_{n + 3} - 1 = F_{((n + 1) + 2)} - 1\\
+Q.E.D.\]
+
+<h2 id="the-sum-of-first-n-fibonacci-terms-with-odd-indices">The Sum of First N Fibonacci Terms With Odd Indices</h2>
+
+<p>The sum of the first n Fibonacci terms with odd indices is the term located at 2n.</p>
+
+\[Claim: \sum_{k = 2i-1}^{2n-1}F_{k} = F_{2n}\\
+Base \space Case: F_1 + F_3 = F_4 = 3\\
+Induction: \space Assume \space claim \space holds \space true \space for \space nth \space term. \space Prove \space for \space n + 1. \\
+Simply \space add \space the \space next \space odd \space indexed \space term \\
+F_{2n} + F_{2n + 1} = F_{2n+2} = F_{2(n +1)} \\
+Q.E.D.\]
+
+<h2 id="the-sum-of-first-n-fibonacci-terms-with-even-indices">The Sum of First N Fibonacci Terms With Even Indices</h2>
+
+<p>Now let’s use our previous two results to derive the first N terms with even indices. We can simply take the sum of the first 2n terms, and subtract the sum of the first n odd terms. The result will be the sum of the Fibonacci terms of even indices.</p>
+
+\[Claim: \sum_{k=2i}^{2n}F(k) = F_{2n + 1}-1\\
+\sum_{i}^{2n}F_{i} - \sum_{k=2i - 1}^{2n}F_{k} = \sum_{k=2i}^{2n}F_{k} = F_{2n + 2} - 1 - F_{2n}\\
+= F_{2n + 1} + F_{2n} -1 - F_{2n} = F_{2n+1}-1 \\
+Q.E.D.\]
+
+<h2 id="nth-fibonacci-term-coding-question">Nth Fibonacci Term Coding Question</h2>
+
+<p>We will now explore four different programs; each of which return the nth Fibonacci term. We will begin with a  basic recursive technique and build up to a constant time O(1) solution.</p>
+
+<h3 id="recursive-solution">Recursive Solution</h3>
+
+<p>A recursive solution is the most obvious implementation of the nth Fibonacci term as the sequence itself is a recurrence relation.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">nth_fibonacci</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">nth_fibonacci</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">nth_fibonacci</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="time-complexity-analysis">Time Complexity Analysis</h4>
+
+<p>We can apply the master theorem on the recurrence relation; seeing that the second recursive call is approximately the same as the first recursive call, we get the following approximation of the time complexity.</p>
+
+\[T(n) = T(n-1) + T(n-2) \approx 2T(n-1) \implies \frac{a}{b^{d}} = 2 \implies O(2^n)\]
+
+<h3 id="memoizationdynamic-programming-solution">Memoization/Dynamic Programming Solution</h3>
+
+<p>One of the flaws in our recursive approach is that we will have repeat recursive calls. To demonstrate this, we will unwind the derived recurrence relation from above.</p>
+
+\[T(n) = T(n-1) + T(n-2) = [T(n-2) + T(n-3)] + [T(n-3) + T(n-4)]\]
+
+<p>As you can see, for the first unwinding, we already have a redundant call. Just imagine how many redundant calls we accumulate for any sizeable n! To remedy this; we can use an altered approach where the computer remembers these redundant values so we do not need to recalculate them. This is known as memoization.</p>
+
+<p>We can drastically enhance our time complexity by using an array two store previous terms. We can then produce our current term by summing up two terms which have already been saved.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+	<span class="c1">#Initialize first two terms
+</span>    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">dp</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>In the code above; we initialize the first two terms of the Fibonacci sequence and iteratively build up to our desired term by saving previous ones.</p>
+
+<h4 id="time-and-space-complexity-analysis">Time and Space Complexity Analysis</h4>
+
+<p>The time complexity of this algorithm is O(n) as we only need to perform n constant time calculations within our main loop. The space complexity is also O(n) as our array must store n terms.</p>
+
+<h3 id="space-efficient-fibonacci-dp-solution">Space Efficient Fibonacci DP Solution</h3>
+
+<p>The above dynamic programming solution reduces the time complexity for the nth Fibonacci term; but is still memory inefficient. How can we reduce our space complexity? On any given calculation; we are only utilizing the calculations of the previous two terms. For that reason; we can get away with using an array of size 3 to calculate any Fibonacci term. We can simply reallocate terms as we iterate.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="c1">#initialize length 3 array
+</span>    <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">dp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>The first two terms are base cases. The trick is that we calculate the current term and then allocate the second term as the first, and our current term as the second in the array. This prepares the array for the next calculation.</p>
+
+<h4 id="time-and-space-complexity-analysis-1">Time and Space Complexity Analysis</h4>
+
+<p>The time complexity of this solution is still O(n), and the space complexity is now O(1) as we have a constant time array initialized.</p>
+
+<h3 id="constant-time-fibonacci-solution">Constant Time Fibonacci Solution</h3>
+
+<p>It turns out there is an even faster method of calculation for the nth Fibonacci term. We will utilize <a href="https://artofproblemsolving.com/wiki/index.php/Binet%27s_Formula">Binet’s formula</a> for the golden ratio to produce an O(1) time and space solution.</p>
+
+\[\rho = \frac{1+\sqrt{5}}{2}\\
+f(n) = \frac{\rho^{n}}{\sqrt{5}}\]
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">math</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">p</span><span class="o">**</span><span class="n">n</span><span class="o">/</span><span class="n">math</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="fibonacci-sums-with-code">Fibonacci Sums With Code</h2>
+
+<p>Using the first three theorems we proved above, and our new optimal solution for the nth Fibonacci term; we can write code which calculations the sums of the first n terms, the first n even indexed terms, and odd indexed terms all in constant time and space.</p>
+
+<h3 id="first-n-terms-sum">First N Terms Sum</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fib_sum</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<h3 id="first-n-terms-sum-odd-indices">First N Terms Sum Odd Indices</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fib_odd_sum</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">fib</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="first-n-terms-sum-even-indices">First N Terms Sum Even Indices</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fib_even_sum</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+	<span class="k">return</span> <span class="n">fib</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>
+</code></pre></div></div>
+:ET
