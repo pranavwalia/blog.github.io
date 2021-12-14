@@ -6,14 +6,14 @@ highlighter: rouge
 markdown: kramdown
 disqus: dbyll
 google_analytics: G-MF130YPYZE
-title: Pranav on Software
+title: Pranav on Data Science
 
 defaults:
   -
     scope:
       path: "" # empty string for all files
     values:
-      title: Pranav on Software
+      title: Pranav on Data Science
 
 description: Pranav Ahluwalia
 author:
@@ -23,7 +23,7 @@ author:
   #twitter: dbtek
   #pinterest: asd123
   linkedin: pranav-ahluwalia-a19221116
-  bio: My name is Pranav Ahluwalia. I am a software engineer and avid poker player
+  bio: My name is Pranav Ahluwalia. I am a Data Scientist and avid poker player
   email_md5: 726351295ec82e145928582f595aa3aa
 
 rss_path: feed.xml
@@ -42,4 +42,3 @@ exclude:
         - node_modules
         - package.json
         - package-log.json
-
