@@ -11,7 +11,7 @@ comments: false
 
 One of the trickiest parts about improving as a Poker player is finding high quality learning resources. There are numerous successful players over the years who have written books on their approaches to the game, yet Poker evolves so quickly that these books are often outdated within a few years. 
 
-During my time playing at [Encore in Boston](https://www.encorebostonharbor.com/), I came across many older gentleman who were poker book junkies. They had read dozens of strategy books yet still struggled to beat relatively easy live games. This is because poker books that actually give quality information are very rare. Additionally, these books are extremely technical and often scare away the mathematically illiterate.
+During my time playing at [Encore in Boston](https://www.encorebostonharbor.com/), I came across many people who were poker book junkies. They had read dozens of strategy books yet still struggled to beat relatively easy live games. This is because poker books that actually give quality information are very rare. Additionally, these books are extremely technical and often scare away the mathematically illiterate.
 
 In this article I will review the few and only books I would ever recommend reading if you want to become a winning player.
 
